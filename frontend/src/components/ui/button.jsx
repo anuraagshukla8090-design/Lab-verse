@@ -1,0 +1,44 @@
+import * as React from "react";
+import { cva } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d1117] disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-blue-600 text-white shadow hover:bg-blue-500 active:scale-[0.98]",
+        outline:
+          "border border-white/20 bg-transparent text-slate-200 hover:bg-white/10 hover:text-white",
+        ghost:
+          "text-slate-400 hover:bg-white/10 hover:text-white",
+        destructive:
+          "bg-red-900/30 text-red-400 hover:bg-red-900/50 border border-red-900/50",
+        link:
+          "text-blue-400 underline-offset-4 hover:underline hover:text-blue-300",
+      },
+      size: {
+        default: "h-9 px-4 py-2",
+        sm: "h-8 px-3 text-xs",
+        lg: "h-11 px-6",
+        icon: "h-9 w-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
+
+const Button = React.forwardRef(({ className, variant, size, ...props }, ref) => (
+  <button
+    ref={ref}
+    className={cn(buttonVariants({ variant, size }), className)}
+    {...props}
+  />
+));
+Button.displayName = "Button";
+
+export { Button, buttonVariants };

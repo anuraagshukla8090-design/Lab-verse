@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CSS Custom Properties — shadcn/ui + LabVerse Design System
+   ============================================================ */
+:root {
+  --background:    222 47% 6%;
+  --foreground:    210 40% 96%;
+  --card:          222 47% 9%;
+  --card-foreground: 210 40% 96%;
+  --popover:       222 47% 8%;
+  --popover-foreground: 210 40% 96%;
+  --primary:       213 94% 60%;
+  --primary-foreground: 0 0% 100%;
+  --secondary:     215 28% 17%;
+  --secondary-foreground: 210 40% 96%;
+  --muted:         215 28% 14%;
+  --muted-foreground: 215 20% 50%;
+  --accent:        213 94% 60%;
+  --accent-foreground: 0 0% 100%;
+  --destructive:   0 62% 45%;
+  --destructive-foreground: 0 0% 100%;
+  --border:        215 28% 16%;
+  --input:         215 28% 16%;
+  --ring:          213 94% 60%;
+  --radius:        0.6rem;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #080d14;
+  color: #f1f5f9;
+  line-height: 1.5;
+  min-height: 100dvh;
+}
+
+/* ============================================================
+   Pannellum Hotspot Overrides
+   ============================================================ */
+
+/* Hide default Pannellum hotspot SVG — we render custom ones */
+.pnlm-hotspot-base {
+  cursor: pointer;
+}
+
+/* ---- Navigation Hotspot ---- */
+.lv-nav-hotspot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.lv-nav-hotspot .nav-arrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(59, 130, 246, 0.7);
+  background: rgba(59, 130, 246, 0.15);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #60a5fa;
+  transition: all 0.2s ease;
+  box-shadow:
+    0 0 0 0 rgba(59, 130, 246, 0.4),
+    0 4px 20px rgba(0, 0, 0, 0.4);
+  animation: lv-nav-pulse 2.5s ease-in-out infinite;
+}
+
+.lv-nav-hotspot:hover .nav-arrow {
+  border-color: rgba(96, 165, 250, 1);
+  background: rgba(59, 130, 246, 0.3);
+  box-shadow:
+    0 0 0 8px rgba(59, 130, 246, 0.15),
+    0 4px 20px rgba(59, 130, 246, 0.3);
+  transform: scale(1.1);
+}
+
+.lv-nav-hotspot .nav-label {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #93c5fd;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(8, 13, 20, 0.8);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  padding: 3px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ---- Machine Hotspot ---- */
+.lv-machine-hotspot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.lv-machine-hotspot .machine-marker {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(6, 182, 212, 0.7);
+  background: rgba(6, 182, 212, 0.12);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #22d3ee;
+  transition: all 0.2s ease;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.lv-machine-hotspot .machine-marker::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  animation: lv-machine-ring 2s ease-in-out infinite;
+}
+
+.lv-machine-hotspot:hover .machine-marker {
+  border-color: rgba(34, 211, 238, 1);
+  background: rgba(6, 182, 212, 0.25);
+  box-shadow:
+    0 0 0 8px rgba(6, 182, 212, 0.12),
+    0 4px 20px rgba(6, 182, 212, 0.25);
+  transform: scale(1.15);
+}
+
+.lv-machine-hotspot .machine-label {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #67e8f9;
+  background: rgba(8, 13, 20, 0.85);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  padding: 3px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 0.04em;
+}
+
+/* ---- Animations ---- */
+@keyframes lv-nav-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4), 0 4px 20px rgba(0,0,0,0.4); }
+  50%       { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0.0), 0 4px 20px rgba(0,0,0,0.4); }
+}
+
+@keyframes lv-machine-ring {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* ============================================================
+   Utility
+   ============================================================ */
+.lv-scrollbar::-webkit-scrollbar       { width: 6px; }
+.lv-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.lv-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+.lv-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }

@@ -1,0 +1,67 @@
+{
+  "oscilloscope_01": {
+    "description": "A 4-channel digital oscilloscope used for visualizing electrical signals as waveforms over time. Essential for debugging analog and digital circuits, measuring signal frequency, amplitude, phase relationships, and timing. This instrument allows engineers to observe how voltage changes over time, making it indispensable for circuit characterization and fault diagnosis.",
+    "specs": {
+      "Bandwidth": "200 MHz",
+      "Channels": "4",
+      "Sample Rate": "1 GSa/s",
+      "Memory Depth": "14 Mpts",
+      "Display": "7-inch TFT-LCD",
+      "Input Impedance": "1 MΩ || 15 pF",
+      "Vertical Resolution": "8-bit",
+      "Time/Div Range": "2 ns/div – 50 s/div",
+      "Trigger Types": "Edge, Pulse, Slope, Video, Pattern",
+      "Interface": "USB, LAN, USB Host"
+    },
+    "safety_summary": "Ensure probes are rated for the voltage being measured. Do not exceed maximum input voltage of 300V (CAT II). Keep probe ground clips away from high-voltage sources to avoid short circuits. Do not block ventilation slots on the instrument. Disconnect probes before changing probe attenuation settings.",
+    "sop_summary": "1. Power on the oscilloscope and allow a 30-second warm-up period. 2. Connect the probe to the CH1 BNC connector; attach the ground clip to the circuit ground reference. 3. Select probe attenuation (1× or 10×) to match physical probe switch setting. 4. Touch the probe tip to the test point. 5. Press AUTO to auto-scale the waveform. 6. Adjust Time/Div for desired time base and Volt/Div for signal amplitude. 7. Configure trigger source and level for a stable display. 8. Use MEASURE menu for automatic parameter readouts. 9. Save screenshots or waveform data to USB if required. 10. Power off and coil probes neatly after use.",
+    "images": [],
+    "manual_path": "/static/docs/oscilloscope_01/manual.pdf",
+    "sop_path": "/static/docs/oscilloscope_01/sop.pdf"
+  },
+
+  "cnc_01": {
+    "description": "A 3-axis CNC (Computer Numerical Control) vertical milling machine capable of high-precision material removal using programmatic G-code toolpaths. Used for producing complex 2.5D and 3D parts from metal, wood, and engineering plastics with exceptional repeatability. The machine is controlled by a FANUC CNC controller and supports automatic tool changes via a 12-position turret.",
+    "specs": {
+      "Axes": "X / Y / Z (3-axis)",
+      "Travel X/Y/Z": "500 × 400 × 300 mm",
+      "Spindle Speed": "100 – 6,000 RPM",
+      "Spindle Power": "5.5 kW",
+      "Positioning Accuracy": "±0.01 mm",
+      "Repeatability": "±0.005 mm",
+      "Tool Holder": "BT40",
+      "Controller": "FANUC 0i-MF",
+      "Table Size": "800 × 450 mm",
+      "Max Workpiece Load": "500 kg",
+      "Coolant System": "Flood coolant included"
+    },
+    "safety_summary": "MANDATORY SAFETY REQUIREMENTS: Safety glasses and steel-toed boots must be worn at all times in the machining area. The workpiece must be firmly clamped before running any program — verify torque on all clamps. Never reach into or open the machining envelope during a running program. Supervisor sign-off is required before the first use session. The emergency stop (red mushroom button on control panel) must be tested before each session. Loose clothing, ties, or jewelry must not be worn near the machine.",
+    "sop_summary": "1. Obtain supervisor sign-off and complete the pre-use safety checklist. 2. Power on the machine control and home all three axes. 3. Mount and clamp the workpiece securely on the table; verify with dial indicator if tolerances are tight. 4. Install the correct cutting tool and set tool length offset (TLO). 5. Set work coordinate origin (G54 or G55) using an edge finder or probe. 6. Load the G-code program via USB drive or network share. 7. Perform a dry-run with the spindle off and feed override at 0% to verify toolpath. 8. Run the program at 50% feedrate override for the first pass. 9. Monitor the machining process — do not leave unattended. 10. After completion, clean chips using a brush (not air), apply way oil, and log machine use.",
+    "images": [],
+    "manual_path": "/static/docs/cnc_01/manual.pdf",
+    "sop_path": "/static/docs/cnc_01/sop.pdf"
+  },
+
+  "lathe_01": {
+    "description": "A precision manual metal lathe used for turning, facing, parting, threading, and knurling cylindrical workpieces. Material is removed by rotating the workpiece at controlled speed against a stationary single-point cutting tool. Fundamental to the fabrication lab for producing shafts, bushings, pins, and threaded components. Supports both imperial and metric thread cutting.",
+    "specs": {
+      "Swing Over Bed": "330 mm",
+      "Swing Over Cross Slide": "185 mm",
+      "Distance Between Centers": "1000 mm",
+      "Spindle Speed Range": "50 – 2,000 RPM (12 speeds)",
+      "Spindle Bore": "52 mm",
+      "Spindle Nose": "D1-4 Camlock",
+      "Cross Slide Travel": "210 mm",
+      "Compound Rest Travel": "120 mm",
+      "Tailstock Taper": "MT4",
+      "Motor Power": "2.2 kW",
+      "Chuck": "160 mm 3-jaw self-centering",
+      "Thread Pitches": "Metric 0.5–7 mm, Imperial 4–56 TPI"
+    },
+    "safety_summary": "MANDATORY SAFETY REQUIREMENTS: Remove the chuck key immediately after adjusting the chuck — a rotating chuck key is a lethal projectile. Never wear gloves while operating the lathe — fabric can entangle in the rotating workpiece. Safety glasses are mandatory at all times. Long hair must be tied back and secured. Ensure the workpiece is fully seated in the chuck jaws and balanced before starting. Workpieces longer than 4× diameter must be supported by a live center in the tailstock or a steady rest. Supervisor sign-off is required before the first use.",
+    "sop_summary": "1. Obtain supervisor sign-off and check the pre-use form. 2. Inspect chuck jaws for wear; secure the workpiece using all three jaws evenly — remove the chuck key immediately. 3. Calculate the correct spindle speed for the material and workpiece diameter (use the speed chart on the machine). 4. Install the appropriate cutting tool in the tool post; set tool tip height to spindle centerline using a center gauge. 5. Make a light facing cut to establish a reference surface. 6. Set depth of cut using the cross-slide graduated dial; engage the automatic feed at the appropriate rate. 7. Apply cutting fluid continuously during metal cutting. 8. Stop the spindle completely before measuring — never measure a moving workpiece. 9. After completing work, clear swarf with a brush, apply oil to the bed and ways, and log machine use.",
+    "images": [],
+    "manual_path": "/static/docs/lathe_01/manual.pdf",
+    "sop_path": "/static/docs/lathe_01/sop.pdf"
+  }
+}

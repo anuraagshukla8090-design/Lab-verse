@@ -1,0 +1,54 @@
+{
+  "oscilloscope_01": {
+    "name": "Digital Oscilloscope",
+    "lab": "Electronics Lab",
+    "category": "Measurement & Test",
+    "skills_required": ["basic_electronics"],
+    "skills_taught": [
+      "waveform_analysis",
+      "signal_measurement",
+      "frequency_analysis",
+      "trigger_setup"
+    ],
+    "related_machines": ["function_generator_01", "multimeter_01", "spectrum_analyzer_01"],
+    "complexity_level": "beginner",
+    "supervision_required": false,
+    "tags": ["electronics", "measurement", "signal", "waveform", "oscilloscope", "test-equipment"]
+  },
+
+  "cnc_01": {
+    "name": "CNC Milling Machine",
+    "lab": "Fabrication Lab",
+    "category": "Subtractive Manufacturing",
+    "skills_required": ["cad_basics", "g_code", "material_selection"],
+    "skills_taught": [
+      "cnc_programming",
+      "precision_machining",
+      "g_code",
+      "tool_path_generation",
+      "work_holding"
+    ],
+    "related_machines": ["lathe_01", "3d_printer_01", "bandsaw_01"],
+    "complexity_level": "intermediate",
+    "supervision_required": true,
+    "tags": ["cnc", "milling", "fabrication", "machining", "metal", "precision"]
+  },
+
+  "lathe_01": {
+    "name": "Metal Lathe",
+    "lab": "Fabrication Lab",
+    "category": "Subtractive Manufacturing",
+    "skills_required": ["basic_machining", "material_selection"],
+    "skills_taught": [
+      "turning",
+      "facing",
+      "threading",
+      "knurling",
+      "taper_turning"
+    ],
+    "related_machines": ["cnc_01", "drill_press_01", "bandsaw_01"],
+    "complexity_level": "intermediate",
+    "supervision_required": true,
+    "tags": ["lathe", "turning", "fabrication", "machining", "metal", "cylindrical"]
+  }
+}

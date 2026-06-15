@@ -1,0 +1,49 @@
+# Dependency directories
+node_modules/
+frontend/node_modules/
+backend/.venv/
+backend/venv/
+.venv/
+venv/
+env/
+ENV/
+
+# Build and distribution
+dist/
+frontend/dist/
+frontend/dist-ssr/
+build/
+out/
+
+# Python cache and temporary files
+__pycache__/
+backend/__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
