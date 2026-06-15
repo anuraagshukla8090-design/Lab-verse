@@ -21,14 +21,14 @@
       "label": "Node 01",
       "description": "Entry landing — just inside the lab door",
       "image": "/static/panoramas/node_01.jpg",
-      "initial_yaw": 0,
-      "initial_pitch": 0,
+      "initial_yaw": 200,
+      "initial_pitch": 2,
       "navigation": [
         { "target": "corridor_node", "pitch": -20, "yaw": 180, "label": "Corridor",  "direction": "back"    },
-        { "target": "node_02",       "pitch": -20, "yaw": -90, "label": "Node 02",   "direction": "left"    },
-        { "target": "centre_node",   "pitch": -20, "yaw":   0, "label": "Centre",    "direction": "forward" }
+        { "target": "node_02",       "pitch": -30, "yaw": 200, "label": "Node 02",   "direction": "forward"    },
+        { "target": "centre_node",   "pitch": -27.9, "yaw":   158.8, "label": "Centre",    "direction": "left" }
       ],
-      "machines": [ { "machine_id": "oscilloscope_01",      "pitch": -10, "yaw": 45  },
+      "machines": [ { "machine_id": "vinyl_cutter",      "pitch": -4, "yaw": 250  },
   { "machine_id": "function_generator","pitch": -5,  "yaw": 90  },
   { "machine_id": "digital_multimeter","pitch": -8,  "yaw": 120 }]
     },
@@ -37,10 +37,10 @@
       "label": "Node 02",
       "description": "Left branch — first position",
       "image": "/static/panoramas/node_02.jpg",
-      "initial_yaw": 0,
+      "initial_yaw": 75,
       "initial_pitch": 0,
       "navigation": [
-        { "target": "node_01", "pitch": -20, "yaw": 180, "label": "Node 01", "direction": "back"    },
+        { "target": "node_01", "pitch": -20, "yaw": 160, "label": "Node 01", "direction": "back"    },
         { "target": "node_03", "pitch": -20, "yaw":   0, "label": "Node 03", "direction": "forward" }
       ],
       "machines": []

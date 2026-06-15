@@ -1,67 +1,1520 @@
 {
-  "oscilloscope_01": {
-    "description": "A 4-channel digital oscilloscope used for visualizing electrical signals as waveforms over time. Essential for debugging analog and digital circuits, measuring signal frequency, amplitude, phase relationships, and timing. This instrument allows engineers to observe how voltage changes over time, making it indispensable for circuit characterization and fault diagnosis.",
+  "vinyl_cutter": {
+    "description": "The Vinyl Cutter is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the prototyping_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Vinyl Cutter revolutionized engineering workflows.",
     "specs": {
-      "Bandwidth": "200 MHz",
-      "Channels": "4",
-      "Sample Rate": "1 GSa/s",
-      "Memory Depth": "14 Mpts",
-      "Display": "7-inch TFT-LCD",
-      "Input Impedance": "1 MΩ || 15 pF",
-      "Vertical Resolution": "8-bit",
-      "Time/Div Range": "2 ns/div – 50 s/div",
-      "Trigger Types": "Edge, Pulse, Slope, Video, Pattern",
-      "Interface": "USB, LAN, USB Host"
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
     },
-    "safety_summary": "Ensure probes are rated for the voltage being measured. Do not exceed maximum input voltage of 300V (CAT II). Keep probe ground clips away from high-voltage sources to avoid short circuits. Do not block ventilation slots on the instrument. Disconnect probes before changing probe attenuation settings.",
-    "sop_summary": "1. Power on the oscilloscope and allow a 30-second warm-up period. 2. Connect the probe to the CH1 BNC connector; attach the ground clip to the circuit ground reference. 3. Select probe attenuation (1× or 10×) to match physical probe switch setting. 4. Touch the probe tip to the test point. 5. Press AUTO to auto-scale the waveform. 6. Adjust Time/Div for desired time base and Volt/Div for signal amplitude. 7. Configure trigger source and level for a stable display. 8. Use MEASURE menu for automatic parameter readouts. 9. Save screenshots or waveform data to USB if required. 10. Power off and coil probes neatly after use.",
+    "applications": [
+      "signage",
+      "custom_decals",
+      "stencil_making",
+      "pcb_etching_masks"
+    ],
+    "industries": [
+      "rapid_prototyping",
+      "industrial_design",
+      "marketing_materials"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the Vinyl Cutter."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [
+        "basic_safety_orientation"
+      ],
+      "current": [
+        "2D CNC Operations",
+        "Adhesive Vinyl Weeding",
+        "Transfer Techniques"
+      ],
+      "next": [
+        "laser_cutting",
+        "cnc_routing"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "2d",
+      "cutting",
+      "vinyl",
+      "stickers",
+      "decals"
+    ],
     "images": [],
-    "manual_path": "/static/docs/oscilloscope_01/manual.pdf",
-    "sop_path": "/static/docs/oscilloscope_01/sop.pdf"
+    "manual_path": "/static/docs/vinyl_cutter/manual.pdf",
+    "sop_path": "/static/docs/vinyl_cutter/sop.pdf"
   },
-
-  "cnc_01": {
-    "description": "A 3-axis CNC (Computer Numerical Control) vertical milling machine capable of high-precision material removal using programmatic G-code toolpaths. Used for producing complex 2.5D and 3D parts from metal, wood, and engineering plastics with exceptional repeatability. The machine is controlled by a FANUC CNC controller and supports automatic tool changes via a 12-position turret.",
+  "soldering_station": {
+    "description": "The Soldering Station is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Soldering Station revolutionized engineering workflows.",
     "specs": {
-      "Axes": "X / Y / Z (3-axis)",
-      "Travel X/Y/Z": "500 × 400 × 300 mm",
-      "Spindle Speed": "100 – 6,000 RPM",
-      "Spindle Power": "5.5 kW",
-      "Positioning Accuracy": "±0.01 mm",
-      "Repeatability": "±0.005 mm",
-      "Tool Holder": "BT40",
-      "Controller": "FANUC 0i-MF",
-      "Table Size": "800 × 450 mm",
-      "Max Workpiece Load": "500 kg",
-      "Coolant System": "Flood coolant included"
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
     },
-    "safety_summary": "MANDATORY SAFETY REQUIREMENTS: Safety glasses and steel-toed boots must be worn at all times in the machining area. The workpiece must be firmly clamped before running any program — verify torque on all clamps. Never reach into or open the machining envelope during a running program. Supervisor sign-off is required before the first use session. The emergency stop (red mushroom button on control panel) must be tested before each session. Loose clothing, ties, or jewelry must not be worn near the machine.",
-    "sop_summary": "1. Obtain supervisor sign-off and complete the pre-use safety checklist. 2. Power on the machine control and home all three axes. 3. Mount and clamp the workpiece securely on the table; verify with dial indicator if tolerances are tight. 4. Install the correct cutting tool and set tool length offset (TLO). 5. Set work coordinate origin (G54 or G55) using an edge finder or probe. 6. Load the G-code program via USB drive or network share. 7. Perform a dry-run with the spindle off and feed override at 0% to verify toolpath. 8. Run the program at 50% feedrate override for the first pass. 9. Monitor the machining process — do not leave unattended. 10. After completion, clean chips using a brush (not air), apply way oil, and log machine use.",
+    "applications": [
+      "pcb_assembly",
+      "wire_splicing",
+      "repair",
+      "prototyping"
+    ],
+    "industries": [
+      "electronics_technician",
+      "hardware_engineer",
+      "embedded_systems"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Wire Splicing",
+        "difficulty": "Beginner",
+        "description": "Learn to properly splice and heat-shrink two wires."
+      },
+      {
+        "name": "Through-Hole PCB",
+        "difficulty": "Beginner",
+        "description": "Solder a basic 555 timer LED blinker circuit."
+      },
+      {
+        "name": "SMD Drag Soldering",
+        "difficulty": "Advanced",
+        "description": "Solder a 64-pin TQFP microcontroller using drag soldering techniques."
+      }
+    ],
+    "learning_path": {
+      "before": [
+        "fume_extractor_training",
+        "burn_safety"
+      ],
+      "current": [
+        "through_hole_soldering",
+        "smd_soldering",
+        "desoldering",
+        "flux_application"
+      ],
+      "next": [
+        "reflow_soldering",
+        "bga_rework"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "electronics",
+      "soldering",
+      "assembly",
+      "heat",
+      "pcb"
+    ],
     "images": [],
-    "manual_path": "/static/docs/cnc_01/manual.pdf",
-    "sop_path": "/static/docs/cnc_01/sop.pdf"
+    "manual_path": "/static/docs/soldering_station/manual.pdf",
+    "sop_path": "/static/docs/soldering_station/sop.pdf"
   },
-
-  "lathe_01": {
-    "description": "A precision manual metal lathe used for turning, facing, parting, threading, and knurling cylindrical workpieces. Material is removed by rotating the workpiece at controlled speed against a stationary single-point cutting tool. Fundamental to the fabrication lab for producing shafts, bushings, pins, and threaded components. Supports both imperial and metric thread cutting.",
+  "digital_microscope": {
+    "description": "The Digital Microscope is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the inspection_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Digital Microscope revolutionized engineering workflows.",
     "specs": {
-      "Swing Over Bed": "330 mm",
-      "Swing Over Cross Slide": "185 mm",
-      "Distance Between Centers": "1000 mm",
-      "Spindle Speed Range": "50 – 2,000 RPM (12 speeds)",
-      "Spindle Bore": "52 mm",
-      "Spindle Nose": "D1-4 Camlock",
-      "Cross Slide Travel": "210 mm",
-      "Compound Rest Travel": "120 mm",
-      "Tailstock Taper": "MT4",
-      "Motor Power": "2.2 kW",
-      "Chuck": "160 mm 3-jaw self-centering",
-      "Thread Pitches": "Metric 0.5–7 mm, Imperial 4–56 TPI"
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
     },
-    "safety_summary": "MANDATORY SAFETY REQUIREMENTS: Remove the chuck key immediately after adjusting the chuck — a rotating chuck key is a lethal projectile. Never wear gloves while operating the lathe — fabric can entangle in the rotating workpiece. Safety glasses are mandatory at all times. Long hair must be tied back and secured. Ensure the workpiece is fully seated in the chuck jaws and balanced before starting. Workpieces longer than 4× diameter must be supported by a live center in the tailstock or a steady rest. Supervisor sign-off is required before the first use.",
-    "sop_summary": "1. Obtain supervisor sign-off and check the pre-use form. 2. Inspect chuck jaws for wear; secure the workpiece using all three jaws evenly — remove the chuck key immediately. 3. Calculate the correct spindle speed for the material and workpiece diameter (use the speed chart on the machine). 4. Install the appropriate cutting tool in the tool post; set tool tip height to spindle centerline using a center gauge. 5. Make a light facing cut to establish a reference surface. 6. Set depth of cut using the cross-slide graduated dial; engage the automatic feed at the appropriate rate. 7. Apply cutting fluid continuously during metal cutting. 8. Stop the spindle completely before measuring — never measure a moving workpiece. 9. After completing work, clear swarf with a brush, apply oil to the bed and ways, and log machine use.",
+    "applications": [
+      "quality_control",
+      "reverse_engineering",
+      "pcb_inspection"
+    ],
+    "industries": [
+      "quality_assurance",
+      "failure_analysis"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the Digital Microscope."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [],
+      "current": [
+        "optical_inspection",
+        "smd_verification",
+        "micro_soldering_prep"
+      ],
+      "next": [
+        "electron_microscopy"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "inspection",
+      "optics",
+      "microscope",
+      "camera",
+      "quality_control"
+    ],
     "images": [],
-    "manual_path": "/static/docs/lathe_01/manual.pdf",
-    "sop_path": "/static/docs/lathe_01/sop.pdf"
+    "manual_path": "/static/docs/digital_microscope/manual.pdf",
+    "sop_path": "/static/docs/digital_microscope/sop.pdf"
+  },
+  "3d_printer": {
+    "description": "The 3D Printer is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the prototyping_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the 3D Printer revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "rapid_prototyping",
+      "custom_enclosures",
+      "mechanical_parts"
+    ],
+    "industries": [
+      "mechanical_engineering",
+      "industrial_design",
+      "manufacturing"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Calibration Cube",
+        "difficulty": "Beginner",
+        "description": "Print a 20mm cube to verify dimensional accuracy."
+      },
+      {
+        "name": "Drone Frame",
+        "difficulty": "Intermediate",
+        "description": "Design and print a lightweight, high-infill frame for a quadcopter."
+      },
+      {
+        "name": "Robotic Arm Gripper",
+        "difficulty": "Advanced",
+        "description": "Print interlocking gears and linkages for a robotic end-effector."
+      }
+    ],
+    "learning_path": {
+      "before": [
+        "cad_basics",
+        "slicer_software_training"
+      ],
+      "current": [
+        "slicing",
+        "gcode_generation",
+        "fdm_mechanics",
+        "bed_leveling"
+      ],
+      "next": [
+        "sla_printing",
+        "sls_printing",
+        "cnc_machining"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "3d_printing",
+      "fdm",
+      "prototyping",
+      "additive",
+      "plastic"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/3d_printer/manual.pdf",
+    "sop_path": "/static/docs/3d_printer/sop.pdf"
+  },
+  "3d_scanner": {
+    "description": "The 3D Scanner is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the prototyping_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the 3D Scanner revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "reverse_engineering",
+      "digital_archiving",
+      "quality_control"
+    ],
+    "industries": [
+      "reverse_engineering",
+      "quality_assurance",
+      "metrology"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the 3D Scanner."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [],
+      "current": [
+        "point_cloud_processing",
+        "mesh_generation",
+        "photogrammetry_basics"
+      ],
+      "next": [
+        "advanced_mesh_repair",
+        "cad_reconstruction"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "scanning",
+      "3d",
+      "point_cloud",
+      "reverse_engineering"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/3d_scanner/manual.pdf",
+    "sop_path": "/static/docs/3d_scanner/sop.pdf"
+  },
+  "digital_weighing_scale": {
+    "description": "The Digital Weighing Scale is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the materials_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Digital Weighing Scale revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "chemical_mixing",
+      "part_mass_verification",
+      "filament_weighing"
+    ],
+    "industries": [
+      "lab_technician",
+      "quality_control"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the Digital Weighing Scale."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [],
+      "current": [
+        "precision_measurement",
+        "tare_function",
+        "calibration_checks"
+      ],
+      "next": [
+        "analytical_balances"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "measurement",
+      "mass",
+      "scale",
+      "precision"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/digital_weighing_scale/manual.pdf",
+    "sop_path": "/static/docs/digital_weighing_scale/sop.pdf"
+  },
+  "digital_multimeter": {
+    "description": "The Digital Multimeter is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Digital Multimeter revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "circuit_debugging",
+      "component_testing",
+      "power_verification"
+    ],
+    "industries": [
+      "electrical_engineering",
+      "electronics_technician",
+      "hardware_testing"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the Digital Multimeter."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [
+        "basic_electrical_safety"
+      ],
+      "current": [
+        "voltage_measurement",
+        "current_measurement",
+        "resistance",
+        "continuity",
+        "diode_testing"
+      ],
+      "next": [
+        "oscilloscope"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "dmm",
+      "multimeter",
+      "voltage",
+      "current",
+      "resistance",
+      "testing"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/digital_multimeter/manual.pdf",
+    "sop_path": "/static/docs/digital_multimeter/sop.pdf"
+  },
+  "variable_power_supply": {
+    "description": "The Variable Power Supply is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Variable Power Supply revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "circuit_prototyping",
+      "motor_testing",
+      "component_characterization"
+    ],
+    "industries": [
+      "hardware_engineering",
+      "test_engineering"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the Variable Power Supply."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [
+        "electrical_safety",
+        "digital_multimeter"
+      ],
+      "current": [
+        "constant_voltage_mode",
+        "constant_current_mode",
+        "power_sequencing"
+      ],
+      "next": [
+        "function_generator"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "power",
+      "voltage",
+      "current",
+      "supply",
+      "cc",
+      "cv"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/variable_power_supply/manual.pdf",
+    "sop_path": "/static/docs/variable_power_supply/sop.pdf"
+  },
+  "oscilloscope": {
+    "description": "The 4-Channel Oscilloscope is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the 4-Channel Oscilloscope revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "signal_integrity",
+      "clock_debugging",
+      "pwm_analysis",
+      "filter_characterization"
+    ],
+    "industries": [
+      "hardware_engineer",
+      "rf_engineer",
+      "embedded_systems_engineer"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Signal Generator Probing",
+        "difficulty": "Beginner",
+        "description": "Measure sine, square, and triangle waves from a function generator."
+      },
+      {
+        "name": "Clock Signal Integrity",
+        "difficulty": "Intermediate",
+        "description": "Analyze the rise time and ringing of a microcontroller clock."
+      },
+      {
+        "name": "I2C Decoding",
+        "difficulty": "Advanced",
+        "description": "Use serial decoding to sniff I2C traffic between a sensor and an MCU."
+      }
+    ],
+    "learning_path": {
+      "before": [
+        "digital_multimeter",
+        "variable_power_supply"
+      ],
+      "current": [
+        "signal_visualization",
+        "triggering",
+        "frequency_measurement",
+        "noise_analysis"
+      ],
+      "next": [
+        "spectrum_analyzer",
+        "logic_analyzer"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "scope",
+      "oscilloscope",
+      "waveform",
+      "signals",
+      "ac",
+      "frequency"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/oscilloscope/manual.pdf",
+    "sop_path": "/static/docs/oscilloscope/sop.pdf"
+  },
+  "function_generator": {
+    "description": "The Function Generator is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Function Generator revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "filter_testing",
+      "amplifier_characterization",
+      "clock_simulation"
+    ],
+    "industries": [
+      "test_engineer",
+      "rf_engineer",
+      "audio_engineer"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the Function Generator."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [
+        "oscilloscope"
+      ],
+      "current": [
+        "signal_injection",
+        "frequency_sweeps",
+        "modulation_basics",
+        "impedance_matching"
+      ],
+      "next": [
+        "arbitrary_waveform_generation",
+        "rf_signal_generation"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "generator",
+      "signal",
+      "waveform",
+      "sine",
+      "square",
+      "pwm"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/function_generator/manual.pdf",
+    "sop_path": "/static/docs/function_generator/sop.pdf"
+  },
+  "coil_winding_machine": {
+    "description": "The Motorized Coil Winding Machine is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electromechanics_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Motorized Coil Winding Machine revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "custom_transformers",
+      "motor_rewinding",
+      "rf_inductors",
+      "electromagnets"
+    ],
+    "industries": [
+      "motor_design",
+      "power_electronics",
+      "rf_engineering"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the Motorized Coil Winding Machine."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [
+        "pinch_hazard_safety"
+      ],
+      "current": [
+        "wire_tensioning",
+        "turn_counting",
+        "spooling",
+        "custom_inductor_creation"
+      ],
+      "next": [
+        "cnc_winding"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "winding",
+      "coil",
+      "inductor",
+      "transformer",
+      "wire",
+      "magnetics"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/coil_winding_machine/manual.pdf",
+    "sop_path": "/static/docs/coil_winding_machine/sop.pdf"
+  },
+  "battery_charger": {
+    "description": "The Battery Charger is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the power_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Battery Charger revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "drone_batteries",
+      "ev_prototyping",
+      "portable_electronics"
+    ],
+    "industries": [
+      "ev_engineer",
+      "power_systems_engineer"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the Battery Charger."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [
+        "fire_safety",
+        "lipo_handling"
+      ],
+      "current": [
+        "charge_profiles",
+        "balancing",
+        "capacity_testing",
+        "internal_resistance"
+      ],
+      "next": [
+        "battery_management_systems_bms"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "battery",
+      "charger",
+      "lipo",
+      "li-ion",
+      "power",
+      "bms"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/battery_charger/manual.pdf",
+    "sop_path": "/static/docs/battery_charger/sop.pdf"
+  },
+  "infrared_ic_heater": {
+    "description": "The Infrared IC Heater is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Infrared IC Heater revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "motherboard_repair",
+      "custom_smd_pcbs",
+      "chip_replacement"
+    ],
+    "industries": [
+      "hardware_repair_technician",
+      "manufacturing_engineer"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the Infrared IC Heater."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [
+        "soldering_station"
+      ],
+      "current": [
+        "bga_rework",
+        "reflow_soldering",
+        "thermal_soaking"
+      ],
+      "next": [
+        "xray_inspection"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "ir",
+      "heater",
+      "reflow",
+      "bga",
+      "smd",
+      "rework",
+      "soldering"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/infrared_ic_heater/manual.pdf",
+    "sop_path": "/static/docs/infrared_ic_heater/sop.pdf"
+  },
+  "digital_telescope": {
+    "description": "The Digital Telescope is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the optics_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Digital Telescope revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "astrophotography",
+      "satellite_tracking",
+      "optical_alignment"
+    ],
+    "industries": [
+      "aerospace",
+      "optics_engineering"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the Digital Telescope."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [],
+      "current": [
+        "celestial_tracking",
+        "astrophotography",
+        "lens_calibration"
+      ],
+      "next": [
+        "radio_telescopy"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "telescope",
+      "optics",
+      "astronomy",
+      "lens",
+      "space"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/digital_telescope/manual.pdf",
+    "sop_path": "/static/docs/digital_telescope/sop.pdf"
+  },
+  "digital_lcr_meter": {
+    "description": "The Digital LCR Meter is a core piece of lab equipment used for educational and prototyping purposes.",
+    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
+    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
+    "historical_background": "Early versions of the Digital LCR Meter revolutionized engineering workflows.",
+    "specs": {
+      "power": "110/220V AC",
+      "accuracy": "Educational Grade",
+      "interface": "Digital/Analog"
+    },
+    "applications": [
+      "filter_design",
+      "custom_inductor_verification",
+      "capacitor_health_check"
+    ],
+    "industries": [
+      "power_electronics",
+      "rf_engineer",
+      "component_engineer"
+    ],
+    "advantages": [
+      "Accessible for beginners",
+      "Safe for educational use",
+      "Robust design"
+    ],
+    "limitations": [
+      "Not industrial grade",
+      "Requires training",
+      "Calibration drift over time"
+    ],
+    "real_world_products": [
+      "Consumer electronics",
+      "Prototyped parts",
+      "Automotive components"
+    ],
+    "interesting_facts": [
+      "Often the first machine students learn in their respective domains."
+    ],
+    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
+    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "common_beginner_mistakes": [
+      "Skipping calibration",
+      "Ignoring safety warnings",
+      "Using incorrect settings"
+    ],
+    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
+    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "troubleshooting": [
+      {
+        "problem": "Won't power on",
+        "cause": "Unplugged or blown fuse",
+        "solution": "Check cables and fuses."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Introductory Lab",
+        "difficulty": "Beginner",
+        "description": "A simple guided exercise to learn the Digital LCR Meter."
+      },
+      {
+        "name": "Intermediate Project",
+        "difficulty": "Intermediate",
+        "description": "Applying multiple concepts together."
+      },
+      {
+        "name": "Capstone Module",
+        "difficulty": "Advanced",
+        "description": "Full integration into a larger system."
+      }
+    ],
+    "learning_path": {
+      "before": [
+        "digital_multimeter"
+      ],
+      "current": [
+        "inductance_measurement",
+        "capacitance_measurement",
+        "esr_testing",
+        "q_factor"
+      ],
+      "next": [
+        "vector_network_analyzer_vna"
+      ]
+    },
+    "faq_topics": [
+      "How to turn it on?",
+      "What are the safety risks?",
+      "How to calibrate?"
+    ],
+    "keywords": [
+      "lcr",
+      "inductance",
+      "capacitance",
+      "resistance",
+      "impedance",
+      "esr"
+    ],
+    "images": [],
+    "manual_path": "/static/docs/digital_lcr_meter/manual.pdf",
+    "sop_path": "/static/docs/digital_lcr_meter/sop.pdf"
   }
 }
