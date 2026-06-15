@@ -52,68 +52,202 @@ body {
 }
 
 /* ============================================================
-   Pannellum Hotspot Overrides
+   Scene Transition — Smooth Fade
+   Two CSS classes drive a 2-phase fade:
+     lv-fade--closing  : transparent → dark  (play before scene switch)
+     lv-fade--opening  : dark → transparent  (play after scene switch)
+   Home.jsx coordinates the timing via overlayState + overlayRef.
    ============================================================ */
+@keyframes lv-fade-to-dark {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
-/* Hide default Pannellum hotspot SVG — we render custom ones */
+@keyframes lv-fade-from-dark {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+.lv-scene-overlay {
+  position: fixed;
+  inset: 0;
+  background: #080d14;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.lv-scene-overlay--closing {
+  animation: lv-fade-to-dark 0.22s ease-in forwards;
+}
+
+.lv-scene-overlay--opening {
+  animation: lv-fade-from-dark 0.48s ease-out forwards;
+}
+
+/* ============================================================
+   Pannellum Hotspot Base Override
+   ============================================================ */
 .pnlm-hotspot-base {
   cursor: pointer;
 }
 
-/* ---- Navigation Hotspot ---- */
+/* ============================================================
+   Navigation Hotspot — Floor Beacon
+   Matterport / Google Street View style ground marker.
+
+   Visual anatomy:
+     nav-beacon-pulse-ring  — animated outer ring that expands and fades
+     nav-beacon-outer-ring  — static border ring
+     nav-beacon-core        — filled glowing ellipse with subtle chevron
+     nav-beacon-shadow      — soft blur shadow below core (floor cast)
+     nav-beacon-label       — destination name, appears only on hover
+
+   The elliptical (2 : 1) shape reads as a flat disk on the floor due
+   to foreshortening perspective — place hotspots at low pitch (≈ −20°)
+   for the most natural appearance.
+   ============================================================ */
+
+/* Pannellum mount point — centred on the pitch/yaw coordinate */
 .lv-nav-hotspot {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
   cursor: pointer;
   transform: translateX(-50%) translateY(-50%);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.lv-nav-hotspot .nav-arrow {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid rgba(59, 130, 246, 0.7);
-  background: rgba(59, 130, 246, 0.15);
-  backdrop-filter: blur(8px);
+/* Container — sized as an ellipse to simulate floor perspective */
+.nav-beacon {
+  position: relative;
+  width: 64px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #60a5fa;
-  transition: all 0.2s ease;
-  box-shadow:
-    0 0 0 0 rgba(59, 130, 246, 0.4),
-    0 4px 20px rgba(0, 0, 0, 0.4);
-  animation: lv-nav-pulse 2.5s ease-in-out infinite;
 }
 
-.lv-nav-hotspot:hover .nav-arrow {
-  border-color: rgba(96, 165, 250, 1);
-  background: rgba(59, 130, 246, 0.3);
-  box-shadow:
-    0 0 0 8px rgba(59, 130, 246, 0.15),
-    0 4px 20px rgba(59, 130, 246, 0.3);
-  transform: scale(1.1);
-}
-
-.lv-nav-hotspot .nav-label {
-  font-family: "Inter", sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  color: #93c5fd;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  background: rgba(8, 13, 20, 0.8);
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  padding: 3px 10px;
-  border-radius: 20px;
-  backdrop-filter: blur(8px);
-  white-space: nowrap;
+/* Animated pulse ring — expands outward and fades */
+.nav-beacon-pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(59, 130, 246, 0.55);
+  animation: nav-beacon-pulse 2.6s ease-out infinite;
   pointer-events: none;
 }
 
-/* ---- Machine Hotspot ---- */
+/* Static outer border */
+.nav-beacon-outer-ring {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(59, 130, 246, 0.6);
+  background: rgba(59, 130, 246, 0.05);
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+/* Filled core with glow */
+.nav-beacon-core {
+  position: relative;
+  z-index: 1;
+  width: 30px;
+  height: 15px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 40%,
+    rgba(147, 197, 253, 0.95) 0%,
+    rgba(37,  99,  235, 0.9)  70%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 0  8px rgba(59, 130, 246, 0.7),
+    0 0 18px rgba(59, 130, 246, 0.3),
+    0 2px  6px rgba(0, 0, 0, 0.55);
+  transition: box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+/* Soft halo below core — suggests light projected onto floor */
+.nav-beacon-shadow {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center,
+    rgba(59, 130, 246, 0.45) 0%,
+    transparent 70%
+  );
+  filter: blur(5px);
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+/* ── Hover states ── */
+.lv-nav-hotspot:hover .nav-beacon-outer-ring {
+  border-color: rgba(96, 165, 250, 0.95);
+  background: rgba(59, 130, 246, 0.14);
+}
+
+.lv-nav-hotspot:hover .nav-beacon-core {
+  transform: scale(1.18);
+  box-shadow:
+    0 0 14px rgba(59, 130, 246, 1),
+    0 0 28px rgba(59, 130, 246, 0.55),
+    0 2px  6px rgba(0, 0, 0, 0.55);
+}
+
+.lv-nav-hotspot:hover .nav-beacon-shadow {
+  opacity: 1.6; /* intentional > 1 — clamped to 1 by browser */
+}
+
+.lv-nav-hotspot:hover .nav-beacon-pulse-ring {
+  animation-play-state: paused;
+  opacity: 0;
+}
+
+/* ── Destination label — shows on hover above the beacon ── */
+.nav-beacon-label {
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  white-space: nowrap;
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #e2e8f0;
+  background: rgba(8, 13, 20, 0.9);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  padding: 4px 11px;
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.lv-nav-hotspot:hover .nav-beacon-label {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Pulse keyframe ── */
+@keyframes nav-beacon-pulse {
+  0%   { transform: scale(1);    opacity: 0.55; }
+  65%  { transform: scale(1.55); opacity: 0; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+
+/* ---- Machine Hotspot (unchanged from Phase 1) ---- */
 .lv-machine-hotspot {
   display: flex;
   flex-direction: column;
@@ -172,21 +306,33 @@ body {
   letter-spacing: 0.04em;
 }
 
-/* ---- Animations ---- */
+/* ============================================================
+   Animations
+   ============================================================ */
 @keyframes lv-nav-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4), 0 4px 20px rgba(0,0,0,0.4); }
-  50%       { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0.0), 0 4px 20px rgba(0,0,0,0.4); }
+  0%, 100% {
+    box-shadow:
+      0 0 0 4px rgba(59, 130, 246, 0.12),
+      0 0 24px rgba(59, 130, 246, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+  50% {
+    box-shadow:
+      0 0 0 10px rgba(59, 130, 246, 0.0),
+      0 0 32px rgba(59, 130, 246, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
 }
 
 @keyframes lv-machine-ring {
-  0%   { transform: scale(1); opacity: 0.8; }
+  0%   { transform: scale(1);   opacity: 0.8; }
   100% { transform: scale(1.8); opacity: 0; }
 }
 
 /* ============================================================
    Utility
    ============================================================ */
-.lv-scrollbar::-webkit-scrollbar       { width: 6px; }
+.lv-scrollbar::-webkit-scrollbar       { width: 4px; }
 .lv-scrollbar::-webkit-scrollbar-track { background: transparent; }
-.lv-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
-.lv-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+.lv-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 2px; }
+.lv-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }

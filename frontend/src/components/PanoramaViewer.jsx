@@ -11,11 +11,13 @@ import { createMachineHotspotElement } from "./MachineHotspot";
  * that comes from lab_config.json via the FastAPI backend.
  *
  * Props:
- *   scene        {object}  Current scene object from lab_config (image, navigation, machines)
- *   sceneName    {string}  Current scene key (e.g. "entrance")
- *   machineNames {object}  Map of machine_id → machine name (for hotspot labels)
- *   onNavigate   {fn}      Called with target scene key when a nav hotspot is clicked
- *   onMachineClick {fn}    Called with machine_id when a machine hotspot is clicked
+ *   scene          {object}  Current scene object from lab_config
+ *   sceneName      {string}  Current scene key (e.g. "entrance")
+ *   machineNames   {object}  Map of machine_id → machine name
+ *   onNavigate     {fn}      Called with targetScene when a nav hotspot is clicked
+ *   onMachineClick {fn}      Called with machine_id when a machine hotspot is clicked
+ *   devMode        {bool}    When true: disables auto-rotate + starts RAF coord polling
+ *   onViewChange   {fn}      Called with { pitch, yaw, hfov } when devMode is on
  */
 export default function PanoramaViewer({
   scene,
@@ -23,6 +25,8 @@ export default function PanoramaViewer({
   machineNames,
   onNavigate,
   onMachineClick,
+  devMode = false,
+  onViewChange,
 }) {
   const containerRef = useRef(null);
   const viewerRef    = useRef(null);
@@ -30,9 +34,9 @@ export default function PanoramaViewer({
   const [panoramaState, setPanoramaState] = useState("loading"); // loading | ready | missing | error
   const [errorMsg, setErrorMsg]           = useState("");
 
-  // Stable callbacks so useEffect deps don't thrash
-  const handleNavigate     = useCallback(onNavigate,      [onNavigate]);
-  const handleMachineClick = useCallback(onMachineClick,  [onMachineClick]);
+  // Stable callbacks — prevents thrashing useEffect deps
+  const handleNavigate     = useCallback(onNavigate,     [onNavigate]);
+  const handleMachineClick = useCallback(onMachineClick, [onMachineClick]);
 
   // ------------------------------------------------------------------
   // Check whether the panorama image actually exists before initialising
@@ -45,19 +49,13 @@ export default function PanoramaViewer({
 
     setPanoramaState("loading");
 
-    const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8000";
+    const apiBase  = import.meta.env.VITE_API_URL || "http://localhost:8000";
     const imageUrl = scene.image.startsWith("http")
       ? scene.image
       : `${apiBase}${scene.image}`;
 
-    fetch(imageUrl, { method: "HEAD" })
-      .then((res) => {
-        if (res.ok) {
-          setPanoramaState("ready");
-        } else {
-          setPanoramaState("missing");
-        }
-      })
+    fetch(imageUrl, { method: "HEAD", cache: "no-cache" })
+      .then((res) => setPanoramaState(res.ok ? "ready" : "missing"))
       .catch(() => setPanoramaState("missing"));
   }, [scene?.image]);
 
@@ -73,7 +71,7 @@ export default function PanoramaViewer({
       return;
     }
 
-    const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8000";
+    const apiBase  = import.meta.env.VITE_API_URL || "http://localhost:8000";
     const imageUrl = scene.image.startsWith("http")
       ? scene.image
       : `${apiBase}${scene.image}`;
@@ -87,19 +85,19 @@ export default function PanoramaViewer({
     // Build hotspot list from scene config
     const hotspots = [];
 
-    // Navigation hotspots
+    // Navigation hotspots — pass direction so the arrow rotates correctly
     (scene.navigation || []).forEach((nav) => {
       hotspots.push({
         pitch: nav.pitch,
         yaw:   nav.yaw,
         type:  "custom",
         cssClass: "lv-pnlm-hotspot",
-        createTooltipFunc: createNavHotspotElement(nav.label),
+        createTooltipFunc: createNavHotspotElement(nav.label, nav.direction),
         clickHandlerFunc:  () => handleNavigate(nav.target),
       });
     });
 
-    // Machine hotspots
+    // Machine hotspots — unchanged from Phase 1
     (scene.machines || []).forEach((m) => {
       const label = machineNames?.[m.machine_id] || m.machine_id;
       hotspots.push({
@@ -117,7 +115,8 @@ export default function PanoramaViewer({
         type:       "equirectangular",
         panorama:   imageUrl,
         autoLoad:   true,
-        autoRotate: -1,          // Very slow drift — feels alive
+        // Disable auto-rotate in dev mode so coordinates stay stable
+        autoRotate: devMode ? 0 : -1,
         autoRotateInactivityDelay: 3000,
         compass:    false,
         showZoomCtrl:    false,
@@ -147,7 +146,41 @@ export default function PanoramaViewer({
         viewerRef.current = null;
       }
     };
-  }, [panoramaState, scene, machineNames, handleNavigate, handleMachineClick]);
+  }, [panoramaState, scene, machineNames, handleNavigate, handleMachineClick, devMode]);
+
+  // ------------------------------------------------------------------
+  // Dev mode: RAF polling for live pitch / yaw / hfov
+  // Starts 600ms after viewer init to ensure Pannellum is fully ready.
+  // ------------------------------------------------------------------
+  useEffect(() => {
+    if (!devMode || panoramaState !== "ready" || !onViewChange) return;
+
+    let rafId;
+    let started = false;
+
+    const poll = () => {
+      if (viewerRef.current) {
+        try {
+          onViewChange({
+            pitch: viewerRef.current.getPitch(),
+            yaw:   viewerRef.current.getYaw(),
+            hfov:  viewerRef.current.getHfov(),
+          });
+        } catch (_) { /* viewer not ready */ }
+      }
+      rafId = requestAnimationFrame(poll);
+    };
+
+    const initTimer = setTimeout(() => {
+      started = true;
+      rafId = requestAnimationFrame(poll);
+    }, 600);
+
+    return () => {
+      clearTimeout(initTimer);
+      if (started) cancelAnimationFrame(rafId);
+    };
+  }, [devMode, panoramaState, onViewChange]);
 
   // ------------------------------------------------------------------
   // Render
@@ -166,7 +199,7 @@ export default function PanoramaViewer({
       {/* Pannellum mount point */}
       <div ref={containerRef} className="absolute inset-0" />
 
-      {/* Loading overlay while Pannellum inits */}
+      {/* Loading overlay */}
       {panoramaState === "loading" && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#080d14]">
           <div className="flex flex-col items-center gap-4">
@@ -175,16 +208,32 @@ export default function PanoramaViewer({
           </div>
         </div>
       )}
+
+      {/* Dev mode indicator banner */}
+      {devMode && panoramaState === "ready" && (
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
+          <div
+            className="flex items-center gap-2 rounded-full px-3 py-1.5 backdrop-blur-sm"
+            style={{
+              background: "rgba(120, 53, 15, 0.9)",
+              border: "1px solid rgba(245,158,11,0.5)",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
+            }}
+          >
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+            <span className="text-[10px] font-mono font-bold tracking-wider text-amber-300">
+              DEV MODE — drag to aim, copy coordinates from panel →
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-// Hotspot factories are in NavigationHotspot.jsx and MachineHotspot.jsx
-
 // ------------------------------------------------------------------
 // Empty state — shown when panorama image doesn't exist yet
 // ------------------------------------------------------------------
-
 function EmptyState({ sceneName, imagePath }) {
   const filename = imagePath?.split("/").pop() || "image.jpg";
 
@@ -209,14 +258,10 @@ function EmptyState({ sceneName, imagePath }) {
       />
 
       <div className="relative z-10 flex flex-col items-center gap-8 max-w-lg text-center">
-        {/* Icon */}
-        <div className="relative">
-          <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-blue-600/20 to-cyan-600/20 border border-blue-500/30 flex items-center justify-center">
-            <FolderOpen className="h-10 w-10 text-blue-400" />
-          </div>
+        <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-blue-600/20 to-cyan-600/20 border border-blue-500/30 flex items-center justify-center">
+          <FolderOpen className="h-10 w-10 text-blue-400" />
         </div>
 
-        {/* Heading */}
         <div>
           <h2 className="text-2xl font-bold text-white">No Panorama Image</h2>
           <p className="mt-2 text-slate-400">
@@ -228,34 +273,32 @@ function EmptyState({ sceneName, imagePath }) {
           </p>
         </div>
 
-        {/* Steps */}
         <div className="w-full rounded-xl border border-white/10 bg-white/5 p-6 text-left backdrop-blur-sm">
           <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-slate-500">
             How to add this panorama
           </p>
           <ol className="flex flex-col gap-3">
             <Step n={1}>
-              Capture a 360° equirectangular photo with your phone (Google Camera, iPhone Pro, or a dedicated 360° camera).
+              Capture a 360° equirectangular photo with your phone or a dedicated 360° camera.
             </Step>
             <Step n={2}>
-              Export the photo as a <strong className="text-white">JPG</strong> file and rename it:
+              Export as <strong className="text-white">JPG</strong> and rename it:
               <code className="mt-1.5 flex rounded-lg bg-[#0d1117] border border-white/10 px-4 py-2 text-sm font-mono text-emerald-300">
                 {filename}
               </code>
             </Step>
             <Step n={3}>
-              Place the file in:
+              Place in:
               <code className="mt-1.5 flex rounded-lg bg-[#0d1117] border border-white/10 px-4 py-2 text-sm font-mono text-emerald-300">
                 backend/static/panoramas/
               </code>
             </Step>
             <Step n={4}>
-              Restart the application. The panorama will load automatically — no code changes needed.
+              Refresh the browser — no code changes needed.
             </Step>
           </ol>
         </div>
 
-        {/* Hotspot legend preview */}
         <div className="flex gap-6 text-xs text-slate-500">
           <div className="flex items-center gap-2">
             <Navigation2 className="h-3.5 w-3.5 text-blue-400" />

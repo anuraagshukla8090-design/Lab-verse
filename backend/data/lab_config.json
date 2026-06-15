@@ -1,85 +1,141 @@
 {
-  "default_scene": "entrance",
+  "lab_id": "main_lab",
+  "lab_name": "Engineering Laboratory",
+  "default_scene": "node_01",
 
   "scenes": {
-    "entrance": {
-      "image": "/static/panoramas/entrance.jpg",
+
+    "corridor_node": {
+      "label": "Corridor",
+      "description": "Outside the lab — entry and exit point",
+      "image": "/static/panoramas/corridor_node.jpg",
       "initial_yaw": 0,
       "initial_pitch": 0,
-
       "navigation": [
-        {
-          "target": "main_floor",
-          "pitch": 0,
-          "yaw": 90,
-          "label": "Enter Lab"
-        }
+        { "target": "node_01", "pitch": -20, "yaw": 0, "label": "Enter Lab", "direction": "forward" }
       ],
-
-      "machines": [
-        {
-          "machine_id": "oscilloscope_01",
-          "pitch": -10,
-          "yaw": -90
-        }
-      ]
+      "machines": []
     },
 
-    "main_floor": {
-      "image": "/static/panoramas/main_floor.jpg",
+    "node_01": {
+      "label": "Node 01",
+      "description": "Entry landing — just inside the lab door",
+      "image": "/static/panoramas/node_01.jpg",
       "initial_yaw": 0,
       "initial_pitch": 0,
-
       "navigation": [
-        {
-          "target": "entrance",
-          "pitch": 0,
-          "yaw": -90,
-          "label": "Back to Entrance"
-        },
-        {
-          "target": "electronics_corner",
-          "pitch": 0,
-          "yaw": 45,
-          "label": "Electronics Corner"
-        }
+        { "target": "corridor_node", "pitch": -20, "yaw": 180, "label": "Corridor",  "direction": "back"    },
+        { "target": "node_02",       "pitch": -20, "yaw": -90, "label": "Node 02",   "direction": "left"    },
+        { "target": "centre_node",   "pitch": -20, "yaw":   0, "label": "Centre",    "direction": "forward" }
       ],
-
-      "machines": [
-        {
-          "machine_id": "cnc_01",
-          "pitch": -5,
-          "yaw": 120
-        },
-        {
-          "machine_id": "lathe_01",
-          "pitch": -5,
-          "yaw": -30
-        }
-      ]
+      "machines": [ { "machine_id": "oscilloscope_01",      "pitch": -10, "yaw": 45  },
+  { "machine_id": "function_generator","pitch": -5,  "yaw": 90  },
+  { "machine_id": "digital_multimeter","pitch": -8,  "yaw": 120 }]
     },
 
-    "electronics_corner": {
-      "image": "/static/panoramas/electronics_corner.jpg",
+    "node_02": {
+      "label": "Node 02",
+      "description": "Left branch — first position",
+      "image": "/static/panoramas/node_02.jpg",
       "initial_yaw": 0,
       "initial_pitch": 0,
-
       "navigation": [
-        {
-          "target": "main_floor",
-          "pitch": 0,
-          "yaw": 180,
-          "label": "Back to Main Floor"
-        }
+        { "target": "node_01", "pitch": -20, "yaw": 180, "label": "Node 01", "direction": "back"    },
+        { "target": "node_03", "pitch": -20, "yaw":   0, "label": "Node 03", "direction": "forward" }
       ],
+      "machines": []
+    },
 
-      "machines": [
-        {
-          "machine_id": "oscilloscope_01",
-          "pitch": -15,
-          "yaw": 30
-        }
-      ]
+    "node_03": {
+      "label": "Node 03",
+      "description": "Left branch — second position",
+      "image": "/static/panoramas/node_03.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_02", "pitch": -20, "yaw": 180, "label": "Node 02", "direction": "back"    },
+        { "target": "node_04", "pitch": -20, "yaw":   0, "label": "Node 04", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_04": {
+      "label": "Node 04",
+      "description": "Left branch — end position",
+      "image": "/static/panoramas/node_04.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_03", "pitch": -20, "yaw": 180, "label": "Node 03", "direction": "back"  },
+        { "target": "node_05", "pitch": -20, "yaw":  90, "label": "Node 05", "direction": "right" }
+      ],
+      "machines": []
+    },
+
+    "centre_node": {
+      "label": "Centre",
+      "description": "Center of the lab",
+      "image": "/static/panoramas/centre_node.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_01", "pitch": -20, "yaw": 180, "label": "Node 01", "direction": "back"    },
+        { "target": "node_05", "pitch": -20, "yaw":   0, "label": "Node 05", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_05": {
+      "label": "Node 05",
+      "description": "Centre branch — first position",
+      "image": "/static/panoramas/node_05.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "centre_node", "pitch": -20, "yaw": 180, "label": "Centre",  "direction": "back"    },
+        { "target": "node_04",     "pitch": -20, "yaw": -90, "label": "Node 04", "direction": "left"    },
+        { "target": "node_06",     "pitch": -20, "yaw":   0, "label": "Node 06", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_06": {
+      "label": "Node 06",
+      "description": "Centre branch — second position",
+      "image": "/static/panoramas/node_06.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_05", "pitch": -20, "yaw": 180, "label": "Node 05", "direction": "back"    },
+        { "target": "node_07", "pitch": -20, "yaw":   0, "label": "Node 07", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_07": {
+      "label": "Node 07",
+      "description": "Centre branch — third position",
+      "image": "/static/panoramas/node_07.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_06", "pitch": -20, "yaw": 180, "label": "Node 06", "direction": "back"    },
+        { "target": "node_08", "pitch": -20, "yaw":   0, "label": "Node 08", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_08": {
+      "label": "Node 08",
+      "description": "Centre branch — end position",
+      "image": "/static/panoramas/node_08.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_07", "pitch": -20, "yaw": 180, "label": "Node 07", "direction": "back" }
+      ],
+      "machines": []
     }
+
   }
 }
