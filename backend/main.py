@@ -13,11 +13,62 @@ Future phases extend the data layer behind this same contract:
   Phase 4: response gains `project_suggestions` from planning agent
 """
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
+from starlette.datastructures import MutableHeaders
+from starlette.types import ASGIApp, Receive, Scope, Send
 import json
 from pathlib import Path
+
+from dotenv import load_dotenv
+_env_file = Path(__file__).resolve().parent / ".env"
+load_dotenv(_env_file)   # absolute path — works regardless of uvicorn working directory
+
+
+# ---------------------------------------------------------------------------
+# Pure-ASGI Cache-Control middleware
+#
+# Intercepts http.response.start (headers frame) for /static/ paths and
+# injects Cache-Control without buffering the response body.
+# BaseHTTPMiddleware is intentionally avoided here — it wraps streaming
+# responses in a way that could buffer large file bodies into memory.
+# ---------------------------------------------------------------------------
+
+class CacheControlMiddleware:
+    """
+    Adds Cache-Control headers to static file responses.
+
+    Panoramas / previews: max-age=86400 (24 h) — rarely change, safe to
+    cache aggressively. Hard-refresh (Ctrl+Shift+R) bypasses if needed.
+    Other static assets:   max-age=3600  (1 h)
+    """
+
+    def __init__(self, app: ASGIApp) -> None:
+        self.app = app
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
+
+        path: str = scope.get("path", "")
+
+        async def send_with_cache(message: dict) -> None:
+            if message["type"] == "http.response.start":
+                headers = MutableHeaders(scope=message)
+                if (
+                    path.startswith("/static/panoramas/")
+                    or path.startswith("/static/previews/")
+                ):
+                    headers.append("Cache-Control", "public, max-age=86400")
+                elif path.startswith("/static/"):
+                    headers.append("Cache-Control", "public, max-age=3600")
+            await send(message)
+
+        await self.app(scope, receive, send_with_cache)
 
 # ---------------------------------------------------------------------------
 # App setup
@@ -28,6 +79,10 @@ app = FastAPI(
     description="Engineering Laboratory Intelligence Platform — Phase 1",
     version="1.0.0",
 )
+
+# Register Cache-Control middleware first (innermost — processes responses before CORS).
+# Pure ASGI class, not BaseHTTPMiddleware, so large file streaming is never buffered.
+app.add_middleware(CacheControlMiddleware)
 
 app.add_middleware(
     CORSMiddleware,
@@ -94,7 +149,8 @@ async def get_lab_config():
     Frontend reads this once on mount to build the navigation graph.
     Add scenes by editing backend/data/lab_config.json — no code changes needed.
     """
-    return load_json("lab_config.json")
+    data = load_json("lab_config.json")
+    return JSONResponse(content=data, headers={"Cache-Control": "public, max-age=30"})
 
 
 @app.get("/machines", tags=["Machines"])
@@ -105,10 +161,11 @@ async def get_machines():
     """
     metadata = load_json("machines.json")
     content = load_json("machine_content.json")
-    return {
+    result = {
         machine_id: merge_machine(machine_id, metadata, content)
         for machine_id in metadata
     }
+    return JSONResponse(content=result, headers={"Cache-Control": "public, max-age=30"})
 
 
 @app.get("/machines/{machine_id}", tags=["Machines"])
@@ -129,4 +186,50 @@ async def get_machine(machine_id: str):
 
 @app.get("/health", tags=["System"])
 async def health():
-    return {"status": "ok", "version": "1.0.0", "phase": 1}
+    return {"status": "ok", "version": "1.0.0", "phase": 2}
+
+
+# ---------------------------------------------------------------------------
+# Phase 2.1 — RAG chat endpoint
+# ---------------------------------------------------------------------------
+
+class ChatRequest(BaseModel):
+    machine_id: str
+    question:   str
+
+
+@app.post("/chat", tags=["RAG"])
+def chat(req: ChatRequest):
+    """
+    RAG pipeline: embed question → Qdrant retrieval (machine_id filter)
+    → confidence threshold → OpenRouter LLM → grounded answer.
+
+    Uses a synchronous `def` so FastAPI runs it in the thread pool,
+    which is correct for blocking calls (sentence-transformers + Qdrant).
+
+    Returns:
+        answer, machine_id, chunks_used, sources[]
+    """
+    # Import here to avoid loading sentence-transformers at server startup
+    # (the model downloads ~80 MB on first use and is then cached locally).
+    from rag.chat import answer as rag_answer
+
+    try:
+        result = rag_answer(req.machine_id, req.question)
+        return JSONResponse(content=result)
+
+    except ValueError as exc:
+        # Raised when OPENROUTER_API_KEY is missing
+        raise HTTPException(status_code=503, detail=str(exc))
+
+    except Exception as exc:
+        msg = str(exc).lower()
+        if "collection" in msg and ("not found" in msg or "doesn't exist" in msg):
+            raise HTTPException(
+                status_code=503,
+                detail=(
+                    "Knowledge base not initialised. "
+                    "Run:  python ingest.py  inside the backend folder."
+                ),
+            )
+        raise HTTPException(status_code=500, detail=str(exc))

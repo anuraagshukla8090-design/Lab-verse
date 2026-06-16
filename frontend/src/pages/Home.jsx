@@ -5,6 +5,7 @@ import LoadingScreen     from "@/components/LoadingScreen";
 import NavigationCompass from "@/components/NavigationCompass";
 import DevPanel          from "@/components/DevPanel";
 import { getLabConfig, getMachines } from "@/lib/api";
+import { preloadAdjacentScenes }    from "@/lib/preloader";
 import {
   Map,
   Layers,
@@ -113,28 +114,17 @@ export default function Home() {
   }, []);
 
   // ------------------------------------------------------------------
-  // Adjacent-node preloading
-  // Fires whenever the current scene changes. Creates Image objects for
-  // all directly connected neighbour panoramas so the browser caches
-  // them before the user navigates. Minimises loading delay on arrival.
+  // Adjacent-scene preloading
+  //
+  // Fires on mount (default scene) and on every scene change.
+  // Delegates entirely to preloader.js which handles:
+  //   - Deduplication   (module-level Set — survives re-renders)
+  //   - GC safety       (module-level Map keeps Image refs alive)
+  //   - Missing files   (onerror evicts URL so retry is possible)
   // ------------------------------------------------------------------
   useEffect(() => {
     if (!labConfig || !currentScene) return;
-    const scene = labConfig.scenes[currentScene];
-    if (!scene?.navigation?.length) return;
-
-    const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
-    scene.navigation.forEach((nav) => {
-      const neighbour = labConfig.scenes[nav.target];
-      if (!neighbour?.image) return;
-      const url = neighbour.image.startsWith("http")
-        ? neighbour.image
-        : `${apiBase}${neighbour.image}`;
-      // Image() triggers a background HTTP GET; the browser caches the response.
-      // The object is intentionally not stored — we want the side-effect only.
-      new Image().src = url;
-    });
+    preloadAdjacentScenes(currentScene, labConfig);
   }, [labConfig, currentScene]);
 
 
@@ -205,9 +195,8 @@ export default function Home() {
 
       {/* ---- 360° Panorama Viewer ---- */}
       <PanoramaViewer
-        key={currentScene}
-        scene={scene}
-        sceneName={currentScene}
+        labConfig={labConfig}
+        currentScene={currentScene}
         machineNames={machineNames}
         onNavigate={handleNavigate}
         onMachineClick={handleMachineClick}

@@ -1,2 +1,12 @@
+# LabVerse Backend — Phase 1 + Phase 2.1
+
+# Core API
 fastapi
 uvicorn[standard]
+
+# Phase 2.1 — RAG
+qdrant-client             # local file-based vector store (no Docker needed)
+sentence-transformers     # free local embeddings: all-MiniLM-L6-v2 (384-dim)
+openai                    # OpenRouter uses OpenAI-compatible API
+langchain-text-splitters  # RecursiveCharacterTextSplitter only
+python-dotenv             # load OPENROUTER_API_KEY from .env
