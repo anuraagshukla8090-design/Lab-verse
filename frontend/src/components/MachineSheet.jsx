@@ -110,7 +110,7 @@ export default function MachineSheet({ machine, open, onClose }) {
       } else if (msg.includes("API key") || msg.includes("503")) {
         setAiError("The AI service is not configured. Please contact the lab administrator.");
       } else {
-        setAiError("Unable to contact the AI service. Please check your connection and try again.");
+        setAiError(`Unable to contact the AI service: ${msg}`);
       }
     } finally {
       setLoading(false);

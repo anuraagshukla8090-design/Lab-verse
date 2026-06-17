@@ -28,9 +28,16 @@
         { "target": "node_02",       "pitch": -30, "yaw": 200, "label": "Node 02",   "direction": "forward"    },
         { "target": "centre_node",   "pitch": -27.9, "yaw":   158.8, "label": "Centre",    "direction": "left" }
       ],
-      "machines": [ { "machine_id": "vinyl_cutter",      "pitch": -4, "yaw": 250  },
-  { "machine_id": "function_generator","pitch": -5,  "yaw": 90  },
-  { "machine_id": "digital_multimeter","pitch": -8,  "yaw": 120 }]
+      "machines": [ { "machine_id": "tool_wall_covering_perforator","pitch": -4, "yaw": 250  },
+  { "machine_id": "vinyl_cutter","pitch": -6,  "yaw": 226 },
+  { "machine_id": "digital_microscope","pitch": -6,  "yaw": 221},
+  {"machine_id": "soldering_station","pitch": -6,  "yaw": 212},
+  { "machine_id": "soldering_station","pitch": -5,  "yaw": 190},
+  { "machine_id": "soldering_station","pitch": -5,  "yaw": 200},
+  { "machine_id": "benchtop_digital_multimeter","pitch": -5,  "yaw": 178},
+  { "machine_id": "digital_weighing_scale","pitch": -5,  "yaw": 170},
+  { "machine_id": "3d_scanner","pitch": -5,  "yaw": 163}
+    ]
     },
 
     "node_02": {

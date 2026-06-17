@@ -13,6 +13,7 @@ Future phases extend the data layer behind this same contract:
   Phase 4: response gains `project_suggestions` from planning agent
 """
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -27,6 +28,29 @@ from dotenv import load_dotenv
 _env_file = Path(__file__).resolve().parent / ".env"
 load_dotenv(_env_file)   # absolute path — works regardless of uvicorn working directory
 
+import logging
+logger = logging.getLogger("labverse")
+
+# ---------------------------------------------------------------------------
+# Startup: pre-warm embedding model + Qdrant client so the first user
+# question is never slow due to cold-start model loading.
+# ---------------------------------------------------------------------------
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Pre-load heavy resources before the server starts accepting requests."""
+    logger.info("[startup] Loading embedding model...")
+    from rag.embeddings import _get_model
+    _get_model()           # loads all-MiniLM-L6-v2 into RAM and caches it
+    logger.info("[startup] Embedding model ready.")
+
+    logger.info("[startup] Opening Qdrant client...")
+    from rag.retriever import _get_client
+    _get_client()          # opens the file lock on qdrant_storage and caches it
+    logger.info("[startup] Qdrant client ready.")
+
+    logger.info("[startup] LabVerse is fully warmed up — ready to serve!")
+    yield
 
 # ---------------------------------------------------------------------------
 # Pure-ASGI Cache-Control middleware
@@ -78,6 +102,7 @@ app = FastAPI(
     title="LabVerse API",
     description="Engineering Laboratory Intelligence Platform — Phase 1",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 # Register Cache-Control middleware first (innermost — processes responses before CORS).

@@ -94,6 +94,7 @@ export function preloadAdjacentScenes(sceneKey, labConfig) {
     // ───────────────────────────────────────────────────────────────────────
 
     const img = new Image();
+    img.crossOrigin = "anonymous";
 
     img.onload = () => {
       // onload fired — browser has confirmed the download and cached the image.
