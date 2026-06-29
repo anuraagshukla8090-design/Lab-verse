@@ -9,14 +9,13 @@
       "label": "Corridor",
       "description": "Outside the lab — entry and exit point",
       "image": "/static/panoramas/corridor_node.jpg",
-      "initial_yaw": 0,
+      "initial_yaw": -150,
       "initial_pitch": 0,
       "navigation": [
-        { "target": "node_01", "pitch": -20, "yaw": 0, "label": "Enter Lab", "direction": "forward" }
+        { "target": "node_01", "pitch": -25, "yaw": -155, "label": "Enter Lab", "direction": "left" }
       ],
       "machines": []
     },
-
     "node_01": {
       "label": "Node 01",
       "description": "Entry landing — just inside the lab door",
@@ -50,33 +49,43 @@
         { "target": "node_01", "pitch": -20, "yaw": 160, "label": "Node 01", "direction": "back"    },
         { "target": "node_03", "pitch": -20, "yaw":   0, "label": "Node 03", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [ { "machine_id": "vinyl_cutter","pitch": -6,  "yaw": 150},
+  { "machine_id": "digital_microscope","pitch": -6,  "yaw": 120},
+  {"machine_id": "soldering_station","pitch": -6,  "yaw": 95},
+  { "machine_id": "soldering_station","pitch": -5,  "yaw": 65},
+  { "machine_id": "soldering_station","pitch": -5,  "yaw": 45}]
     },
 
     "node_03": {
       "label": "Node 03",
       "description": "Left branch — second position",
       "image": "/static/panoramas/node_03.jpg",
-      "initial_yaw": 0,
+      "initial_yaw": 100,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_02", "pitch": -20, "yaw": 180, "label": "Node 02", "direction": "back"    },
         { "target": "node_04", "pitch": -20, "yaw":   0, "label": "Node 04", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "benchtop_digital_multimeter","pitch": -17,  "yaw": 140},
+  { "machine_id": "digital_weighing_scale","pitch": -18,  "yaw": 125},
+  {"machine_id": "3d_scanner","pitch": -10,  "yaw": 120},
+  { "machine_id": "3d_printer","pitch": -5,  "yaw": 105}]
     },
 
     "node_04": {
       "label": "Node 04",
       "description": "Left branch — end position",
       "image": "/static/panoramas/node_04.jpg",
-      "initial_yaw": 0,
+      "initial_yaw": 100,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_03", "pitch": -20, "yaw": 180, "label": "Node 03", "direction": "back"  },
         { "target": "node_05", "pitch": -20, "yaw":  90, "label": "Node 05", "direction": "right" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "benchtop_digital_multimeter","pitch": -17,  "yaw": 140},
+  { "machine_id": "digital_weighing_scale","pitch": -18,  "yaw": 125},
+  {"machine_id": "3d_scanner","pitch": -10,  "yaw": 120},
+  { "machine_id": "3d_printer","pitch": -5,  "yaw": 105}]
     },
 
     "centre_node": {
@@ -96,14 +105,19 @@
       "label": "Node 05",
       "description": "Centre branch — first position",
       "image": "/static/panoramas/node_05.jpg",
-      "initial_yaw": 0,
+      "initial_yaw": -95,
       "initial_pitch": 0,
       "navigation": [
         { "target": "centre_node", "pitch": -20, "yaw": 180, "label": "Centre",  "direction": "back"    },
         { "target": "node_04",     "pitch": -20, "yaw": -90, "label": "Node 04", "direction": "left"    },
         { "target": "node_06",     "pitch": -20, "yaw":   0, "label": "Node 06", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "function_generator","pitch": -6,  "yaw": -75},
+  { "machine_id": "4channel_oscilloscope","pitch": -5,  "yaw": -80},
+  {"machine_id": "variable_voltage_power_supply","pitch": -5,  "yaw": -110},
+  { "machine_id": "benchtop_digital_multimeter","pitch": -5,  "yaw": -135},
+  {"machine_id": "infrared_ic_heater","pitch": -10,  "yaw": -160},
+  { "machine_id": "battery_charger","pitch": -5,  "yaw": -170}]
     },
 
     "node_06": {

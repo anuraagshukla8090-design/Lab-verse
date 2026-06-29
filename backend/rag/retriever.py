@@ -15,7 +15,7 @@ from .embeddings import embed_query
 
 COLLECTION           = "lab_docs"
 QDRANT_PATH          = str(Path(__file__).parent.parent / "qdrant_storage")
-CONFIDENCE_THRESHOLD = 0.20  # calibrated for all-MiniLM-L6-v2 (384-dim scores in 0.3–0.8 range)
+CONFIDENCE_THRESHOLD = 0.10  # calibrated for all-MiniLM-L6-v2 (384-dim scores in 0.3–0.8 range)
 
 # ---------------------------------------------------------------------------
 # Singleton client — qdrant local storage does NOT support concurrent locks.
