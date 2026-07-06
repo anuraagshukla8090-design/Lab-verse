@@ -12,7 +12,8 @@
       "initial_yaw": -150,
       "initial_pitch": 0,
       "navigation": [
-        { "target": "node_01", "pitch": -25, "yaw": -155, "label": "Enter Lab", "direction": "left" }
+        { "target": "node_01",  "pitch": -25, "yaw": -155, "label": "Enter Engineering Lab", "direction": "left" },
+        { "target": "node_10", "pitch": -20, "yaw":   30, "label": "Mechanical Lab",        "direction": "right" }
       ],
       "machines": []
     },
@@ -154,6 +155,176 @@
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_07", "pitch": -20, "yaw": 180, "label": "Node 07", "direction": "back" }
+      ],
+      "machines": []
+    },
+
+    "node_10": {
+      "label": "Mechanical Lab Entry",
+      "description": "Mechanical Lab — entry point",
+      "image": "/static/panoramas/node_10.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "corridor_node", "pitch": -20, "yaw": 180, "label": "Corridor",  "direction": "back"    },
+        { "target": "node_11",       "pitch": -20, "yaw":   0, "label": "Node 11",   "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_11": {
+      "label": "Node 11",
+      "description": "Mechanical Lab — Node 11",
+      "image": "/static/panoramas/node_11.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_10", "pitch": -20, "yaw": 180, "label": "Node 10", "direction": "back"    },
+        { "target": "node_12", "pitch": -20, "yaw":   0, "label": "Node 12", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_12": {
+      "label": "Node 12",
+      "description": "Mechanical Lab — Node 12",
+      "image": "/static/panoramas/node_12.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_11", "pitch": -20, "yaw": 180, "label": "Node 11", "direction": "back"    },
+        { "target": "node_13", "pitch": -20, "yaw":   0, "label": "Node 13", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_13": {
+      "label": "Node 13",
+      "description": "Mechanical Lab — Node 13",
+      "image": "/static/panoramas/node_13.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_12", "pitch": -20, "yaw": 180, "label": "Node 12", "direction": "back"    },
+        { "target": "node_14", "pitch": -20, "yaw":   0, "label": "Node 14", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_14": {
+      "label": "Node 14 — Junction",
+      "description": "Mechanical Lab — branch junction (right and left wings)",
+      "image": "/static/panoramas/node_14.jpg",
+      "initial_yaw": 0,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_13",  "pitch": -20, "yaw": 180, "label": "Node 13",        "direction": "back"  },
+        { "target": "node_15r", "pitch": -20, "yaw":  90, "label": "Right Wing (15R)","direction": "right" },
+        { "target": "node_15l", "pitch": -20, "yaw": -90, "label": "Left Wing (15L)", "direction": "left"  }
+      ],
+      "machines": []
+    },
+
+    "node_15r": {
+      "label": "Node 15R",
+      "description": "Mechanical Lab — right wing, first position",
+      "image": "/static/panoramas/node_15.jpg",
+      "initial_yaw": 90,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_14",  "pitch": -20, "yaw": 270, "label": "Junction",  "direction": "back"    },
+        { "target": "node_16r", "pitch": -20, "yaw":  90, "label": "Node 16R",  "direction": "forward" },
+        { "target": "node_15l", "pitch": -20, "yaw": 180, "label": "Left Wing", "direction": "left"    }
+      ],
+      "machines": []
+    },
+
+    "node_15l": {
+      "label": "Node 15L",
+      "description": "Mechanical Lab — left wing, first position",
+      "image": "/static/panoramas/node_15.jpg",
+      "initial_yaw": 270,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_14",  "pitch": -20, "yaw":  90, "label": "Junction",   "direction": "back"    },
+        { "target": "node_16l", "pitch": -20, "yaw": 270, "label": "Node 16L",   "direction": "forward" },
+        { "target": "node_15r", "pitch": -20, "yaw":   0, "label": "Right Wing", "direction": "right"   }
+      ],
+      "machines": []
+    },
+
+    "node_16r": {
+      "label": "Node 16R",
+      "description": "Mechanical Lab — right wing, second position",
+      "image": "/static/panoramas/node_16r.jpg",
+      "initial_yaw": 90,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_15r", "pitch": -20, "yaw": 270, "label": "Node 15R", "direction": "back"    },
+        { "target": "node_17r", "pitch": -20, "yaw":  90, "label": "Node 17R", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_17r": {
+      "label": "Node 17R",
+      "description": "Mechanical Lab — right wing, third position",
+      "image": "/static/panoramas/node_17r.jpg",
+      "initial_yaw": 90,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_16r", "pitch": -20, "yaw": 270, "label": "Node 16R", "direction": "back"    },
+        { "target": "node_18r", "pitch": -20, "yaw":  90, "label": "Node 18R", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_18r": {
+      "label": "Node 18R",
+      "description": "Mechanical Lab — right wing, end position",
+      "image": "/static/panoramas/node_18r.jpg",
+      "initial_yaw": 90,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_17r", "pitch": -20, "yaw": 270, "label": "Node 17R", "direction": "back" }
+      ],
+      "machines": []
+    },
+
+    "node_16l": {
+      "label": "Node 16L",
+      "description": "Mechanical Lab — left wing, second position",
+      "image": "/static/panoramas/node_16l.jpg",
+      "initial_yaw": 270,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_15l", "pitch": -20, "yaw":  90, "label": "Node 15L", "direction": "back"    },
+        { "target": "node_17l", "pitch": -20, "yaw": 270, "label": "Node 17L", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_17l": {
+      "label": "Node 17L",
+      "description": "Mechanical Lab — left wing, third position",
+      "image": "/static/panoramas/node_17l.jpg",
+      "initial_yaw": 270,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_16l", "pitch": -20, "yaw":  90, "label": "Node 16L", "direction": "back"    },
+        { "target": "node_18l", "pitch": -20, "yaw": 270, "label": "Node 18L", "direction": "forward" }
+      ],
+      "machines": []
+    },
+
+    "node_18l": {
+      "label": "Node 18L",
+      "description": "Mechanical Lab — left wing, end position",
+      "image": "/static/panoramas/node_18l.jpg",
+      "initial_yaw": 270,
+      "initial_pitch": 0,
+      "navigation": [
+        { "target": "node_17l", "pitch": -20, "yaw":  90, "label": "Node 17L", "direction": "back" }
       ],
       "machines": []
     }

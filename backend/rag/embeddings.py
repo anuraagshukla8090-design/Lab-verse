@@ -13,8 +13,17 @@ Generation layer (rag/chat.py) is separate and uses OpenRouter.
 These two layers are intentionally decoupled.
 """
 
+import os
+
 from functools import lru_cache
 from sentence_transformers import SentenceTransformer
+
+# Prevent sentence-transformers / transformers from making network calls
+# on startup. The model is already fully cached after the first download.
+# Without this, newer sentence-transformers versions attempt to fetch
+# processor_config.json from HuggingFace, which fails if offline.
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+os.environ.setdefault("HF_DATASETS_OFFLINE", "1")
 
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 VECTOR_DIM      = 384
@@ -27,7 +36,7 @@ def _get_model() -> SentenceTransformer:
     lru_cache ensures the ~80 MB model is loaded only once,
     regardless of how many embed_texts / embed_query calls are made.
     """
-    return SentenceTransformer(EMBEDDING_MODEL)
+    return SentenceTransformer(EMBEDDING_MODEL, local_files_only=True)
 
 
 def embed_texts(texts: list[str]) -> list[list[float]]:

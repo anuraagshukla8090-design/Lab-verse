@@ -1516,5 +1516,863 @@
     "images": [],
     "manual_path": "/static/docs/digital_lcr_meter/manual.pdf",
     "sop_path": "/static/docs/digital_lcr_meter/sop.pdf"
+  },
+  "arc_welding_station": {
+    "description": "An arc welding station uses an electric arc to melt and join metal workpieces together.",
+    "overview": "The arc welding station is a fundamental tool in any mechanical lab, enabling students and technicians to join metal parts using high-temperature electric arcs. It supports shielded metal arc welding (SMAW) processes and is used for fabrication, repair, and prototyping tasks. The station typically includes a welding transformer, electrode holder, ground clamp, and protective accessories.",
+    "working_principle": "An electric arc is struck between a consumable electrode and the base metal, generating intense heat (up to 6500°F) that melts both the electrode and the workpiece to form a weld pool, which solidifies into a strong joint upon cooling.",
+    "historical_background": "Arc welding was developed in the late 19th century, with Auguste de Méritens patenting the first arc welding process in 1881.",
+    "specs": {
+      "input_power": "230V / 415V AC, single or three phase",
+      "output_current_range": "20–250 A",
+      "duty_cycle": "60% at rated current",
+      "electrode_diameter": "1.6–5.0 mm",
+      "open_circuit_voltage": "48–80 V"
+    },
+    "applications": ["Metal fabrication", "Structural steel joining", "Repair and maintenance welding", "Pipe welding", "Automotive frame repair"],
+    "industries": ["Construction", "Manufacturing", "Automotive", "Shipbuilding"],
+    "safety_notes": [
+      "Always wear a welding helmet with appropriate shade lens (shade 10–13) to protect eyes from UV radiation.",
+      "Wear flame-resistant gloves, jacket, and boots; never weld in damp clothing.",
+      "Ensure adequate ventilation or use fume extraction to avoid inhaling welding fumes.",
+      "Keep a fire extinguisher nearby and clear the work area of flammable materials.",
+      "Inspect cables, electrode holder, and ground clamp for damage before each use."
+    ],
+    "common_uses": ["Joining mild steel plates", "Fabricating metal frames", "Repairing cracked metal components", "Building jigs and fixtures", "Tack welding assemblies"],
+    "images": [],
+    "manual_path": "/static/docs/arc_welding_station/manual.pdf",
+    "sop_path": "/static/docs/arc_welding_station/sop.pdf"
+  },
+  "mig_welding_station": {
+    "description": "A MIG welding station performs Metal Inert Gas welding using a continuously fed wire electrode and shielding gas.",
+    "overview": "The MIG welding station (also known as GMAW – Gas Metal Arc Welding) is widely used in mechanical labs for its speed, versatility, and ease of learning. It uses a continuously fed consumable wire electrode and a shielding gas (typically argon or CO₂ mix) to protect the weld from atmospheric contamination. It is ideal for welding mild steel, stainless steel, and aluminium.",
+    "working_principle": "A continuous solid wire electrode is fed through a welding gun and melted by an electric arc formed between the wire and the workpiece; simultaneously, a shielding gas is released to protect the molten weld pool from oxidation.",
+    "historical_background": "MIG welding was developed in the 1940s and patented in 1949, originally designed for welding aluminium and non-ferrous metals.",
+    "specs": {
+      "input_power": "230V / 415V AC",
+      "output_current_range": "30–300 A",
+      "wire_feed_speed": "1–18 m/min",
+      "wire_diameter": "0.6–1.2 mm",
+      "shielding_gas": "Argon, CO₂, or Ar/CO₂ mix"
+    },
+    "applications": ["Automotive body repair", "Sheet metal fabrication", "Structural welding", "Pipe and tube welding", "Aluminium welding"],
+    "industries": ["Automotive", "Aerospace", "Manufacturing", "Construction"],
+    "safety_notes": [
+      "Wear appropriate PPE including welding helmet, gloves, and flame-resistant clothing at all times.",
+      "Ensure the shielding gas cylinder is properly secured and regulators are in good condition.",
+      "Never point the welding gun at people; keep fingers away from the wire feed mechanism.",
+      "Work in a well-ventilated area or use a fume extractor to minimize exposure to welding fumes.",
+      "Allow the workpiece to cool before handling; mark hot metal clearly."
+    ],
+    "common_uses": ["Welding thin sheet metals", "Automotive panel repairs", "Fabricating stainless steel components", "Prototype metal structure assembly", "Production line welding"],
+    "images": [],
+    "manual_path": "/static/docs/mig_welding_station/manual.pdf",
+    "sop_path": "/static/docs/mig_welding_station/sop.pdf"
+  },
+  "tig_welding_station": {
+    "description": "A TIG welding station uses a non-consumable tungsten electrode and inert gas to produce precise, high-quality welds.",
+    "overview": "The TIG (Tungsten Inert Gas) welding station, also known as GTAW (Gas Tungsten Arc Welding), is used in mechanical labs for precision welding of thin materials and exotic metals. It produces clean, strong welds with minimal spatter and is commonly used for stainless steel, aluminium, titanium, and copper alloys. The process requires greater operator skill compared to MIG welding.",
+    "working_principle": "A non-consumable tungsten electrode creates an arc with the base metal while an inert shielding gas (typically argon) protects the weld zone; filler metal is optionally added manually by the welder.",
+    "historical_background": "TIG welding was developed in the 1930s–1940s by Russell Meredith at Northrop Aircraft for welding magnesium and aluminium aircraft parts.",
+    "specs": {
+      "input_power": "230V / 415V AC/DC",
+      "output_current_range": "5–200 A",
+      "tungsten_electrode_diameter": "1.0–4.0 mm",
+      "shielding_gas": "Pure Argon (99.99%)",
+      "HF_start": "High-frequency arc initiation"
+    },
+    "applications": ["Aerospace component welding", "Thin gauge stainless steel fabrication", "Aluminium welding", "Titanium and exotic metal welding", "Food-grade equipment fabrication"],
+    "industries": ["Aerospace", "Medical device manufacturing", "Food processing", "Automotive"],
+    "safety_notes": [
+      "Always wear a TIG welding helmet with the correct shade lens and UV/IR filters.",
+      "Never touch the tungsten electrode while the machine is powered on.",
+      "Handle shielding gas cylinders carefully and store them secured in an upright position.",
+      "Keep skin covered to prevent UV radiation burns from the welding arc.",
+      "Inspect the torch, hoses, and gas connections for leaks before operation."
+    ],
+    "common_uses": ["Precision stainless steel welding", "Aluminium sheet joining", "Pipe root pass welding", "Welding thin-wall tubing", "Artistic metalwork"],
+    "images": [],
+    "manual_path": "/static/docs/tig_welding_station/manual.pdf",
+    "sop_path": "/static/docs/tig_welding_station/sop.pdf"
+  },
+  "gas_welding_station": {
+    "description": "A gas welding station uses a combustible gas flame (typically oxy-acetylene) to melt and join metal pieces.",
+    "overview": "The gas welding station employs a mixture of oxygen and acetylene (or other fuel gases) burned through a torch to produce a high-temperature flame for welding and cutting metals. It is a versatile station in mechanical labs, used not only for welding but also for brazing, soldering, and flame cutting. The station includes gas cylinders, regulators, hoses, and a welding/cutting torch.",
+    "working_principle": "Oxygen and fuel gas (acetylene) are mixed and ignited at the torch tip to produce a flame reaching approximately 3500°C, which is directed onto the metal to create a molten weld pool; filler rod is added to complete the joint.",
+    "historical_background": "Oxy-acetylene welding was invented in 1903 by French engineers Édouard Fouché and Charles Picard, becoming the dominant welding method for several decades.",
+    "specs": {
+      "flame_temperature": "Up to 3500°C (oxy-acetylene)",
+      "oxygen_cylinder_pressure": "Up to 150 bar",
+      "acetylene_cylinder_pressure": "Up to 17 bar",
+      "torch_tip_sizes": "0–10 (various flow rates)",
+      "hose_length": "5–10 m"
+    },
+    "applications": ["Metal welding and brazing", "Flame cutting", "Heat straightening", "Silver soldering", "Pipe joining"],
+    "industries": ["Plumbing", "Automotive", "Construction", "Metal art and sculpture"],
+    "safety_notes": [
+      "Always open acetylene valve before oxygen valve and in reverse order when shutting down.",
+      "Never use acetylene at pressures above 15 psi to avoid risk of explosion.",
+      "Store gas cylinders secured upright in a well-ventilated area away from heat sources.",
+      "Always use a flashback arrestor on both hoses to prevent backfire.",
+      "Wear appropriate goggles (shade 5–6) and leather gloves during operation."
+    ],
+    "common_uses": ["Welding mild steel pipes", "Brazing copper fittings", "Flame cutting sheet metal", "Heat-bending metal rods", "Automotive exhaust repair"],
+    "images": [],
+    "manual_path": "/static/docs/gas_welding_station/manual.pdf",
+    "sop_path": "/static/docs/gas_welding_station/sop.pdf"
+  },
+  "air_compressor": {
+    "description": "An air compressor converts power into potential energy stored in pressurized air for various pneumatic applications.",
+    "overview": "The air compressor is a core utility machine in mechanical labs, supplying compressed air to power pneumatic tools, spray guns, cleaning equipment, and testing rigs. It draws in ambient air and compresses it into a storage tank, maintaining a set pressure range for on-demand use. Common types include reciprocating piston, screw, and diaphragm compressors.",
+    "working_principle": "A motor drives a piston or rotary screw mechanism that compresses atmospheric air, reducing its volume and increasing its pressure, which is then stored in a receiver tank and distributed through a regulated air line.",
+    "historical_background": "The first mechanical air compressor was developed in the early 19th century, with industrial reciprocating compressors becoming widespread by the 1880s.",
+    "specs": {
+      "motor_power": "1.5–5.5 kW",
+      "tank_capacity": "50–200 litres",
+      "max_pressure": "8–12 bar",
+      "free_air_delivery": "150–500 LPM",
+      "voltage": "230V / 415V"
+    },
+    "applications": ["Powering pneumatic tools", "Spray painting", "Air cleaning and drying", "Tyre inflation", "Pressure testing"],
+    "industries": ["Manufacturing", "Automotive", "Construction", "Food and beverage"],
+    "safety_notes": [
+      "Never exceed the maximum rated pressure of the tank or connected tools.",
+      "Drain the moisture from the tank receiver daily to prevent corrosion and pressure build-up.",
+      "Inspect hoses and fittings for cracks or leaks before every use.",
+      "Always release pressure completely before performing maintenance on the compressor.",
+      "Wear hearing protection when operating the compressor for extended periods."
+    ],
+    "common_uses": ["Inflating pneumatic components", "Blowing swarf from machinery", "Supplying air to pneumatic drills", "Spray painting surfaces", "Operating pneumatic clamps"],
+    "images": [],
+    "manual_path": "/static/docs/air_compressor/manual.pdf",
+    "sop_path": "/static/docs/air_compressor/sop.pdf"
+  },
+  "pneumatic_workstation": {
+    "description": "A pneumatic workstation integrates compressed air supply and control components for hands-on pneumatic circuit training and experimentation.",
+    "overview": "The pneumatic workstation is a dedicated training and prototyping platform in mechanical labs, featuring air preparation units (filter, regulator, lubricator), directional control valves, actuators, and a structured mounting board. Students use it to design, build, and test pneumatic circuits for automation and control systems. It provides a safe, modular environment to study fluid power principles.",
+    "working_principle": "Compressed air from a supply is conditioned through a filter-regulator-lubricator (FRL) unit and directed via control valves to actuators (cylinders or motors), enabling controlled mechanical motion through pneumatic pressure.",
+    "historical_background": "Pneumatic control systems gained prominence in industrial automation during the mid-20th century, with modular pneumatic training stations developed in the 1970s–80s for educational use.",
+    "specs": {
+      "supply_pressure": "4–8 bar",
+      "flow_rate": "Up to 200 NL/min",
+      "valve_types": "3/2, 5/2, 5/3-way",
+      "cylinder_bore_sizes": "16–63 mm",
+      "working_medium": "Compressed air (dried and filtered)"
+    },
+    "applications": ["Pneumatic circuit design training", "Automation system prototyping", "Actuator control experiments", "Sequential control circuit testing", "PLC integration labs"],
+    "industries": ["Education", "Manufacturing automation", "Packaging", "Robotics"],
+    "safety_notes": [
+      "Ensure supply air pressure does not exceed the rated working pressure of components.",
+      "Always depressurise the circuit before disconnecting or reconfiguring components.",
+      "Check all push-in fittings are fully seated before pressurising the system.",
+      "Never direct compressed air towards persons; avoid pointing actuators at people.",
+      "Wear safety glasses when working with pressurised pneumatic circuits."
+    ],
+    "common_uses": ["Building directional control circuits", "Testing double-acting cylinders", "Demonstrating logic control in pneumatics", "Speed control experiments with flow restrictors", "Integrating sensors and valves for automation"],
+    "images": [],
+    "manual_path": "/static/docs/pneumatic_workstation/manual.pdf",
+    "sop_path": "/static/docs/pneumatic_workstation/sop.pdf"
+  },
+  "benchtop_pneumatic_gun": {
+    "description": "A benchtop pneumatic gun is a compressed-air-powered tool used for fastening, riveting, or stapling in a fixed workbench setup.",
+    "overview": "The benchtop pneumatic gun is mounted or stationed at a workbench in the mechanical lab and connected to a compressed air supply for driving fasteners, rivets, or staples with high force and speed. It offers consistent fastening power without operator fatigue, making it ideal for repetitive assembly tasks. Common variants include pneumatic staple guns, rivet guns, and brad nailers.",
+    "working_principle": "Compressed air is released rapidly through a trigger mechanism, driving a piston or striker that propels a fastener (staple, nail, or rivet) with high velocity into the workpiece.",
+    "historical_background": "Pneumatic fastening tools were commercialised in the 1950s for construction and manufacturing, greatly accelerating assembly line productivity.",
+    "specs": {
+      "air_pressure_requirement": "5.5–8.3 bar",
+      "fastener_length_range": "15–65 mm",
+      "magazine_capacity": "100–150 fasteners",
+      "operating_temperature": "0–60°C",
+      "air_consumption": "0.5–1.5 CFM per cycle"
+    },
+    "applications": ["Stapling upholstery", "Nailing wooden frames", "Riveting sheet metal", "Cabinet assembly", "Packaging and crating"],
+    "industries": ["Furniture manufacturing", "Construction", "Packaging", "Automotive"],
+    "safety_notes": [
+      "Never point the pneumatic gun at any person, even when the magazine is empty.",
+      "Always keep finger off the trigger until the tool is in contact with the workpiece.",
+      "Disconnect from air supply before clearing jams or performing maintenance.",
+      "Wear safety glasses to protect against flying fasteners or debris.",
+      "Ensure the workpiece is securely clamped before firing the gun."
+    ],
+    "common_uses": ["Assembling wooden panels", "Fastening backing boards", "Upholstery stapling", "Sheet metal riveting", "Light-duty nailing tasks"],
+    "images": [],
+    "manual_path": "/static/docs/benchtop_pneumatic_gun/manual.pdf",
+    "sop_path": "/static/docs/benchtop_pneumatic_gun/sop.pdf"
+  },
+  "nail_gun": {
+    "description": "A nail gun is a powered tool that drives nails into wood or other materials at high speed using pneumatic, electric, or combustion force.",
+    "overview": "The nail gun in the mechanical lab is typically a pneumatic-powered tool connected to an air compressor, used for rapid and precise nailing in woodworking, framing, and construction projects. It significantly increases nailing speed and consistency compared to hand hammering. Various types exist, including brad nailers, framing nailers, and finish nailers, each suited to specific nail sizes and applications.",
+    "working_principle": "When the trigger is depressed and the nose piece contacts the work surface, a burst of compressed air drives a piston that pushes a nail from the magazine strip into the material at high velocity.",
+    "historical_background": "The first pneumatic nail gun was developed in 1950 for the construction of the floor of the Florida state fair and was patented shortly after.",
+    "specs": {
+      "air_pressure": "6–8 bar",
+      "nail_length_range": "15–90 mm",
+      "nail_gauge": "15–21 gauge (depending on type)",
+      "magazine_capacity": "100–200 nails",
+      "driving_depth_adjustment": "Tool-free depth adjustment"
+    },
+    "applications": ["Wood framing", "Sheathing and decking", "Trim and finish carpentry", "Cabinet assembly", "Pallet making"],
+    "industries": ["Construction", "Furniture manufacturing", "Woodworking", "Packaging"],
+    "safety_notes": [
+      "Never bypass or disable the safety contact element on the nose piece.",
+      "Keep fingers and body parts clear of the nail exit zone at all times.",
+      "Disconnect air supply before loading nails or clearing jams.",
+      "Wear safety glasses and hearing protection during operation.",
+      "Do not use the nail gun on live electrical cables or conduits."
+    ],
+    "common_uses": ["Nailing wooden studs and frames", "Attaching plywood sheathing", "Installing skirting and trim boards", "Assembling wooden jigs", "Crating and boxing"],
+    "images": [],
+    "manual_path": "/static/docs/nail_gun/manual.pdf",
+    "sop_path": "/static/docs/nail_gun/sop.pdf"
+  },
+  "hydraulic_press": {
+    "description": "A hydraulic press uses hydraulic pressure to generate large compressive forces for forming, pressing, or punching materials.",
+    "overview": "The hydraulic press in the mechanical lab is used to apply controlled, high-force pressing operations on metals, plastics, and composites. It operates through Pascal's principle, allowing small input forces to generate very large output forces. Common lab applications include bearing pressing, sheet metal forming, tablet compression, and straightening bent components.",
+    "working_principle": "A hydraulic pump forces oil into a cylinder, moving a piston that applies compressive force to the workpiece; the force is multiplied according to Pascal's law (F = P × A), enabling tonnes of force from a compact machine.",
+    "historical_background": "The hydraulic press was invented by Joseph Bramah in 1795, and it remains one of the most fundamental machines in manufacturing and engineering.",
+    "specs": {
+      "pressing_force": "5–50 tonnes",
+      "hydraulic_pressure": "Up to 700 bar",
+      "table_size": "300 × 300 mm (typical)",
+      "stroke_length": "100–300 mm",
+      "motor_power": "1.5–5.5 kW"
+    },
+    "applications": ["Bearing installation and removal", "Sheet metal deep drawing", "Rubber moulding", "Straightening bent shafts", "Powder compaction"],
+    "industries": ["Manufacturing", "Automotive", "Aerospace", "Research and development"],
+    "safety_notes": [
+      "Never exceed the rated capacity of the press; check the load cell or pressure gauge before applying full force.",
+      "Ensure the workpiece is centred and properly supported before pressing.",
+      "Keep hands and body parts clear of the pressing zone during operation.",
+      "Inspect hydraulic hoses and seals regularly for leaks or damage.",
+      "Wear safety glasses and appropriate footwear in case of workpiece ejection."
+    ],
+    "common_uses": ["Pressing bearings onto shafts", "Forming metal plates", "Extracting press-fit components", "Compressing test specimens", "Bending metal sections"],
+    "images": [],
+    "manual_path": "/static/docs/hydraulic_press/manual.pdf",
+    "sop_path": "/static/docs/hydraulic_press/sop.pdf"
+  },
+  "chop_saw": {
+    "description": "A chop saw (abrasive or cold saw) is a power tool used to make precise, straight cuts through metal or masonry materials.",
+    "overview": "The chop saw, also called a metal cut-off saw or abrasive saw, is an essential cutting tool in the mechanical lab for producing square, burr-free cuts on metal bars, tubes, angles, and pipes. It uses a rotating abrasive or carbide-tipped disc that is plunged down into the workpiece in a chopping motion. Cold saws use low-speed toothed blades with cooling, producing clean, cool cuts without sparks.",
+    "working_principle": "A powerful motor spins an abrasive disc or toothed blade at high RPM; when the pivoting arm is lowered, the rotating disc contacts the clamped metal workpiece, cutting through it by abrasion or shearing.",
+    "historical_background": "Abrasive chop saws became industrially common in the mid-20th century, while cold saw technology was developed for cleaner cuts without heat distortion.",
+    "specs": {
+      "motor_power": "2.0–2.2 kW",
+      "disc_diameter": "305–355 mm",
+      "no_load_speed": "3800–4000 RPM (abrasive) / 25–65 RPM (cold saw)",
+      "max_cut_capacity": "Round: 110 mm dia; Square: 120 × 120 mm",
+      "clamping_vise": "Swivel vise for miter cuts"
+    },
+    "applications": ["Cutting metal bars and rods", "Cutting structural sections (angle, channel)", "Pipe cutting", "Cutting reinforcing bars", "Metal framing"],
+    "industries": ["Construction", "Metal fabrication", "Plumbing", "Automotive"],
+    "safety_notes": [
+      "Always secure the workpiece firmly in the vise before cutting.",
+      "Wear face shield, safety glasses, and hearing protection during operation.",
+      "Allow the blade to reach full speed before lowering into the workpiece.",
+      "Never use a damaged or cracked abrasive disc; inspect before each use.",
+      "Keep bystanders away from the sparking zone; have a fire extinguisher nearby."
+    ],
+    "common_uses": ["Cutting mild steel bar stock to length", "Sectioning hollow section tubes", "Preparing metal blanks for machining", "Cutting angle iron for frames", "Rough cutting stainless steel rods"],
+    "images": [],
+    "manual_path": "/static/docs/chop_saw/manual.pdf",
+    "sop_path": "/static/docs/chop_saw/sop.pdf"
+  },
+  "laser_cutting_machine": {
+    "description": "A laser cutting machine uses a high-powered laser beam to cut, engrave, or etch materials with precision and speed.",
+    "overview": "The laser cutting machine in the mechanical lab provides CNC-guided, highly precise cutting and engraving of metals, plastics, wood, and composites using a focused laser beam. It enables rapid prototyping, intricate designs, and tight tolerances that are difficult to achieve with mechanical cutting tools. The machine is controlled through CAD/CAM software and supports DXF/SVG file inputs.",
+    "working_principle": "A high-power laser beam (CO₂ or fibre) is focused through a lens onto the material surface; the concentrated energy melts, burns, or vaporises the material along the programmed toolpath while an assist gas (oxygen or nitrogen) blows away the molten material.",
+    "historical_background": "Laser cutting was first applied industrially in 1965 for drilling holes in diamond dies, and CO₂ laser cutting of metals became widespread from the 1970s onward.",
+    "specs": {
+      "laser_power": "40–150 W (CO₂) or 500–6000 W (fibre)",
+      "cutting_area": "600 × 900 mm (typical desktop); up to 1500 × 3000 mm (industrial)",
+      "positioning_accuracy": "±0.05 mm",
+      "max_cutting_thickness": "Acrylic: 20 mm; Mild steel: 6 mm (at 150W fibre)",
+      "laser_wavelength": "10.6 µm (CO₂) / 1.06 µm (fibre)"
+    },
+    "applications": ["Precision sheet metal cutting", "Acrylic and plastic engraving", "PCB stencil cutting", "Prototype part fabrication", "Signage and decorative cutting"],
+    "industries": ["Aerospace", "Electronics", "Automotive", "Signage and advertising"],
+    "safety_notes": [
+      "Never operate the laser cutter without the enclosure door closed and interlocks active.",
+      "Always use the appropriate laser safety goggles rated for the laser wavelength.",
+      "Ensure fume extraction is running before starting any cutting job.",
+      "Never leave the machine unattended during a cutting job due to fire risk.",
+      "Keep reflective materials away from CO₂ laser beams to prevent unintended reflections."
+    ],
+    "common_uses": ["Cutting intricate sheet metal parts", "Engraving aluminium plates", "Fabricating acrylic enclosures", "Creating PCB solder paste stencils", "Prototype gear and bracket cutting"],
+    "images": [],
+    "manual_path": "/static/docs/laser_cutting_machine/manual.pdf",
+    "sop_path": "/static/docs/laser_cutting_machine/sop.pdf"
+  },
+  "scroll_saw_machine": {
+    "description": "A scroll saw is a fine-bladed, reciprocating power saw used for cutting intricate curves and patterns in thin wood, plastic, or metal.",
+    "overview": "The scroll saw in the mechanical lab is used for detailed, ornamental, and precision freehand cutting of thin materials, making it invaluable for woodworking, model making, and pattern work. It uses a thin, fine-toothed reciprocating blade that moves up and down rapidly, allowing the operator to navigate complex curves and internal cutouts with ease. Its low vibration and precise control distinguish it from other saws.",
+    "working_principle": "An electric motor drives a mechanism (crank or parallel arm) that moves a thin, fine-toothed blade in a rapid up-and-down reciprocating motion; the workpiece is fed by hand along the desired cutting line on the saw table.",
+    "historical_background": "The scroll saw evolved from foot-powered treadle fret saws used in Victorian-era marquetry, with electrically powered versions becoming common in the 20th century.",
+    "specs": {
+      "motor_power": "120–200 W",
+      "blade_stroke_length": "16–20 mm",
+      "speed_range": "400–1800 SPM (strokes per minute)",
+      "max_material_thickness": "50–75 mm (wood); 3 mm (soft metal)",
+      "table_tilt": "0–45°"
+    },
+    "applications": ["Decorative woodworking", "Jigsaw puzzle making", "Intarsia and marquetry", "Model aircraft parts", "Thin metal fretwork"],
+    "industries": ["Woodworking", "Crafts and hobbies", "Education", "Signage"],
+    "safety_notes": [
+      "Keep fingers away from the blade path and use a push stick for small pieces.",
+      "Ensure the blade is tensioned correctly and inspected for cracks before use.",
+      "Secure the workpiece firmly on the table; use the hold-down foot to prevent lifting.",
+      "Wear safety glasses to protect against fine sawdust and blade debris.",
+      "Switch off and allow the blade to stop completely before removing the workpiece or adjusting the setup."
+    ],
+    "common_uses": ["Cutting decorative wooden shapes", "Making internal cutouts in panels", "Crafting interlocking wooden puzzles", "Cutting thin aluminium sheet", "Producing fret patterns in wood"],
+    "images": [],
+    "manual_path": "/static/docs/scroll_saw_machine/manual.pdf",
+    "sop_path": "/static/docs/scroll_saw_machine/sop.pdf"
+  },
+  "jigsaw_machine": {
+    "description": "A jigsaw is an electric power tool with a reciprocating blade used to cut curves, shapes, and straight lines in wood, metal, and plastics.",
+    "overview": "The jigsaw in the mechanical lab is a versatile handheld cutting tool capable of making curved, angled, and straight cuts in a wide range of materials including wood, metal sheets, plastic, and ceramic tiles. It is widely used for cutting out irregular shapes, making plunge cuts, and pattern cutting in sheet materials. The blade is interchangeable and selected based on the material and desired cut quality.",
+    "working_principle": "An electric motor drives the blade in a rapid up-and-down reciprocating action; in orbital mode, the blade also moves forward and backward to increase cutting speed, while the shoe plate guides the cut angle.",
+    "historical_background": "The jigsaw was invented by Albert Kaufmann in 1946 at Scintilla AG (Switzerland), originally adapting a sewing machine mechanism to hold a saw blade.",
+    "specs": {
+      "motor_power": "350–750 W",
+      "no_load_stroke_rate": "500–3100 SPM",
+      "cutting_capacity_wood": "Up to 135 mm",
+      "cutting_capacity_steel": "Up to 10 mm",
+      "orbital_action_settings": "0–3 (variable)"
+    },
+    "applications": ["Curved cuts in wooden panels", "Metal sheet profiling", "Plunge cuts in countertops", "Cutting plastic sheets", "Tile cutting (with diamond blade)"],
+    "industries": ["Woodworking", "Construction", "Metal fabrication", "Interior design"],
+    "safety_notes": [
+      "Clamp the workpiece securely before cutting; never hold it in one hand while cutting.",
+      "Select the correct blade type for the material being cut.",
+      "Keep the base plate flat on the workpiece to ensure a controlled, straight cut.",
+      "Wear safety glasses and dust mask during operation.",
+      "Disconnect the power before changing blades or performing maintenance."
+    ],
+    "common_uses": ["Cutting wooden panel shapes", "Scribing irregular patterns on MDF", "Cutting sheet metal profiles", "Cutting sink or appliance holes in worktops", "Curved cuts in acrylic sheet"],
+    "images": [],
+    "manual_path": "/static/docs/jigsaw_machine/manual.pdf",
+    "sop_path": "/static/docs/jigsaw_machine/sop.pdf"
+  },
+  "table_saw": {
+    "description": "A table saw is a woodworking machine with a circular blade mounted on an arbor beneath a flat table for making precise, straight cuts in wood.",
+    "overview": "The table saw is one of the most important stationary woodworking machines in the mechanical lab, designed for making rip cuts (along the grain), cross cuts, miter cuts, and dado cuts in wood and wood-based materials. The blade protrudes through a slot in the table, and the workpiece is fed against the blade using a fence or miter gauge. It offers high cutting accuracy and repeatability.",
+    "working_principle": "An electric motor drives a circular saw blade mounted below the table; the blade height and angle are adjustable, and the workpiece is guided against the spinning blade using a rip fence or miter gauge for precise, repeatable cuts.",
+    "historical_background": "The table saw was invented around 1777 by Samuel Miller in England; it became a cornerstone of woodworking shops with the advent of electric motors in the early 20th century.",
+    "specs": {
+      "motor_power": "1.5–3.0 kW",
+      "blade_diameter": "250–315 mm",
+      "no_load_speed": "4500–5000 RPM",
+      "max_rip_capacity": "Up to 800 mm from blade to fence",
+      "blade_tilt": "0–45°"
+    },
+    "applications": ["Ripping solid wood boards", "Cross cutting timber to length", "Making dado and groove cuts", "Cutting sheet goods (plywood, MDF)", "Bevel and miter cutting"],
+    "industries": ["Furniture manufacturing", "Woodworking", "Construction", "Cabinet making"],
+    "safety_notes": [
+      "Always use the blade guard, riving knife, and anti-kickback pawls during normal ripping.",
+      "Never reach over or behind the spinning blade; stand to the side of the cut line.",
+      "Use a push stick or push block when ripping narrow pieces (less than 150 mm wide).",
+      "Do not make freehand cuts; always use the fence or miter gauge.",
+      "Disconnect power before changing blades or making adjustments below the table."
+    ],
+    "common_uses": ["Ripping timber to width", "Cutting plywood panels to size", "Making grooves for joinery", "Beveling edges of boards", "Crosscutting lumber to length"],
+    "images": [],
+    "manual_path": "/static/docs/table_saw/manual.pdf",
+    "sop_path": "/static/docs/table_saw/sop.pdf"
+  },
+  "circular_electric_saw": {
+    "description": "A circular electric saw is a handheld power tool with a circular toothed blade used for straight cuts in wood, metal, and other materials.",
+    "overview": "The circular electric saw (also called a Skilsaw) is a portable cutting tool used widely in the mechanical lab and on-site for crosscutting, ripping, and bevel cutting in wood, plywood, and thin metal. Its portability makes it ideal for cutting large sheet materials that cannot be moved to a stationary saw. The blade depth and bevel angle are adjustable to suit various cutting requirements.",
+    "working_principle": "An electric motor directly drives a circular toothed blade that spins at high speed; the blade depth is set relative to the shoe plate, and as the saw is pushed forward along the workpiece, the blade cuts through the material.",
+    "historical_background": "The circular saw was invented by Tabitha Babbitt in 1813; the handheld electric version was commercialised by Skilsaw Inc. in 1924.",
+    "specs": {
+      "motor_power": "1200–1800 W",
+      "blade_diameter": "165–235 mm",
+      "no_load_speed": "4500–5600 RPM",
+      "max_cutting_depth_90deg": "55–85 mm",
+      "bevel_capacity": "0–56°"
+    },
+    "applications": ["Cutting wooden boards on-site", "Sheet plywood cutting", "Framing lumber crosscuts", "Cutting thin aluminium sheet (with appropriate blade)", "Roofing and sheathing cuts"],
+    "industries": ["Construction", "Woodworking", "Renovation", "Carpentry"],
+    "safety_notes": [
+      "Always allow the lower blade guard to close automatically after each cut; never pin it open.",
+      "Clamp or support the workpiece so the offcut does not bind the blade and cause kickback.",
+      "Use a cutting guide or straight edge for accurate, controlled cuts.",
+      "Wear safety glasses, hearing protection, and dust mask during use.",
+      "Ensure the power cord is behind you and away from the cutting path at all times."
+    ],
+    "common_uses": ["Breaking down sheet goods on the floor", "Crosscutting studs and rafters", "Cutting timber to rough length", "Trimming door panels", "Cutting lightweight aluminium profiles"],
+    "images": [],
+    "manual_path": "/static/docs/circular_electric_saw/manual.pdf",
+    "sop_path": "/static/docs/circular_electric_saw/sop.pdf"
+  },
+  "sheet_cutter_tools": {
+    "description": "Sheet cutter tools are manual or powered devices used to cut sheet materials such as metal, plastic, or cardboard to size.",
+    "overview": "Sheet cutter tools in the mechanical lab encompass a range of instruments including manual tin snips, lever shears (guillotines), and motorised slitting or shearing machines designed to cut flat sheet materials cleanly without deforming the edges. They are essential for preparing sheet metal blanks, cutting gasket materials, and trimming panel components to precise dimensions. Tool selection depends on material thickness and required cut quality.",
+    "working_principle": "Manual snips use scissor-action hardened steel blades to shear through thin sheet material; powered guillotines and shear machines use a straight hardened blade driven by mechanical or hydraulic force to cleanly sever the sheet along a straight line.",
+    "historical_background": "Sheet metal shearing tools date back centuries, with industrial-scale mechanical guillotine shears becoming widespread during the industrial revolution of the 18th–19th centuries.",
+    "specs": {
+      "max_sheet_thickness": "0.5–6 mm (mild steel, depending on tool)",
+      "cutting_length": "Up to 2500 mm (bench guillotine)",
+      "blade_material": "High-speed steel or hardened tool steel",
+      "cutting_action": "Straight shear, 30–45° blade rake angle",
+      "back_gauge": "Adjustable up to 300 mm"
+    },
+    "applications": ["Cutting sheet metal blanks", "Trimming aluminium sheets", "Cutting gasket materials", "Preparing copper and brass strips", "Cutting plastic laminates"],
+    "industries": ["Sheet metal fabrication", "HVAC", "Electronics enclosure manufacturing", "Automotive"],
+    "safety_notes": [
+      "Keep fingers well clear of the blade shear line at all times.",
+      "Wear cut-resistant gloves when handling sheet metal edges.",
+      "Ensure the hold-down foot is engaged before operating a powered guillotine.",
+      "Do not attempt to cut material thicker than the machine's rated capacity.",
+      "Dispose of sheet metal offcuts safely in designated bins to avoid laceration injuries."
+    ],
+    "common_uses": ["Cutting mild steel sheet to blank size", "Trimming aluminium plate edges", "Cutting copper strips for electrical work", "Preparing sheet metal for forming", "Cutting rubber and gasket sheets"],
+    "images": [],
+    "manual_path": "/static/docs/sheet_cutter_tools/manual.pdf",
+    "sop_path": "/static/docs/sheet_cutter_tools/sop.pdf"
+  },
+  "pcb_drill_machine": {
+    "description": "A PCB drill machine is a precision micro-drilling tool used to create component mounting holes in printed circuit boards.",
+    "overview": "The PCB drill machine in the mechanical lab is a high-speed, precision desktop tool used to drill very small diameter holes in printed circuit boards (PCBs) for through-hole component mounting and vias. It accommodates miniature carbide twist drills and operates at very high spindle speeds to produce clean, burr-free holes without delaminating the PCB substrate. CNC versions allow automated hole drilling from Gerber/drill files.",
+    "working_principle": "A high-speed motor (typically 20,000–60,000 RPM) drives a small-diameter carbide drill bit through the PCB substrate; the Z-axis feed is controlled either manually or by CNC servo, and the PCB is registered to a reference point for accurate hole placement.",
+    "historical_background": "Dedicated PCB drilling machines emerged in the 1960s alongside the growth of the electronics industry, evolving from manual drill presses to high-speed CNC systems.",
+    "specs": {
+      "spindle_speed": "10,000–60,000 RPM",
+      "drill_bit_diameter_range": "0.1–3.175 mm",
+      "positional_accuracy": "±0.025 mm",
+      "table_travel": "X: 300 mm, Y: 250 mm (typical benchtop)",
+      "chuck_type": "ER11 collet chuck"
+    },
+    "applications": ["Through-hole PCB drilling", "Via hole drilling", "Prototype PCB fabrication", "Drilling connector mounting holes", "Multi-layer PCB processing"],
+    "industries": ["Electronics", "Telecommunications", "Aerospace electronics", "Education"],
+    "safety_notes": [
+      "Always secure the PCB with the hold-down foot or tape before drilling to prevent spinning.",
+      "Use the correct drill bit speed for the bit diameter to avoid breakage.",
+      "Wear safety glasses to protect against flying PCB fragments and broken drill bits.",
+      "Do not exceed the rated drill bit diameter for the spindle chuck size.",
+      "Handle carbide drill bits carefully — they are brittle and break easily if dropped or forced."
+    ],
+    "common_uses": ["Drilling component holes in prototype PCBs", "Creating via holes in double-sided boards", "Mounting hole drilling for connectors", "Drilling test point access holes", "Producing single-sided PCB layouts"],
+    "images": [],
+    "manual_path": "/static/docs/pcb_drill_machine/manual.pdf",
+    "sop_path": "/static/docs/pcb_drill_machine/sop.pdf"
+  },
+  "benchtop_drill_machine": {
+    "description": "A benchtop drill machine (bench drill press) is a stationary drilling tool mounted on a base for accurate vertical drilling in various materials.",
+    "overview": "The benchtop drill machine is a fundamental piece of equipment in the mechanical lab, providing precise and controlled drilling in metal, wood, plastics, and composites. Unlike handheld drills, it maintains a perfectly perpendicular drilling axis and allows speed adjustment through a belt and pulley system to suit different materials and drill bit sizes. It is used for general hole making, counterboring, reaming, and light spot-facing operations.",
+    "working_principle": "An electric motor drives the spindle through a belt and pulley arrangement; the operator lowers the rotating drill bit into the workpiece using a rack-and-pinion quill feed handle, with depth stop to control hole depth.",
+    "historical_background": "The drill press was developed in the early 19th century as workshop machines became mechanised; floor-standing and bench versions became standard in engineering workshops by the early 20th century.",
+    "specs": {
+      "motor_power": "350–750 W",
+      "spindle_speed_range": "180–3000 RPM (5–12 speed steps)",
+      "max_drill_capacity_steel": "13–16 mm",
+      "spindle_travel": "50–80 mm",
+      "table_size": "200 × 200 mm"
+    },
+    "applications": ["Drilling holes in metal plates", "Counterboring and countersinking", "Reaming to precise diameter", "Wood and plastic drilling", "Spot-facing operations"],
+    "industries": ["Manufacturing", "Automotive", "Woodworking", "Education"],
+    "safety_notes": [
+      "Always clamp the workpiece securely to the table; never hold it by hand while drilling.",
+      "Use the correct drill bit type and speed for the material.",
+      "Lower the drill slowly and apply cutting fluid when drilling metal.",
+      "Wear safety glasses and remove loose clothing, jewellery, and ties before operating.",
+      "Allow the spindle to come to a complete stop before removing the workpiece or changing bits."
+    ],
+    "common_uses": ["Drilling mounting holes in steel plates", "Counterboring for cap screws", "Reaming bearing housings", "Drilling wood for dowels", "Spot-facing machined castings"],
+    "images": [],
+    "manual_path": "/static/docs/benchtop_drill_machine/manual.pdf",
+    "sop_path": "/static/docs/benchtop_drill_machine/sop.pdf"
+  },
+  "mini_desktop_lathe_cum_milling": {
+    "description": "A mini desktop lathe cum milling machine is a compact combination machine tool for turning, milling, and drilling small workpieces.",
+    "overview": "The mini desktop lathe cum milling machine is a versatile combination machine tool in the mechanical lab that integrates lathe turning, milling, and drilling functions in a single compact unit. It is ideal for small-scale precision machining of metal, wood, and plastic parts in educational and prototype settings. The machine typically features a headstock with variable speed, a cross-slide, and a milling column with a vertical spindle.",
+    "working_principle": "In lathe mode, the workpiece rotates in the chuck while a stationary cutting tool removes material; in milling mode, a rotating milling cutter is driven by a vertical spindle while the workpiece is fed on the XY table beneath it.",
+    "historical_background": "Combination lathe-milling machines became popular in the late 20th century for home machinists and educational workshops, offering versatility in a small footprint.",
+    "specs": {
+      "motor_power": "350–750 W",
+      "lathe_swing_over_bed": "150–180 mm",
+      "distance_between_centres": "300–400 mm",
+      "milling_spindle_speed": "100–2500 RPM",
+      "spindle_taper": "MT2 or MT3"
+    },
+    "applications": ["Turning small shafts and pins", "Facing and boring small parts", "End milling slots and keyways", "Drilling and tapping", "Prototype part fabrication"],
+    "industries": ["Education", "Prototyping", "Watchmaking and instrument making", "Model engineering"],
+    "safety_notes": [
+      "Always remove the chuck key before starting the lathe spindle.",
+      "Wear safety glasses and avoid loose clothing near rotating parts.",
+      "Use appropriate feeds and speeds for the material and cutting tool.",
+      "Secure the workpiece firmly in the chuck or milling vise before starting.",
+      "Never leave the machine running unattended; switch off when making adjustments."
+    ],
+    "common_uses": ["Turning cylindrical shafts to diameter", "Milling flat surfaces on small parts", "Drilling and tapping threaded holes", "Boring cylindrical holes to size", "Producing custom prototype components"],
+    "images": [],
+    "manual_path": "/static/docs/mini_desktop_lathe_cum_milling/manual.pdf",
+    "sop_path": "/static/docs/mini_desktop_lathe_cum_milling/sop.pdf"
+  },
+  "wood_lathe": {
+    "description": "A wood lathe is a machine tool that rotates a wooden workpiece about its axis to perform shaping operations using hand-held cutting tools.",
+    "overview": "The wood lathe is a foundational woodworking machine in the mechanical lab used to produce cylindrical, conical, and complex curved wooden forms through the craft of wood turning. The workpiece is mounted between the headstock and tailstock (or on a faceplate) and rotated at speed while the operator brings hand-held gouges, chisels, and skew tools into contact with the wood. It is used for making bowls, spindles, table legs, and decorative items.",
+    "working_principle": "An electric motor drives the headstock spindle, rotating the workpiece; the operator manually presents cutting tools resting on the tool rest, which progressively remove material as the workpiece spins, shaping it to the desired profile.",
+    "historical_background": "The lathe is one of the oldest machine tools, with two-person bow lathes dating back to ancient Egypt (circa 1300 BC); foot-powered and later motor-driven wood lathes became standard workshop tools by the 19th century.",
+    "specs": {
+      "motor_power": "375 W – 1.5 kW",
+      "swing_over_bed": "300–400 mm",
+      "distance_between_centres": "400–1200 mm",
+      "spindle_speed_range": "250–3200 RPM",
+      "spindle_thread": "M33 × 3.5 or equivalent"
+    },
+    "applications": ["Bowl turning", "Spindle turning (legs, balusters)", "Pen and tool handle making", "Decorative vase making", "Wooden toy fabrication"],
+    "industries": ["Furniture manufacturing", "Crafts and hobbies", "Education", "Interior design"],
+    "safety_notes": [
+      "Always inspect the workpiece for cracks, knots, or embedded objects before mounting.",
+      "Use correct spindle speed for workpiece diameter — larger diameter = lower speed.",
+      "Wear a full face shield and dust mask during turning.",
+      "Position the tool rest close to the workpiece and below its centreline.",
+      "Avoid wearing gloves during turning — they can be caught by the rotating workpiece."
+    ],
+    "common_uses": ["Turning wooden bowls on a faceplate", "Shaping table legs between centres", "Making wooden pen barrels", "Producing cylindrical dowels", "Decorative hollow form turning"],
+    "images": [],
+    "manual_path": "/static/docs/wood_lathe/manual.pdf",
+    "sop_path": "/static/docs/wood_lathe/sop.pdf"
+  },
+  "hand_grinder": {
+    "description": "A hand grinder is a portable, handheld power tool used for grinding, cutting, polishing, and deburring metal and other hard materials.",
+    "overview": "The hand grinder (also called a die grinder or straight grinder) in the mechanical lab is a compact, lightweight rotary tool used for detailed grinding, polishing, and material removal in hard-to-reach areas. It accepts various accessories including grinding stones, flap wheels, cut-off discs, and polishing bobs. It is commonly used for deburring castings, weld dressing, and surface finishing.",
+    "working_principle": "An electric motor or pneumatic turbine drives a rotating spindle at high RPM; the mounted abrasive accessory removes material by abrasion or cutting when pressed against the workpiece surface.",
+    "historical_background": "Handheld grinding tools have been used since the 19th century; the modern electric die grinder was developed in the early 20th century alongside the growth of metalworking industries.",
+    "specs": {
+      "motor_power": "300–600 W",
+      "no_load_speed": "25,000–35,000 RPM",
+      "collet_size": "3 mm / 6 mm / 6.35 mm (1/4 inch)",
+      "chuck_type": "Collet chuck",
+      "body_type": "Straight (inline)"
+    },
+    "applications": ["Deburring castings and forgings", "Weld bead dressing", "Porting and polishing cylinder heads", "Engraving and carving", "Internal grinding of bores"],
+    "industries": ["Automotive", "Aerospace", "Foundry", "Manufacturing"],
+    "safety_notes": [
+      "Never exceed the rated RPM of the grinding accessory; check the rating before use.",
+      "Wear safety glasses or face shield, and ear protection during operation.",
+      "Secure the workpiece before grinding; do not hold small parts in one hand.",
+      "Ensure the collet is tightened correctly to prevent accessory ejection.",
+      "Disconnect from power before changing accessories or collets."
+    ],
+    "common_uses": ["Deburring drilled or cast holes", "Smoothing weld joints", "Carving detail in metal", "Polishing internal surfaces", "Enlarging or shaping holes"],
+    "images": [],
+    "manual_path": "/static/docs/hand_grinder/manual.pdf",
+    "sop_path": "/static/docs/hand_grinder/sop.pdf"
+  },
+  "angle_grinder": {
+    "description": "An angle grinder is a handheld power tool used for grinding, cutting, and polishing using abrasive discs mounted at a right angle to the drive shaft.",
+    "overview": "The angle grinder is one of the most versatile and widely used tools in the mechanical lab, capable of grinding, cutting, deburring, and surface preparation on metal, stone, and masonry. The disc is mounted perpendicular (at 90°) to the motor body, allowing flat surface grinding and edge work. Various disc types include grinding wheels, cutting discs, flap discs, wire cup brushes, and diamond blades.",
+    "working_principle": "An electric motor drives a right-angle gearhead that spins an abrasive disc at high speed; when applied to the workpiece, the abrasive surface removes material by grinding or cuts through it depending on the disc type used.",
+    "historical_background": "The angle grinder was invented in 1954 by German company Ackermann und Schmitt (later acquired by Bosch) and has since become ubiquitous in metalworking and construction.",
+    "specs": {
+      "motor_power": "750 W – 2.4 kW",
+      "disc_diameter": "100–230 mm",
+      "no_load_speed": "6500–11,000 RPM",
+      "spindle_thread": "M10 or M14",
+      "weight": "1.5–5 kg (depending on size)"
+    },
+    "applications": ["Cutting metal bar and sheet", "Weld grinding and dressing", "Surface rust and scale removal", "Tile and stone cutting", "Paint and coating removal"],
+    "industries": ["Metal fabrication", "Construction", "Automotive", "Stone and masonry"],
+    "safety_notes": [
+      "Always fit and use the correct guard for the disc type and diameter being used.",
+      "Wear face shield, safety glasses, and leather gloves during grinding operations.",
+      "Never use a cutting disc for grinding or vice versa — use the correct disc for the task.",
+      "Ensure the disc is rated for the RPM of the grinder before mounting.",
+      "Inspect the disc for cracks or damage before each use; discard damaged discs immediately."
+    ],
+    "common_uses": ["Cutting mild steel plate and pipe", "Grinding down weld beads", "Removing surface rust from steel", "Cutting ceramic tiles", "Deburring cut metal edges"],
+    "images": [],
+    "manual_path": "/static/docs/angle_grinder/manual.pdf",
+    "sop_path": "/static/docs/angle_grinder/sop.pdf"
+  },
+  "corded_hand_grinder": {
+    "description": "A corded hand grinder is a mains-powered handheld grinding tool offering consistent power for extended grinding and cutting tasks.",
+    "overview": "The corded hand grinder in the mechanical lab provides sustained, consistent power from a mains supply — unlike battery-powered variants — making it ideal for prolonged grinding, cutting, and surface preparation tasks without power fade. It is commonly used for heavy-duty material removal, weld clean-up, and deburring on metal workpieces. The corded design ensures no interruption for battery charging in production or lab environments.",
+    "working_principle": "A mains-powered universal or induction motor drives the spindle; this in turn rotates an abrasive or cutting disc at high speed to remove material from the workpiece through abrasive action or mechanical cutting.",
+    "historical_background": "Corded power tools became prevalent in workshops from the early-to-mid 20th century as reliable AC power became widely available in industrial and educational settings.",
+    "specs": {
+      "motor_power": "800 W – 2200 W",
+      "disc_size": "115 mm / 125 mm / 230 mm",
+      "no_load_speed": "6000–12,000 RPM",
+      "power_supply": "230V / 50Hz",
+      "cord_length": "2.5–4 m"
+    },
+    "applications": ["Heavy-duty metal grinding", "Weld spatter removal", "Surface preparation for painting", "Cutting reinforcing bars", "Removing gaskets and adhesives"],
+    "industries": ["Construction", "Metal fabrication", "Automotive", "Shipbuilding"],
+    "safety_notes": [
+      "Always check the power cord for damage before use and route it away from the cutting path.",
+      "Never remove the side handle; always grip with both hands for control.",
+      "Wear full PPE including face shield, hearing protection, and anti-vibration gloves.",
+      "Do not apply excessive side pressure to cutting discs as this may cause disc fracture.",
+      "Allow the disc to reach operating speed before applying it to the workpiece."
+    ],
+    "common_uses": ["Grinding welds flush with base metal", "Removing mill scale from steel", "Cutting rebar and steel angles", "Surface preparation before coating", "Deburring sheared metal edges"],
+    "images": [],
+    "manual_path": "/static/docs/corded_hand_grinder/manual.pdf",
+    "sop_path": "/static/docs/corded_hand_grinder/sop.pdf"
+  },
+  "belt_and_disc_sanding_machine": {
+    "description": "A belt and disc sanding machine is a stationary abrasive finishing tool that uses a rotating sanding belt and a spinning sanding disc to shape and smooth workpieces.",
+    "overview": "The belt and disc sanding machine is an essential surface finishing tool in the mechanical lab, used for rapid stock removal, shaping, deburring, and smoothing of wood and metal parts. The belt sander section is ideal for long, flat surfaces and outside curves, while the disc sander is suited for end-grain work, angled surfaces, and finishing small parts. Both surfaces use interchangeable abrasive media in various grit sizes.",
+    "working_principle": "An electric motor drives both a continuously revolving abrasive belt (looped between two rollers) and a spinning abrasive disc simultaneously; the workpiece is pressed against the moving abrasive surface, which removes material by abrasion at a controlled rate.",
+    "historical_background": "Belt sanders were first developed in the early 20th century for industrial wood finishing; combination belt-and-disc machines became a standard workshop tool by the mid-20th century.",
+    "specs": {
+      "motor_power": "250 W – 1.1 kW",
+      "belt_size": "100 × 915 mm (typical)",
+      "disc_diameter": "150–250 mm",
+      "belt_speed": "Up to 450 m/min",
+      "disc_speed": "1400–2900 RPM"
+    },
+    "applications": ["Sanding flat wood surfaces", "Shaping curved wooden parts", "Deburring metal edges", "Finishing and smoothing castings", "Sharpening chisels and plane blades (jig-guided)"],
+    "industries": ["Woodworking", "Metal fabrication", "Furniture manufacturing", "Education"],
+    "safety_notes": [
+      "Always use the work table or rest when sanding small pieces to prevent them being grabbed.",
+      "Never sand on the side of the belt not supported by the platen.",
+      "Wear dust mask and safety glasses; connect to a dust extraction system where possible.",
+      "Keep fingers away from the belt-to-roller nip points.",
+      "Inspect the belt for tears or tracking issues before starting the machine."
+    ],
+    "common_uses": ["Sanding wooden components to final dimension", "Deburring laser-cut acrylic edges", "Shaping wood curves on the belt", "Squaring wood ends on the disc", "Finishing metal castings and forgings"],
+    "images": [],
+    "manual_path": "/static/docs/belt_and_disc_sanding_machine/manual.pdf",
+    "sop_path": "/static/docs/belt_and_disc_sanding_machine/sop.pdf"
+  },
+  "height_gauge": {
+    "description": "A height gauge is a precision metrology instrument used to measure vertical distances and mark workpieces at specific heights from a datum surface.",
+    "overview": "The height gauge is an important measuring and marking tool in the mechanical lab used on a surface plate or flat reference surface to measure the height of features on a workpiece or to scribe layout lines at precise heights. Available in vernier, digital, and dial indicator versions, it provides highly accurate measurements for quality inspection and machining setup. Digital versions offer resolutions down to 0.001 mm.",
+    "working_principle": "A finely calibrated slider moves vertically along a hardened and ground column fixed to a heavy base; the measuring jaw or scriber attached to the slider is positioned at the desired height read from the vernier, dial, or digital display, and the base is rested on a precision surface plate for datum reference.",
+    "historical_background": "Height gauges evolved from simple scribing tools in the 19th century; the vernier height gauge was standardised alongside vernier callipers in the late 1800s for precision workshop metrology.",
+    "specs": {
+      "measuring_range": "0–300 mm / 0–600 mm / 0–1000 mm",
+      "resolution": "0.02 mm (vernier) / 0.001 mm (digital)",
+      "accuracy": "±0.03 mm",
+      "base_material": "Hardened cast iron or granite (surface plate)",
+      "display_type": "Vernier / Dial / Digital LCD"
+    },
+    "applications": ["Height measurement of machined parts", "Layout and marking of component features", "Go/no-go inspection tasks", "Step height measurement", "Setting tool heights on CNC machines"],
+    "industries": ["Precision manufacturing", "Metrology", "Aerospace", "Toolmaking"],
+    "safety_notes": [
+      "Handle the height gauge with care to avoid dropping it, as impacts damage precision components.",
+      "Always zero the gauge on the surface plate before taking measurements.",
+      "Ensure the surface plate is clean and level before use.",
+      "Store the height gauge in its case when not in use to protect it from dust and damage.",
+      "Do not use a height gauge to measure hot workpieces as thermal expansion affects accuracy."
+    ],
+    "common_uses": ["Measuring bore depths and step heights", "Scribing parallel lines for layout", "Checking flatness and parallelism", "Setting machining datums", "Inspecting turned and milled features"],
+    "images": [],
+    "manual_path": "/static/docs/height_gauge/manual.pdf",
+    "sop_path": "/static/docs/height_gauge/sop.pdf"
+  },
+  "ratchet_clamp": {
+    "description": "A ratchet clamp is a mechanical clamping device using a ratchet mechanism to apply and maintain controlled holding force on workpieces.",
+    "overview": "Ratchet clamps (also known as ratchet straps, bar clamps with ratcheting mechanisms, or toggle clamps with ratchet locking) in the mechanical lab are used to firmly hold workpieces, jigs, or fixtures in position during machining, welding, gluing, or assembly operations. They provide a quick, secure hold without the need for constant manual force, making them efficient for repetitive clamping tasks. Various types include ratchet bar clamps, ratchet strap tie-downs, and cam-action ratchet clamps.",
+    "working_principle": "A pawl engages a toothed rack or ratchet gear, allowing the clamping jaw or strap to be tightened progressively in one direction while preventing release; the release lever disengages the pawl to free the clamped item.",
+    "historical_background": "The ratchet mechanism dates to ancient times, but ratchet-action clamping tools for workshops were developed and refined throughout the 20th century as industrial clamping demands grew.",
+    "specs": {
+      "clamping_force": "100 – 2000 N (depending on type)",
+      "jaw_opening_capacity": "0–600 mm (bar clamp)",
+      "body_material": "Carbon steel or reinforced nylon composite",
+      "jaw_face_material": "Rubberised non-marring pads",
+      "strap_width": "25–50 mm (strap type)"
+    },
+    "applications": ["Clamping workpieces for welding", "Holding jig components in assembly", "Securing materials for gluing", "Fixture holding during drilling", "Strap clamping for transport restraint"],
+    "industries": ["Manufacturing", "Woodworking", "Automotive", "Transport and logistics"],
+    "safety_notes": [
+      "Do not exceed the rated load capacity of the clamp.",
+      "Ensure the ratchet pawl is fully engaged before relying on the clamp to hold a load.",
+      "Inspect clamps for cracks, worn teeth, or damaged pads before use.",
+      "Never use ratchet clamps as lifting devices unless specifically rated for that purpose.",
+      "Release the clamp slowly and in a controlled manner to avoid sudden workpiece movement."
+    ],
+    "common_uses": ["Clamping metal plates for tack welding", "Securing wood panels during glue-up", "Holding fixtures on drill press tables", "Clamping pipe assemblies for fitting", "Temporary workholding during assembly"],
+    "images": [],
+    "manual_path": "/static/docs/ratchet_clamp/manual.pdf",
+    "sop_path": "/static/docs/ratchet_clamp/sop.pdf"
+  },
+  "mechanical_fastener_section": {
+    "description": "The mechanical fastener section is a dedicated storage and reference area in the lab housing a comprehensive range of bolts, nuts, screws, rivets, and washers.",
+    "overview": "The mechanical fastener section in the mechanical lab serves as a centralised resource area stocked with a wide variety of threaded fasteners, non-threaded fasteners, and hardware items used in assembly, prototyping, and repair tasks. It includes metric and imperial bolts, nuts, washers, set screws, rivets, pins, clips, and inserts, organised by type, size, and material. This section enables students and technicians to quickly source the correct fastener for any assembly requirement.",
+    "working_principle": "Fasteners create joints by clamping components together through mechanical interference (press fits, rivets), thread engagement (bolts and nuts, screws), or friction and locking mechanisms (spring pins, circlips); proper selection involves matching fastener grade, material, and size to the joint load requirements.",
+    "historical_background": "Standardised screw threads were first proposed by Joseph Whitworth in 1841, with metric standardisation (ISO) following in the early 20th century, revolutionising interchangeable parts manufacturing.",
+    "specs": {
+      "bolt_sizes_available": "M2 – M24 (metric); 1/4\" – 1\" (imperial)",
+      "grades_stocked": "Grade 4.6, 8.8, 10.9, 12.9 (metric); Grade 2, 5, 8 (imperial)",
+      "thread_forms": "Metric (ISO), Unified (UNC/UNF), BSW",
+      "materials": "Steel, stainless steel, brass, nylon",
+      "storage": "Labelled bins/drawers by size and type"
+    },
+    "applications": ["Structural assembly of machine components", "Electronics enclosure fastening", "Temporary prototype assembly", "Maintenance and repair tasks", "Jig and fixture building"],
+    "industries": ["Manufacturing", "Automotive", "Aerospace", "Education"],
+    "safety_notes": [
+      "Always use the correct torque value when tightening fasteners to avoid over-tightening and failure.",
+      "Match fastener grade to the load requirement — never substitute lower-grade fasteners in structural applications.",
+      "Inspect threaded fasteners for cross-threading, corrosion, or damage before reuse.",
+      "Wear cut-resistant gloves when handling sharp-edged sheet metal fasteners and clips.",
+      "Return unused fasteners to the correct bin to maintain organisation and avoid mix-ups."
+    ],
+    "common_uses": ["Bolting together machine frames", "Fastening sheet metal panels", "Securing PCB standoffs", "Assembling prototype mechanisms", "Anchoring components in jigs"],
+    "images": [],
+    "manual_path": "/static/docs/mechanical_fastener_section/manual.pdf",
+    "sop_path": "/static/docs/mechanical_fastener_section/sop.pdf"
+  },
+  "mech_tool_wall_covering_perforator": {
+    "description": "A mechanical tool wall covering perforator is a device used to perforate wall covering materials for ventilation, aesthetic, or functional purposes.",
+    "overview": "The mech tool wall covering perforator in the mechanical lab is used to punch or drill an array of holes in wall panels, pegboards, acoustic tiles, or sheet materials, creating perforated patterns for tool storage, ventilation, or acoustic treatment purposes. It is also used to prepare perforated tool shadow boards and organisational panels. The tool may use punch-press, rotary, or CNC drilling mechanisms depending on the required hole pattern.",
+    "working_principle": "A punch or drill mechanism forces hardened steel punches or drill bits through the wall covering material at precise, repeatable intervals to produce a uniform perforation pattern; manual, pneumatic, or motorised versions adjust force and speed based on material thickness.",
+    "historical_background": "Perforated materials have been used in manufacturing and construction since the 19th century, with dedicated perforating tools developed alongside the growth of modular wall storage and acoustic panel systems.",
+    "specs": {
+      "hole_diameter": "3–25 mm",
+      "hole_pitch": "Adjustable (12.5–50 mm typical)",
+      "material_thickness": "Up to 3 mm (sheet metal); up to 25 mm (wood board)",
+      "drive_mechanism": "Manual, pneumatic, or motorised",
+      "panel_size_capacity": "Up to 1200 × 2400 mm"
+    },
+    "applications": ["Making perforated pegboard panels", "Tool shadow board preparation", "Acoustic wall panel perforation", "Ventilation grille fabrication", "Decorative perforated screen making"],
+    "industries": ["Interior design and construction", "Manufacturing", "Storage solutions", "Acoustics"],
+    "safety_notes": [
+      "Secure the wall covering panel firmly before perforating to prevent movement.",
+      "Wear safety glasses to protect against flying punch slugs and debris.",
+      "Keep hands away from the punching or drilling zone during operation.",
+      "Inspect punches and dies for wear or chipping before use.",
+      "Ensure the tool is properly grounded if electrically powered."
+    ],
+    "common_uses": ["Fabricating tool storage pegboards", "Creating ventilation panels for enclosures", "Preparing acoustic ceiling tiles", "Making decorative perforated metal screens", "Shadow board layout and punching"],
+    "images": [],
+    "manual_path": "/static/docs/mech_tool_wall_covering_perforator/manual.pdf",
+    "sop_path": "/static/docs/mech_tool_wall_covering_perforator/sop.pdf"
+  },
+  "cordless_drill": {
+    "description": "A cordless drill is a battery-powered handheld tool used for drilling holes and driving screws without the need for a power cord.",
+    "overview": "The cordless drill is one of the most commonly used tools in the mechanical lab, offering unmatched portability and convenience for drilling holes and fastener driving tasks throughout the workshop without being tethered to a power outlet. Modern cordless drills feature variable speed triggers, forward/reverse switching, an adjustable torque clutch, and keyless chucks for rapid bit changes. They are available in 12V, 18V, and higher voltage platforms.",
+    "working_principle": "A rechargeable lithium-ion battery powers a brushed or brushless DC motor, which drives the chuck through a planetary gearbox; the operator controls speed via a variable-pressure trigger and selects torque limit settings on the adjustable clutch collar.",
+    "historical_background": "The first cordless drill was developed by Black & Decker in 1961 for NASA to use in zero-gravity space environments, using a self-contained rechargeable battery.",
+    "specs": {
+      "voltage": "12V / 18V / 20V Li-ion",
+      "chuck_size": "10 mm or 13 mm keyless chuck",
+      "no_load_speed": "0–450 / 0–1500 RPM (2-speed)",
+      "max_torque": "30–85 Nm (depending on model)",
+      "clutch_settings": "15–25 + drill position"
+    },
+    "applications": ["Drilling holes in wood, metal, and plastic", "Driving and removing screws", "Mixing paint or adhesive (with paddle)", "Fastening bolts with socket attachment", "Light hammer drilling (hammer-drill models)"],
+    "industries": ["Construction", "Manufacturing", "Maintenance and repair", "Carpentry"],
+    "safety_notes": [
+      "Select the appropriate bit type and size for the material and fastener.",
+      "Set the torque clutch correctly to avoid stripping screws or damaging materials.",
+      "Always remove the drill bit before changing accessories or handing the tool to another person.",
+      "Wear safety glasses when drilling metal or masonry.",
+      "Charge batteries in a cool, dry location and do not leave charging batteries unattended overnight."
+    ],
+    "common_uses": ["Drilling pilot holes for screws", "Driving self-tapping screws into metal", "Assembling flat-pack furniture and fixtures", "Fastening timber frames", "Mixing small quantities of filler or paint"],
+    "images": [],
+    "manual_path": "/static/docs/cordless_drill/manual.pdf",
+    "sop_path": "/static/docs/cordless_drill/sop.pdf"
+  },
+  "hot_air_gun": {
+    "description": "A hot air gun is an electric tool that blows a stream of heated air for tasks such as heat shrinking, paint stripping, plastic welding, and soldering.",
+    "overview": "The hot air gun (heat gun) in the mechanical lab is a versatile thermal tool used for a wide range of applications including heat-shrink tubing installation on wiring, stripping paint and adhesive, bending thermoplastic pipes, plastic welding, and desoldering electronic components. It produces a controlled, directed stream of hot air at adjustable temperatures and flow rates. Temperature-controlled models prevent overheating of sensitive materials.",
+    "working_principle": "An electric heating element (nichrome wire coil) is placed in the airstream generated by an internal fan; as air passes over the element it is heated to the set temperature and expelled through a nozzle, with airflow and temperature independently adjustable on most models.",
+    "historical_background": "The heat gun was developed from the industrial hot air blower in the 1950s–60s for paint stripping and plastics processing, with compact electric versions becoming widely available for workshop use by the 1970s.",
+    "specs": {
+      "power": "1500–2000 W",
+      "temperature_range": "50–650°C",
+      "airflow_rate": "250–500 L/min",
+      "temperature_settings": "2–6 preset or fully variable",
+      "nozzle_options": "Flat, reflector, reduction, fish-tail"
+    },
+    "applications": ["Heat-shrink tubing installation", "Paint and varnish stripping", "Plastic welding and reforming", "Thawing frozen pipes", "Electronic component desoldering"],
+    "industries": ["Electronics", "Automotive", "Construction", "Plumbing"],
+    "safety_notes": [
+      "Never point the hot air gun at people or animals.",
+      "Allow the gun to cool down on its stand before setting it down or storing it.",
+      "Keep the air inlet free from obstruction to prevent motor overheating.",
+      "Use appropriate nozzle attachments to direct heat precisely and avoid burning adjacent materials.",
+      "Wear heat-resistant gloves when working near the outlet nozzle."
+    ],
+    "common_uses": ["Shrinking heat-shrink tubing on wire joints", "Stripping paint from metal surfaces", "Bending polypropylene pipes", "Loosening stuck threaded fasteners", "Drying adhesive and coatings quickly"],
+    "images": [],
+    "manual_path": "/static/docs/hot_air_gun/manual.pdf",
+    "sop_path": "/static/docs/hot_air_gun/sop.pdf"
+  },
+  "spot_machine": {
+    "description": "A spot welding machine joins overlapping metal sheets by applying concentrated heat and pressure through copper electrodes at specific points.",
+    "overview": "The spot welding machine (resistance spot welder) in the mechanical lab is used to join thin sheet metal components — particularly mild steel and stainless steel — at discrete weld spots without filler material. It is commonly used in automotive panel fabrication, sheet metal enclosure assembly, and prototype sheet metal work. The process is fast, clean, and produces consistent weld nuggets when parameters are correctly set.",
+    "working_principle": "High electrical current (5,000–30,000 A) is passed through two copper alloy electrodes clamped on either side of the overlapping metal sheets; the electrical resistance of the metal generates localised heat at the contact interface, melting the metal to form a weld nugget which fuses the sheets together upon cooling under electrode pressure.",
+    "historical_background": "Resistance spot welding was developed in the early 20th century and became a cornerstone process in automotive manufacturing, pioneered by companies including Thomson Electric Welding in the 1900s.",
+    "specs": {
+      "primary_power": "230V / 415V, single or three phase",
+      "welding_current": "5,000–30,000 A",
+      "electrode_force": "100–600 daN",
+      "electrode_tip_diameter": "5–8 mm",
+      "weld_time_range": "0.1–3.0 seconds (adjustable)"
+    },
+    "applications": ["Automotive body panel joining", "Sheet metal enclosure assembly", "White goods manufacturing", "Prototype sheet metal fabrication", "Wire mesh welding"],
+    "industries": ["Automotive", "Appliance manufacturing", "Sheet metal fabrication", "Aerospace"],
+    "safety_notes": [
+      "Ensure the workpieces are clean and free of paint, oil, or coatings in the weld area.",
+      "Wear safety glasses and leather gloves during spot welding operations.",
+      "Never place fingers or hands between the electrodes when the machine is energised.",
+      "Check electrode tip condition and dress or replace worn tips regularly.",
+      "Ensure the welding transformer is properly grounded before operation."
+    ],
+    "common_uses": ["Joining sheet metal panels for enclosures", "Welding automotive body patches", "Assembling steel wire baskets", "Fabricating thin-walled steel structures", "Prototype sheet metal assembly"],
+    "images": [],
+    "manual_path": "/static/docs/spot_machine/manual.pdf",
+    "sop_path": "/static/docs/spot_machine/sop.pdf"
+  },
+  "anvil": {
+    "description": "An anvil is a heavy, hardened steel or iron block used as a work surface for forging, hammering, and shaping hot or cold metal.",
+    "overview": "The anvil is a traditional and essential tool in the mechanical lab's blacksmithing and metalworking section, providing a hard, resilient surface against which metal is shaped through hammering, bending, and forging. Its mass absorbs hammer blows efficiently, transferring energy into the workpiece rather than dissipating it. Key features include the flat face, horn (bick), hardie hole (for tool mounting), and pritchel hole (for punching).",
+    "working_principle": "The anvil's high mass and hardened steel face act as a reaction surface; when a hammer blow strikes the workpiece resting on the anvil, the anvil's inertia resists movement and concentrates the impact energy into deforming the metal, allowing the smith to shape, upset, draw out, or punch the material.",
+    "historical_background": "Anvils have been used since ancient times, with iron anvils dating to at least 1000 BC; the classic London pattern anvil design was standardised in the 18th–19th century and remains the most common form today.",
+    "specs": {
+      "weight": "50–300 kg (typical workshop anvil)",
+      "face_material": "Hardened tool steel face plate on cast iron body",
+      "face_hardness": "Rockwell C 50–58",
+      "horn_type": "Round (conical) or pointed bick",
+      "hardie_hole_size": "25 mm (1\") or 32 mm (1-1/4\")"
+    },
+    "applications": ["Blacksmithing and hot forging", "Cold metal forming and bending", "Riveting operations", "Sheet metal shaping", "Tool dressing and maintenance"],
+    "industries": ["Blacksmithing", "Farriery", "Toolmaking", "Art metalwork"],
+    "safety_notes": [
+      "Always mount the anvil on a solid stand or stump at correct working height (knuckle height) to prevent tipping.",
+      "Wear safety glasses and appropriate PPE when hammering hot metal.",
+      "Never strike the anvil face directly with a hardened hammer — use a softer hammer or interpose the workpiece.",
+      "Do not use the anvil face for welding or as a grinding rest, as this damages the hardened surface.",
+      "Ensure bystanders are clear of the anvil work area during forging to avoid injury from hot scale."
+    ],
+    "common_uses": ["Drawing out hot steel bar stock", "Bending metal rods and bars", "Upsetting bolt heads", "Straightening bent components", "Forging custom tool shapes"],
+    "images": [],
+    "manual_path": "/static/docs/anvil/manual.pdf",
+    "sop_path": "/static/docs/anvil/sop.pdf"
+  },
+  "advanced_motorized_sewing_machine": {
+    "description": "An advanced motorized sewing machine is an electrically powered stitching machine used for sewing fabrics, leather, canvas, and composite materials in fabrication and prototyping tasks.",
+    "overview": "The advanced motorized sewing machine in the mechanical lab is used for fabricating textile-based components, soft goods prototypes, composite reinforcement layups, and wearable or upholstery items. Unlike domestic machines, lab-grade motorised sewing machines offer heavy-duty sewing capability for thick, multi-layer materials including canvas, denim, leather, and fibre-reinforced fabrics. They feature variable speed control, multiple stitch types, and robust feed mechanisms for consistent stitch quality.",
+    "working_principle": "An electric motor drives the needle bar and feed dog mechanism through a series of cams and linkages; the needle carries the upper thread through the fabric, where a rotating hook or bobbin mechanism interlocks it with the lower thread to form a lockstitch or chain stitch.",
+    "historical_background": "The sewing machine was invented by Elias Howe in 1845 and commercialised by Isaac Singer from 1851; motorised industrial sewing machines became widespread in garment manufacturing by the early 20th century.",
+    "specs": {
+      "motor_power": "100–550 W",
+      "sewing_speed": "Up to 1500–5000 SPM (stitches per minute)",
+      "max_stitch_length": "5–9 mm",
+      "needle_system": "Industrial needles (135×17, 134, DBx1)",
+      "feed_type": "Drop feed, differential feed, or walking foot"
+    },
+    "applications": ["Sewing canvas and upholstery", "Fabricating wearable prototype garments", "Stitching leather goods", "Composite preform stitching", "Soft robotics and textile actuator fabrication"],
+    "industries": ["Textile and apparel", "Automotive upholstery", "Aerospace (soft goods)", "Education and prototyping"],
+    "safety_notes": [
+      "Keep fingers away from the needle path; never place hands under the presser foot while the machine is running.",
+      "Use a thimble or finger guard when hand-guiding thick or heavy fabric near the needle.",
+      "Inspect the needle before each session; replace bent or blunt needles immediately.",
+      "Disconnect power before threading the machine, replacing the needle, or cleaning the bobbin area.",
+      "Tie back hair and avoid loose sleeves near the rotating handwheel and thread takeup mechanism."
+    ],
+    "common_uses": ["Sewing canvas protective covers", "Fabricating padded soft grippers", "Stitching prototype backpack or vest designs", "Leather panel assembly", "Textile composite layer stitching"],
+    "images": [],
+    "manual_path": "/static/docs/advanced_motorized_sewing_machine/manual.pdf",
+    "sop_path": "/static/docs/advanced_motorized_sewing_machine/sop.pdf"
   }
 }
