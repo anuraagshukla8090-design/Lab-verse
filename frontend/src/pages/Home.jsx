@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import PanoramaViewer    from "@/components/PanoramaViewer";
 import MachineSheet      from "@/components/MachineSheet";
+import InventorySheet    from "@/components/InventorySheet";
 import LoadingScreen     from "@/components/LoadingScreen";
 import NavigationCompass from "@/components/NavigationCompass";
 import DevPanel          from "@/components/DevPanel";
@@ -38,6 +39,8 @@ export default function Home() {
   const [currentScene,  setCurrentScene]  = useState(null);
   const [activeMachine, setActiveMachine] = useState(null);
   const [sheetOpen,     setSheetOpen]     = useState(false);
+  const [activeRack,       setActiveRack]       = useState(null);
+  const [inventorySheetOpen, setInventorySheetOpen] = useState(false);
   const [loading,       setLoading]       = useState(true);
   const [error,         setError]         = useState(null);
   const [debugMenuOpen, setDebugMenuOpen] = useState(false);  // scene-jump dropdown
@@ -111,6 +114,16 @@ export default function Home() {
   const handleSheetClose = useCallback(() => {
     setSheetOpen(false);
     setTimeout(() => setActiveMachine(null), 300);
+  }, []);
+
+  const handleInventoryClick = useCallback((rack) => {
+    setActiveRack(rack);
+    setInventorySheetOpen(true);
+  }, []);
+
+  const handleInventorySheetClose = useCallback(() => {
+    setInventorySheetOpen(false);
+    setTimeout(() => setActiveRack(null), 300);
   }, []);
 
   // ------------------------------------------------------------------
@@ -200,6 +213,7 @@ export default function Home() {
         machineNames={machineNames}
         onNavigate={handleNavigate}
         onMachineClick={handleMachineClick}
+        onInventoryClick={handleInventoryClick}
         devMode={devMode}
         onViewChange={setViewCoords}
       />
@@ -367,6 +381,15 @@ export default function Home() {
         open={sheetOpen}
         onClose={handleSheetClose}
       />
+
+      {/* ---- Inventory Sheet ---- */}
+      {inventorySheetOpen && activeRack && (
+        <InventorySheet
+          rack={activeRack}
+          labId={labConfig?.lab_id || "main_lab"}
+          onClose={handleInventorySheetClose}
+        />
+      )}
 
       {/* Click overlay to close debug menu */}
       {debugMenuOpen && (

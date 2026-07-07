@@ -37,7 +37,10 @@
   { "machine_id": "benchtop_digital_multimeter","pitch": -5,  "yaw": 178},
   { "machine_id": "digital_weighing_scale","pitch": -5,  "yaw": 170},
   { "machine_id": "3d_scanner","pitch": -5,  "yaw": 163}
-    ]
+    ],
+      "inventories": [
+        { "rack_id": "rack_01", "label": "General Components Rack", "pitch": -10, "yaw": 0 }
+      ]
     },
 
     "node_02": {

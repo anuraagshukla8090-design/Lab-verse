@@ -3,6 +3,7 @@ import { FolderOpen, MapPin, Navigation2, AlertCircle } from "lucide-react";
 import { createNavHotspotElement }     from "./NavigationHotspot";
 import { createMachineHotspotElement } from "./MachineHotspot";
 import { isPreloaded }                 from "@/lib/preloader";
+import { createInventoryHotspotElement } from "./InventoryHotspot";
 
 /**
  * PanoramaViewer — Single-instance Pannellum with multi-scene loadScene()
@@ -19,13 +20,14 @@ import { isPreloaded }                 from "@/lib/preloader";
  *           Warm overhead drops from ~170ms to ~50ms per navigation.
  *
  * Props:
- *   labConfig      {object}  Full lab config from GET /lab-config
- *   currentScene   {string}  Key of scene to display (changes on navigation)
- *   machineNames   {object}  Map of machine_id → human-readable name
- *   onNavigate     {fn}      Called with target scene key
- *   onMachineClick {fn}      Called with machine_id
- *   devMode        {bool}    Disables auto-rotate, enables RAF coord polling
- *   onViewChange   {fn}      Called with { pitch, yaw, hfov } in dev mode
+ *   labConfig        {object}  Full lab config from GET /lab-config
+ *   currentScene     {string}  Key of scene to display (changes on navigation)
+ *   machineNames     {object}  Map of machine_id → human-readable name
+ *   onNavigate       {fn}      Called with target scene key
+ *   onMachineClick   {fn}      Called with machine_id
+ *   onInventoryClick {fn}      Called with rack object when inventory hotspot clicked
+ *   devMode          {bool}    Disables auto-rotate, enables RAF coord polling
+ *   onViewChange     {fn}      Called with { pitch, yaw, hfov } in dev mode
  */
 export default function PanoramaViewer({
   labConfig,
@@ -33,6 +35,7 @@ export default function PanoramaViewer({
   machineNames,
   onNavigate,
   onMachineClick,
+  onInventoryClick,
   devMode = false,
   onViewChange,
 }) {
@@ -48,8 +51,9 @@ export default function PanoramaViewer({
   const missingSet = useRef(new Set());
 
   // Stable callback references — prevents init effect from re-firing on re-renders
-  const handleNavigate     = useCallback(onNavigate,     [onNavigate]);
-  const handleMachineClick = useCallback(onMachineClick, [onMachineClick]);
+  const handleNavigate      = useCallback(onNavigate,      [onNavigate]);
+  const handleMachineClick  = useCallback(onMachineClick,  [onMachineClick]);
+  const handleInventoryClick = useCallback(onInventoryClick ?? (() => {}), [onInventoryClick]);
 
   // Keep currentSceneRef in sync — used by the Pannellum error handler (a closure
   // that can't hold React state without going stale)
@@ -108,7 +112,7 @@ export default function PanoramaViewer({
 
         // Build complete multi-scene config — all scenes, all hotspots, upfront
         const scenes = buildScenesConfig(
-          labConfig, apiBase, machineNames, handleNavigate, handleMachineClick
+          labConfig, apiBase, machineNames, handleNavigate, handleMachineClick, handleInventoryClick
         );
 
         try {
@@ -389,7 +393,7 @@ export default function PanoramaViewer({
 // multi-scene configuration format. All hotspot click handlers are
 // closures over stable handleNavigate / handleMachineClick refs.
 // ------------------------------------------------------------------
-function buildScenesConfig(labConfig, apiBase, machineNames, handleNavigate, handleMachineClick) {
+function buildScenesConfig(labConfig, apiBase, machineNames, handleNavigate, handleMachineClick, handleInventoryClick) {
   const scenes = {};
 
   Object.entries(labConfig.scenes).forEach(([sceneKey, sceneData]) => {
@@ -419,6 +423,18 @@ function buildScenesConfig(labConfig, apiBase, machineNames, handleNavigate, han
         cssClass:          "lv-pnlm-hotspot",
         createTooltipFunc: createMachineHotspotElement(label),
         clickHandlerFunc:  () => handleMachineClick(m.machine_id),
+      });
+    });
+
+    // Inventory rack hotspots — amber/box icon, distinct from machines
+    (sceneData.inventories || []).forEach((inv) => {
+      hotSpots.push({
+        pitch:             inv.pitch,
+        yaw:               inv.yaw,
+        type:              "custom",
+        cssClass:          "lv-pnlm-hotspot",
+        createTooltipFunc: createInventoryHotspotElement(inv.label || inv.rack_id),
+        clickHandlerFunc:  () => handleInventoryClick({ rack_id: inv.rack_id, name: inv.label || inv.rack_id }),
       });
     });
 

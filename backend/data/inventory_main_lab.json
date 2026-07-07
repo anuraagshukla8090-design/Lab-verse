@@ -1,0 +1,78 @@
+{
+  "lab_id": "main_lab",
+  "racks": [
+    {
+      "rack_id": "rack_01",
+      "name": "General Components Rack",
+      "node": "node_01",
+      "pitch": -10,
+      "yaw": 0,
+      "items": [
+        {
+          "id": "item_001",
+          "name": "Resistors (10kΩ)",
+          "category": "Electronics",
+          "quantity": 150,
+          "unit": "pieces",
+          "in_stock": true
+        },
+        {
+          "id": "item_002",
+          "name": "Capacitors (100µF)",
+          "category": "Electronics",
+          "quantity": 79,
+          "unit": "pieces",
+          "in_stock": true
+        },
+        {
+          "id": "item_003",
+          "name": "Arduino Uno",
+          "category": "Microcontrollers",
+          "quantity": 0,
+          "unit": "units",
+          "in_stock": false
+        },
+        {
+          "id": "item_004",
+          "name": "Breadboard (Full-size)",
+          "category": "Prototyping",
+          "quantity": 9,
+          "unit": "units",
+          "in_stock": true
+        },
+        {
+          "id": "item_005",
+          "name": "Jumper Wires (Male-Male)",
+          "category": "Wiring",
+          "quantity": 200,
+          "unit": "pieces",
+          "in_stock": true
+        },
+        {
+          "id": "item_16214f1c",
+          "name": "Rasberry-pi",
+          "category": "chip",
+          "quantity": 2,
+          "unit": "peices",
+          "in_stock": true
+        },
+        {
+          "id": "item_7f495db8",
+          "name": "science kit",
+          "category": "kit",
+          "quantity": 4,
+          "unit": "peices",
+          "in_stock": true
+        }
+      ]
+    },
+    {
+      "rack_id": "rack_6636a789",
+      "name": "kits",
+      "node": "",
+      "pitch": -10.0,
+      "yaw": 0.0,
+      "items": []
+    }
+  ]
+}

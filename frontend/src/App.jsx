@@ -1,11 +1,22 @@
 import React from "react";
-import Home from "@/pages/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home       from "@/pages/Home";
+import AdminPanel from "@/pages/AdminPanel";
 
 /**
  * App — root component.
- * Phase 1 is a single-page experience (no router needed).
- * Phase 2+ will add React Router here for /chat, /search, etc.
+ * Routes:
+ *   /       → Home (panorama viewer)
+ *   /admin  → AdminPanel (inventory management)
  */
 export default function App() {
-  return <Home />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/"      element={<Home />}       />
+        <Route path="/admin" element={<AdminPanel />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
+

@@ -1,0 +1,54 @@
+{
+  "lab_id": "mechanical_lab",
+  "racks": [
+    {
+      "rack_id": "rack_m01",
+      "name": "Consumables & Fasteners Rack",
+      "node": "node_10",
+      "pitch": -10,
+      "yaw": 0,
+      "items": [
+        {
+          "id": "item_m001",
+          "name": "Welding Electrodes (3.2mm)",
+          "category": "Welding Consumables",
+          "quantity": 50,
+          "unit": "pieces",
+          "in_stock": true
+        },
+        {
+          "id": "item_m002",
+          "name": "MIG Wire Spool (0.8mm)",
+          "category": "Welding Consumables",
+          "quantity": 2,
+          "unit": "spools",
+          "in_stock": true
+        },
+        {
+          "id": "item_m003",
+          "name": "Drill Bits Set (HSS)",
+          "category": "Tooling",
+          "quantity": 3,
+          "unit": "sets",
+          "in_stock": true
+        },
+        {
+          "id": "item_m004",
+          "name": "Grinding Discs (115mm)",
+          "category": "Abrasives",
+          "quantity": 0,
+          "unit": "pieces",
+          "in_stock": false
+        },
+        {
+          "id": "item_m005",
+          "name": "Safety Gloves (L)",
+          "category": "PPE",
+          "quantity": 8,
+          "unit": "pairs",
+          "in_stock": true
+        }
+      ]
+    }
+  ]
+}

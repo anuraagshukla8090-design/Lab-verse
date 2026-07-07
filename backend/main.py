@@ -24,6 +24,8 @@ from starlette.types import ASGIApp, Receive, Scope, Send
 import json
 from pathlib import Path
 
+from routers.inventory import router as inventory_router
+
 from dotenv import load_dotenv
 _env_file = Path(__file__).resolve().parent / ".env"
 load_dotenv(_env_file)   # absolute path — works regardless of uvicorn working directory
@@ -114,6 +116,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",   # Vite dev server
         "http://127.0.0.1:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -124,6 +128,12 @@ app.add_middleware(
 STATIC_DIR = Path(__file__).parent / "static"
 STATIC_DIR.mkdir(exist_ok=True)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+# ---------------------------------------------------------------------------
+# Routers
+# ---------------------------------------------------------------------------
+
+app.include_router(inventory_router)
 
 # ---------------------------------------------------------------------------
 # Data helpers
