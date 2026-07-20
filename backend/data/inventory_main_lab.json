@@ -20,7 +20,7 @@
           "id": "item_002",
           "name": "Capacitors (100µF)",
           "category": "Electronics",
-          "quantity": 79,
+          "quantity": 71,
           "unit": "pieces",
           "in_stock": true
         },
@@ -28,17 +28,17 @@
           "id": "item_003",
           "name": "Arduino Uno",
           "category": "Microcontrollers",
-          "quantity": 0,
+          "quantity": 1,
           "unit": "units",
-          "in_stock": false
+          "in_stock": true
         },
         {
           "id": "item_004",
           "name": "Breadboard (Full-size)",
           "category": "Prototyping",
-          "quantity": 9,
+          "quantity": 8,
           "unit": "units",
-          "in_stock": true
+          "in_stock": false
         },
         {
           "id": "item_005",
@@ -46,7 +46,7 @@
           "category": "Wiring",
           "quantity": 200,
           "unit": "pieces",
-          "in_stock": true
+          "in_stock": false
         },
         {
           "id": "item_16214f1c",
@@ -60,8 +60,16 @@
           "id": "item_7f495db8",
           "name": "science kit",
           "category": "kit",
-          "quantity": 4,
+          "quantity": 0,
           "unit": "peices",
+          "in_stock": false
+        },
+        {
+          "id": "item_3d2c702c",
+          "name": "esp-32",
+          "category": "electronics ",
+          "quantity": 2,
+          "unit": "units",
           "in_stock": true
         }
       ]

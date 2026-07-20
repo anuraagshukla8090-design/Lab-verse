@@ -26,8 +26,6 @@ import { createInventoryHotspotElement } from "./InventoryHotspot";
  *   onNavigate       {fn}      Called with target scene key
  *   onMachineClick   {fn}      Called with machine_id
  *   onInventoryClick {fn}      Called with rack object when inventory hotspot clicked
- *   devMode          {bool}    Disables auto-rotate, enables RAF coord polling
- *   onViewChange     {fn}      Called with { pitch, yaw, hfov } in dev mode
  */
 export default function PanoramaViewer({
   labConfig,
@@ -36,8 +34,6 @@ export default function PanoramaViewer({
   onNavigate,
   onMachineClick,
   onInventoryClick,
-  devMode = false,
-  onViewChange,
 }) {
   const containerRef    = useRef(null);
   const viewerRef       = useRef(null);     // single Pannellum instance — never recreated on nav
@@ -50,9 +46,13 @@ export default function PanoramaViewer({
   // Tracks 404'd panoramas so we skip HEAD + loadScene on repeat visits
   const missingSet = useRef(new Set());
 
+  // Tracks IDs of hotspots currently added to the viewer — cleared before
+  // every loadScene() call to prevent hotspot accumulation across scenes.
+  const activeHotspotIds = useRef([]);
+
   // Stable callback references — prevents init effect from re-firing on re-renders
-  const handleNavigate      = useCallback(onNavigate,      [onNavigate]);
-  const handleMachineClick  = useCallback(onMachineClick,  [onMachineClick]);
+  const handleNavigate       = useCallback(onNavigate,      [onNavigate]);
+  const handleMachineClick   = useCallback(onMachineClick,  [onMachineClick]);
   const handleInventoryClick = useCallback(onInventoryClick ?? (() => {}), [onInventoryClick]);
 
   // Keep currentSceneRef in sync — used by the Pannellum error handler (a closure
@@ -62,34 +62,30 @@ export default function PanoramaViewer({
   // ------------------------------------------------------------------
   // EFFECT A — Viewer Initialization
   //
-  // Runs once when labConfig + machineNames are ready (and on devMode
-  // toggle, which requires a new autoRotate config in the viewer default).
+  // Runs once when labConfig + machineNames are ready.
   //
-  // Builds the complete Pannellum multi-scene config from labConfig so
-  // every subsequent loadScene() call is a fast in-place texture swap.
+  // Builds the Pannellum multi-scene config with EMPTY hotSpots arrays.
+  // Hotspots are injected dynamically after init (and after every
+  // loadScene) to prevent the Pannellum multi-scene custom-hotspot
+  // accumulation bug — see injectHotspots() below.
   // ------------------------------------------------------------------
   useEffect(() => {
     if (!labConfig || !containerRef.current || !window.pannellum) return;
 
-    // Destroy any existing viewer (only happens on devMode toggle)
+    // Destroy any stale viewer
     if (viewerRef.current) {
       try { viewerRef.current.destroy(); } catch (_) {}
-      viewerRef.current  = null;
+      viewerRef.current   = null;
       viewerReady.current = false;
+      activeHotspotIds.current = [];
     }
 
-    const apiBase     = import.meta.env.VITE_API_URL || "http://localhost:8000";
+    const apiBase       = import.meta.env.VITE_API_URL || "http://localhost:8000";
     const firstSceneKey = currentSceneRef.current || labConfig.default_scene;
     const firstScene    = labConfig.scenes[firstSceneKey];
 
-    if (!firstScene?.image) {
-      setSceneState("missing");
-      return;
-    }
-    if (missingSet.current.has(firstSceneKey)) {
-      setSceneState("missing");
-      return;
-    }
+    if (!firstScene?.image) { setSceneState("missing"); return; }
+    if (missingSet.current.has(firstSceneKey)) { setSceneState("missing"); return; }
 
     setSceneState("loading");
 
@@ -110,32 +106,33 @@ export default function PanoramaViewer({
         const headMs = Math.round(performance.now() - t0);
         const t1     = performance.now();
 
-        // Build complete multi-scene config — all scenes, all hotspots, upfront
-        const scenes = buildScenesConfig(
-          labConfig, apiBase, machineNames, handleNavigate, handleMachineClick, handleInventoryClick
-        );
+        // Scene config has empty hotSpots — injected dynamically below
+        const scenes = buildScenesConfig(labConfig, apiBase);
 
         try {
           viewerRef.current = window.pannellum.viewer(containerRef.current, {
             default: {
-              firstScene:                  firstSceneKey,
-              autoLoad:                    true,
-              autoRotate:                  devMode ? 0 : -1,
-              autoRotateInactivityDelay:   3000,
-              compass:                     false,
-              showZoomCtrl:                false,
-              showFullscreenCtrl:          false,
-              hfov:                        100,
-              minHfov:                     50,
-              maxHfov:                     120,
+              firstScene:                firstSceneKey,
+              autoLoad:                  true,
+              autoRotate:                0,   // disabled — was causing hotspot re-render accumulation
+              compass:                   false,
+              showZoomCtrl:              false,
+              showFullscreenCtrl:        false,
+              hfov:                      100,
+              minHfov:                   50,
+              maxHfov:                   120,
             },
             scenes,
           });
 
           viewerReady.current = true;
 
-          // Pannellum fires "error" when a scene panorama fails to load.
-          // We capture the *current* scene via ref (not stale closure state).
+          // Inject hotspots for the initial scene AFTER viewer is ready
+          activeHotspotIds.current = injectHotspots(
+            firstSceneKey, viewerRef.current, labConfig,
+            machineNames, handleNavigate, handleMachineClick, handleInventoryClick
+          );
+
           viewerRef.current.on("error", (err) => {
             const failedScene = currentSceneRef.current;
             console.error(`[PanoramaViewer] Error in scene '${failedScene}':`, err);
@@ -146,7 +143,7 @@ export default function PanoramaViewer({
           const initMs = Math.round(performance.now() - t1);
           if (import.meta.env.DEV) {
             console.log(
-              `[PanoramaViewer] INIT — HEAD: ${headMs}ms │ viewer.init: ${initMs}ms │ scenes: ${Object.keys(scenes).length}`
+              `[PanoramaViewer] INIT — HEAD: ${headMs}ms | viewer.init: ${initMs}ms | scenes: ${Object.keys(scenes).length}`
             );
           }
 
@@ -162,10 +159,9 @@ export default function PanoramaViewer({
         setSceneState("missing");
       });
 
-  // machineNames, handleNavigate, handleMachineClick are stable refs and included
-  // so the effect rebuilds the scene config if they ever change (e.g. hot reload).
-  // devMode is included because it changes the autoRotate default in the viewer config.
-  }, [labConfig, machineNames, handleNavigate, handleMachineClick, devMode]); // eslint-disable-line
+  // machineNames and stable callback refs are included so the scene config
+  // and hotspot handlers stay fresh after hot-reload.
+  }, [labConfig, machineNames, handleNavigate, handleMachineClick, handleInventoryClick]); // eslint-disable-line
 
   // ------------------------------------------------------------------
   // EFFECT B — Scene Switching via loadScene()
@@ -207,17 +203,22 @@ export default function PanoramaViewer({
     if (isPreloaded(imageUrl)) {
       const t = performance.now();
       try {
+        // Clear old hotspots BEFORE switching scene
+        clearHotspots(viewerRef.current, activeHotspotIds.current);
         viewerRef.current.loadScene(
           currentScene,
           sceneData.initial_pitch ?? 0,
           sceneData.initial_yaw   ?? 0,
           100,
         );
+        // Inject new hotspots for this scene AFTER switching
+        activeHotspotIds.current = injectHotspots(
+          currentScene, viewerRef.current, labConfig,
+          machineNames, handleNavigate, handleMachineClick, handleInventoryClick
+        );
         const loadMs = Math.round(performance.now() - t);
         if (import.meta.env.DEV) {
-          console.log(
-            `[PanoramaViewer] SWITCH (cached) → '${currentScene}' │ loadScene: ${loadMs}ms │ HEAD: skipped`
-          );
+          console.log(`[PanoramaViewer] SWITCH (cached) → '${currentScene}' | loadScene: ${loadMs}ms | HEAD: skipped`);
         }
         setSceneState("ready");
       } catch (e) {
@@ -245,18 +246,23 @@ export default function PanoramaViewer({
         const t1     = performance.now();
 
         try {
+          // Clear old hotspots BEFORE switching scene
+          clearHotspots(viewerRef.current, activeHotspotIds.current);
           viewerRef.current.loadScene(
             currentScene,
             sceneData.initial_pitch ?? 0,
             sceneData.initial_yaw   ?? 0,
             100,
           );
+          // Inject new hotspots for this scene AFTER switching
+          activeHotspotIds.current = injectHotspots(
+            currentScene, viewerRef.current, labConfig,
+            machineNames, handleNavigate, handleMachineClick, handleInventoryClick
+          );
 
           const loadMs = Math.round(performance.now() - t1);
           if (import.meta.env.DEV) {
-            console.log(
-              `[PanoramaViewer] SWITCH (uncached) → '${currentScene}' │ HEAD: ${headMs}ms │ loadScene: ${loadMs}ms │ total: ${headMs + loadMs}ms`
-            );
+            console.log(`[PanoramaViewer] SWITCH (uncached) → '${currentScene}' | HEAD: ${headMs}ms | loadScene: ${loadMs}ms`);
           }
 
           setSceneState("ready");
@@ -270,40 +276,9 @@ export default function PanoramaViewer({
         setSceneState("missing");
       });
 
-  }, [currentScene, labConfig]);
+  }, [currentScene, labConfig, machineNames, handleNavigate, handleMachineClick, handleInventoryClick]); // eslint-disable-line
 
-  // ------------------------------------------------------------------
-  // EFFECT C — Dev mode RAF coordinate polling (unchanged from Phase 1)
-  // ------------------------------------------------------------------
-  useEffect(() => {
-    if (!devMode || sceneState !== "ready" || !onViewChange) return;
-
-    let rafId;
-    let started = false;
-
-    const poll = () => {
-      if (viewerRef.current) {
-        try {
-          onViewChange({
-            pitch: viewerRef.current.getPitch(),
-            yaw:   viewerRef.current.getYaw(),
-            hfov:  viewerRef.current.getHfov(),
-          });
-        } catch (_) { /* viewer not ready */ }
-      }
-      rafId = requestAnimationFrame(poll);
-    };
-
-    const initTimer = setTimeout(() => {
-      started = true;
-      rafId = requestAnimationFrame(poll);
-    }, 600);
-
-    return () => {
-      clearTimeout(initTimer);
-      if (started) cancelAnimationFrame(rafId);
-    };
-  }, [devMode, sceneState, onViewChange]);
+  // (Effect C — dev mode RAF polling — removed)
 
   // ------------------------------------------------------------------
   // EFFECT D — Cleanup on full unmount (page unload / HMR)
@@ -364,47 +339,65 @@ export default function PanoramaViewer({
         </div>
       )}
 
-      {/* Dev mode indicator */}
-      {devMode && sceneState === "ready" && (
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
-          <div
-            className="flex items-center gap-2 rounded-full px-3 py-1.5 backdrop-blur-sm"
-            style={{
-              background: "rgba(120, 53, 15, 0.9)",
-              border: "1px solid rgba(245,158,11,0.5)",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
-            }}
-          >
-            <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-            <span className="text-[10px] font-mono font-bold tracking-wider text-amber-300">
-              DEV MODE — drag to aim, copy coordinates from panel →
-            </span>
-          </div>
-        </div>
-      )}
+      {/* dev mode indicator removed */}
     </div>
   );
 }
 
 // ------------------------------------------------------------------
-// buildScenesConfig — pure function, called once at viewer init
+// buildScenesConfig — builds scene panorama map with EMPTY hotSpots.
 //
-// Converts the backend lab_config scene graph into the Pannellum
-// multi-scene configuration format. All hotspot click handlers are
-// closures over stable handleNavigate / handleMachineClick refs.
+// Hotspots are intentionally omitted here. Pannellum has a known bug
+// where custom hotspots configured in the multi-scene object bleed
+// across scenes — all scenes' hotspots render simultaneously.
+//
+// Fix: start with empty arrays, then use injectHotspots() to add them
+// imperatively after each loadScene(), and clearHotspots() to remove
+// them before each scene switch.
 // ------------------------------------------------------------------
-function buildScenesConfig(labConfig, apiBase, machineNames, handleNavigate, handleMachineClick, handleInventoryClick) {
+function buildScenesConfig(labConfig, apiBase) {
   const scenes = {};
-
   Object.entries(labConfig.scenes).forEach(([sceneKey, sceneData]) => {
     const imageUrl = sceneData.image?.startsWith("http")
       ? sceneData.image
       : `${apiBase}${sceneData.image}`;
+    scenes[sceneKey] = {
+      type:     "equirectangular",
+      panorama: imageUrl,
+      pitch:    sceneData.initial_pitch ?? 0,
+      yaw:      sceneData.initial_yaw   ?? 0,
+      hotSpots: [], // always empty — managed dynamically
+    };
+  });
+  return scenes;
+}
 
-    const hotSpots = [];
+// ------------------------------------------------------------------
+// clearHotspots — removes all tracked hotspot IDs from the viewer.
+// Called before every loadScene() so no hotspots bleed into the next
+// scene.
+// ------------------------------------------------------------------
+function clearHotspots(viewer, ids) {
+  ids.forEach(id => {
+    try { viewer.removeHotSpot(id); } catch (_) {}
+  });
+}
 
-    (sceneData.navigation || []).forEach((nav) => {
-      hotSpots.push({
+// ------------------------------------------------------------------
+// injectHotspots — adds nav/machine/inventory hotspots for a scene
+// imperatively via viewer.addHotSpot(). Returns the list of IDs added
+// so the caller can store them for later cleanup.
+// ------------------------------------------------------------------
+function injectHotspots(sceneKey, viewer, labConfig, machineNames, handleNavigate, handleMachineClick, handleInventoryClick) {
+  const sceneData = labConfig.scenes[sceneKey];
+  if (!sceneData || !viewer) return [];
+  const ids = [];
+
+  (sceneData.navigation || []).forEach((nav, i) => {
+    const id = `hs_nav_${sceneKey}_${i}`;
+    try {
+      viewer.addHotSpot({
+        id,
         pitch:             nav.pitch,
         yaw:               nav.yaw,
         type:              "custom",
@@ -412,11 +405,16 @@ function buildScenesConfig(labConfig, apiBase, machineNames, handleNavigate, han
         createTooltipFunc: createNavHotspotElement(nav.label, nav.direction),
         clickHandlerFunc:  () => handleNavigate(nav.target),
       });
-    });
+      ids.push(id);
+    } catch (_) {}
+  });
 
-    (sceneData.machines || []).forEach((m) => {
-      const label = machineNames?.[m.machine_id] || m.machine_id;
-      hotSpots.push({
+  (sceneData.machines || []).forEach((m, i) => {
+    const label = machineNames?.[m.machine_id] || m.machine_id;
+    const id = `hs_machine_${sceneKey}_${i}`;
+    try {
+      viewer.addHotSpot({
+        id,
         pitch:             m.pitch,
         yaw:               m.yaw,
         type:              "custom",
@@ -424,11 +422,15 @@ function buildScenesConfig(labConfig, apiBase, machineNames, handleNavigate, han
         createTooltipFunc: createMachineHotspotElement(label),
         clickHandlerFunc:  () => handleMachineClick(m.machine_id),
       });
-    });
+      ids.push(id);
+    } catch (_) {}
+  });
 
-    // Inventory rack hotspots — amber/box icon, distinct from machines
-    (sceneData.inventories || []).forEach((inv) => {
-      hotSpots.push({
+  (sceneData.inventories || []).forEach((inv, i) => {
+    const id = `hs_inv_${sceneKey}_${i}`;
+    try {
+      viewer.addHotSpot({
+        id,
         pitch:             inv.pitch,
         yaw:               inv.yaw,
         type:              "custom",
@@ -436,18 +438,11 @@ function buildScenesConfig(labConfig, apiBase, machineNames, handleNavigate, han
         createTooltipFunc: createInventoryHotspotElement(inv.label || inv.rack_id),
         clickHandlerFunc:  () => handleInventoryClick({ rack_id: inv.rack_id, name: inv.label || inv.rack_id }),
       });
-    });
-
-    scenes[sceneKey] = {
-      type:     "equirectangular",
-      panorama: imageUrl,
-      pitch:    sceneData.initial_pitch ?? 0,
-      yaw:      sceneData.initial_yaw   ?? 0,
-      hotSpots,
-    };
+      ids.push(id);
+    } catch (_) {}
   });
 
-  return scenes;
+  return ids;
 }
 
 // ------------------------------------------------------------------

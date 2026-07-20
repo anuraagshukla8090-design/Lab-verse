@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
-import PanoramaViewer    from "@/components/PanoramaViewer";
-import MachineSheet      from "@/components/MachineSheet";
-import InventorySheet    from "@/components/InventorySheet";
-import LoadingScreen     from "@/components/LoadingScreen";
-import NavigationCompass from "@/components/NavigationCompass";
-import DevPanel          from "@/components/DevPanel";
+import PanoramaViewer         from "@/components/PanoramaViewer";
+import MachineSheet           from "@/components/MachineSheet";
+import InventorySheet         from "@/components/InventorySheet";
+import ProjectPlannerSheet    from "@/components/ProjectPlannerSheet";
+import LoadingScreen          from "@/components/LoadingScreen";
+import NavigationCompass      from "@/components/NavigationCompass";
 import { getLabConfig, getMachines } from "@/lib/api";
-import { preloadAdjacentScenes }    from "@/lib/preloader";
+import { preloadAdjacentScenes }     from "@/lib/preloader";
 import {
   Map,
   Layers,
@@ -15,7 +15,7 @@ import {
   Navigation2,
   MapPin,
   ChevronDown,
-  Code2,
+  Sparkles,
 } from "lucide-react";
 
 /**
@@ -39,13 +39,12 @@ export default function Home() {
   const [currentScene,  setCurrentScene]  = useState(null);
   const [activeMachine, setActiveMachine] = useState(null);
   const [sheetOpen,     setSheetOpen]     = useState(false);
-  const [activeRack,       setActiveRack]       = useState(null);
+  const [activeRack,         setActiveRack]         = useState(null);
   const [inventorySheetOpen, setInventorySheetOpen] = useState(false);
+  const [plannerOpen,        setPlannerOpen]        = useState(false);
   const [loading,       setLoading]       = useState(true);
   const [error,         setError]         = useState(null);
   const [debugMenuOpen, setDebugMenuOpen] = useState(false);  // scene-jump dropdown
-  const [devMode,       setDevMode]       = useState(false);
-  const [viewCoords,    setViewCoords]    = useState(null);   // { pitch, yaw, hfov }
   const [overlayState,  setOverlayState]  = useState("idle"); // idle | closing | opening
 
   // Ref mirrors overlayState so handleNavigate can read it without becoming stale.
@@ -214,8 +213,6 @@ export default function Home() {
         onNavigate={handleNavigate}
         onMachineClick={handleMachineClick}
         onInventoryClick={handleInventoryClick}
-        devMode={devMode}
-        onViewChange={setViewCoords}
       />
 
       {/* ---- Top Bar ---- */}
@@ -262,44 +259,24 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ---- Developer Panel — right side, vertically centered ---- */}
-      {devMode && (
-        <div
-          className="absolute right-4 z-30 pointer-events-auto overflow-y-auto lv-scrollbar"
-          style={{ top: "50%", transform: "translateY(-50%)", maxHeight: "calc(100vh - 120px)" }}
-        >
-          <DevPanel
-            coords={viewCoords}
-            currentScene={currentScene}
-            scene={scene}
-            onClose={() => setDevMode(false)}
-          />
-        </div>
-      )}
 
       {/* ---- Bottom Control Bar ---- */}
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 flex items-end justify-between px-5 pb-5">
 
-        {/* Left side: Dev toggle + Scene jump (debug) */}
+        {/* Left side: Plan button + Scene jump dropdown */}
         <div className="pointer-events-auto flex items-center gap-2">
 
-          {/* Dev mode toggle */}
+          {/* Plan a Project button */}
           <button
-            id="dev-mode-btn"
-            onClick={() => setDevMode((v) => !v)}
-            aria-pressed={devMode}
-            title="Toggle developer coordinate tool"
-            className={`flex items-center gap-1.5 rounded-xl border px-3 py-2 backdrop-blur-md text-xs font-semibold transition-all ${
-              devMode
-                ? "border-amber-500/50 bg-amber-950/80 text-amber-300 shadow-lg shadow-amber-900/30"
-                : "border-white/15 bg-black/60 text-slate-400 hover:text-slate-200 hover:border-white/25"
-            }`}
+            id="plan-project-btn"
+            onClick={() => setPlannerOpen(true)}
+            title="Plan a project using lab machines"
+            className="flex items-center gap-1.5 rounded-xl border border-purple-500/40 bg-purple-950/70 px-3 py-2 backdrop-blur-md text-xs font-semibold text-purple-300 hover:border-purple-400/60 hover:text-purple-200 hover:bg-purple-900/80 transition-all shadow-lg shadow-purple-900/20"
           >
-            <Code2 className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">Dev</span>
+            <Sparkles className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Plan a Project</span>
           </button>
 
-          {/* Scene jump — debug dropdown */}
           <div className="relative">
             <button
               id="scene-selector-btn"
@@ -388,6 +365,21 @@ export default function Home() {
           rack={activeRack}
           labId={labConfig?.lab_id || "main_lab"}
           onClose={handleInventorySheetClose}
+        />
+      )}
+
+      {/* ---- Project Planner Sheet ---- */}
+      {plannerOpen && (
+        <ProjectPlannerSheet
+          onClose={() => setPlannerOpen(false)}
+          onMachineClick={(machineId) => {
+            setPlannerOpen(false);
+            const machine = machines[machineId];
+            if (machine) {
+              setActiveMachine({ ...machine, machine_id: machineId });
+              setSheetOpen(true);
+            }
+          }}
         />
       )}
 

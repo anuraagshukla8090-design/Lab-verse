@@ -47,7 +47,7 @@
       "label": "Node 02",
       "description": "Left branch — first position",
       "image": "/static/panoramas/node_02.jpg",
-      "initial_yaw": 75,
+      "initial_yaw": 200,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_01", "pitch": -20, "yaw": 160, "label": "Node 01", "direction": "back"    },

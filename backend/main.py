@@ -25,6 +25,7 @@ import json
 from pathlib import Path
 
 from routers.inventory import router as inventory_router
+from routers.planner  import router as planner_router
 
 from dotenv import load_dotenv
 _env_file = Path(__file__).resolve().parent / ".env"
@@ -134,6 +135,7 @@ app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 # ---------------------------------------------------------------------------
 
 app.include_router(inventory_router)
+app.include_router(planner_router)
 
 # ---------------------------------------------------------------------------
 # Data helpers
