@@ -204,13 +204,15 @@ export default function PanoramaViewer({
       const t = performance.now();
       try {
         // Clear old hotspots BEFORE switching scene
-        clearHotspots(viewerRef.current, activeHotspotIds.current);
+        clearHotspots(viewerRef.current, activeHotspotIds.current, containerRef.current);
         viewerRef.current.loadScene(
           currentScene,
           sceneData.initial_pitch ?? 0,
           sceneData.initial_yaw   ?? 0,
           100,
         );
+        // Sweep any orphaned DOM nodes Pannellum failed to remove
+        sweepOrphanedHotspots(containerRef.current);
         // Inject new hotspots for this scene AFTER switching
         activeHotspotIds.current = injectHotspots(
           currentScene, viewerRef.current, labConfig,
@@ -247,13 +249,15 @@ export default function PanoramaViewer({
 
         try {
           // Clear old hotspots BEFORE switching scene
-          clearHotspots(viewerRef.current, activeHotspotIds.current);
+          clearHotspots(viewerRef.current, activeHotspotIds.current, containerRef.current);
           viewerRef.current.loadScene(
             currentScene,
             sceneData.initial_pitch ?? 0,
             sceneData.initial_yaw   ?? 0,
             100,
           );
+          // Sweep any orphaned DOM nodes Pannellum failed to remove
+          sweepOrphanedHotspots(containerRef.current);
           // Inject new hotspots for this scene AFTER switching
           activeHotspotIds.current = injectHotspots(
             currentScene, viewerRef.current, labConfig,
@@ -373,14 +377,46 @@ function buildScenesConfig(labConfig, apiBase) {
 }
 
 // ------------------------------------------------------------------
-// clearHotspots — removes all tracked hotspot IDs from the viewer.
-// Called before every loadScene() so no hotspots bleed into the next
-// scene.
+// clearHotspots — removes all tracked hotspot IDs from the viewer
+// AND force-removes orphaned DOM nodes from the container.
+//
+// Pannellum's removeHotSpot() silently fails for hotspots that were
+// added to a scene that is no longer active, leaving their DOM nodes
+// in the container. This caused machine hotspots from one scene to
+// visually bleed into the next scene.
 // ------------------------------------------------------------------
-function clearHotspots(viewer, ids) {
+function clearHotspots(viewer, ids, container) {
+  // Step 1: Try the Pannellum API (works for the currently active scene)
   ids.forEach(id => {
     try { viewer.removeHotSpot(id); } catch (_) {}
   });
+
+  // Step 2: Force-remove any orphaned custom hotspot DOM nodes
+  if (container) {
+    sweepOrphanedHotspots(container);
+  }
+}
+
+// ------------------------------------------------------------------
+// sweepOrphanedHotspots — removes all .lv-pnlm-hotspot DOM elements
+// from the Pannellum container. Called after loadScene() to catch any
+// hotspot nodes that Pannellum failed to clean up during scene switch.
+// ------------------------------------------------------------------
+function sweepOrphanedHotspots(container) {
+  if (!container) return;
+  const orphans = container.querySelectorAll('.lv-pnlm-hotspot');
+  orphans.forEach(el => {
+    // Walk up to the Pannellum hotspot wrapper div (parent of the tooltip)
+    const wrapper = el.closest('.pnlm-hotspot-base') || el.parentElement;
+    if (wrapper && wrapper.parentElement) {
+      wrapper.parentElement.removeChild(wrapper);
+    } else {
+      el.remove();
+    }
+  });
+  if (import.meta.env.DEV && orphans.length > 0) {
+    console.log(`[PanoramaViewer] Swept ${orphans.length} orphaned hotspot DOM nodes`);
+  }
 }
 
 // ------------------------------------------------------------------
