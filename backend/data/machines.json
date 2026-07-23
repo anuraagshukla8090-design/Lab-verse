@@ -1472,5 +1472,96 @@
     "career_relevance": ["fashion_technology", "textile_engineering", "wearable_tech"],
     "used_in_domains": ["design", "textile_engineering"],
     "prerequisite_concepts": ["fabric_types", "thread_selection", "stitch_types"]
+  },
+  "benchtop_digital_multimeter": {
+    "name": "Benchtop Digital Multimeter",
+    "lab": "main_lab",
+    "category": "measurement_instruments",
+    "skills_required": [
+      "Basic Electrical Safety",
+      "Digital Multimeter Operation"
+    ],
+    "skills_taught": [
+      "Precision DC/AC Measurement",
+      "Component Characterisation (C, L, hFE)",
+      "4-Wire Kelvin Resistance Measurement",
+      "PC Data Logging via USB"
+    ],
+    "related_machines": [
+      "digital_multimeter",
+      "oscilloscope",
+      "variable_power_supply"
+    ],
+    "complexity_level": "intermediate",
+    "supervision_required": false,
+    "difficulty_score": 4,
+    "estimated_training_hours": 2,
+    "learning_level": "intermediate",
+    "project_categories": [
+      "electrical_measurement",
+      "sensor_calibration",
+      "component_testing",
+      "data_logging"
+    ],
+    "career_relevance": [
+      "electronics_engineering",
+      "calibration_lab_technician",
+      "hardware_testing",
+      "quality_control"
+    ],
+    "used_in_domains": [
+      "electrical_engineering",
+      "electronics",
+      "instrumentation"
+    ],
+    "prerequisite_concepts": [
+      "ohms_law",
+      "basic_circuit_theory",
+      "si_units_electrical"
+    ]
+  },
+  "tool_wall_covering_perforator": {
+    "name": "Tool Wall Covering Perforator",
+    "lab": "mechanical_lab",
+    "category": "drilling_machining",
+    "skills_required": [
+      "Basic Drill Press Operation",
+      "Safety Awareness"
+    ],
+    "skills_taught": [
+      "Precision Hole Layout",
+      "Jig-Based Drilling",
+      "5S Shadow Board Preparation",
+      "Pegboard Panel Fabrication"
+    ],
+    "related_machines": [
+      "benchtop_drill_machine",
+      "cordless_drill"
+    ],
+    "complexity_level": "beginner",
+    "supervision_required": false,
+    "difficulty_score": 2,
+    "estimated_training_hours": 1,
+    "learning_level": "novice",
+    "project_categories": [
+      "tool_organisation",
+      "workshop_setup",
+      "panel_fabrication"
+    ],
+    "career_relevance": [
+      "lean_manufacturing",
+      "workshop_management",
+      "mechanical_technician"
+    ],
+    "used_in_domains": [
+      "mechanical_engineering",
+      "industrial_engineering",
+      "facilities_management"
+    ],
+    "prerequisite_concepts": [
+      "drill_bit_selection",
+      "clamping_techniques",
+      "5S_workplace_organisation"
+    ]
   }
 }

@@ -53,9 +53,9 @@
         { "target": "node_01", "pitch": -20, "yaw": 160, "label": "Node 01", "direction": "back"    },
         { "target": "node_03", "pitch": -20, "yaw":   0, "label": "Node 03", "direction": "forward" }
       ],
-      "machines": [ { "machine_id": "vinyl_cutter","pitch": -6,  "yaw": 150},
-  { "machine_id": "digital_microscope","pitch": -6,  "yaw": 120},
-  {"machine_id": "soldering_station","pitch": -6,  "yaw": 95},
+      "machines": [ { "machine_id": "vinyl_cutter","pitch": -6,  "yaw": -260},
+  { "machine_id": "digital_microscope","pitch": -6,  "yaw": -240},
+  {"machine_id": "soldering_station","pitch": -6,  "yaw": -230},
   { "machine_id": "soldering_station","pitch": -5,  "yaw": 65},
   { "machine_id": "soldering_station","pitch": -5,  "yaw": 45}]
     },
@@ -166,13 +166,13 @@
       "label": "Mechanical Lab Entry",
       "description": "Mechanical Lab — entry point",
       "image": "/static/panoramas/node_10.jpg",
-      "initial_yaw": 0,
+      "initial_yaw": 230,
       "initial_pitch": 0,
       "navigation": [
         { "target": "corridor_node", "pitch": -20, "yaw": 180, "label": "Corridor",  "direction": "back"    },
         { "target": "node_11",       "pitch": -20, "yaw":   0, "label": "Node 11",   "direction": "forward" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "chop_saw","pitch": -6,  "yaw": 75}]
     },
 
     "node_11": {

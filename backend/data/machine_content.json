@@ -1,13 +1,16 @@
 {
   "vinyl_cutter": {
-    "description": "The Vinyl Cutter is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the prototyping_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the Vinyl Cutter revolutionized engineering workflows.",
+    "description": "A computer-controlled cutting machine that drags a small blade along vinyl sheets or other thin materials to cut out shapes, text, and designs from vector graphics files.",
+    "overview": "Used in the lab to create custom stickers, decals, PCB etching masks, and stencils. Students design artwork in vector software (Inkscape, Illustrator), export it as SVG or DXF, and the machine cuts it automatically without a laser or heat.",
+    "working_principle": "A stepper motor moves the media (vinyl sheet) forward and backward on the Y-axis while a servo motor raises/lowers the blade on the Z-axis. The blade drags at a set pressure and speed, cutting only through the top layer of vinyl without cutting the backing paper.",
+    "historical_background": "Vinyl cutters were developed in the 1960s-70s for sign-making and became widely accessible to makerspaces in the 2000s when Roland and Graphtec released desktop models under $1000.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "power": "24V DC adapter",
+      "cutting_width": "Up to 305mm (12 inch)",
+      "cut_speed": "Up to 500mm/s",
+      "blade_force": "30-350g adjustable",
+      "resolution": "0.025mm",
+      "media_types": "Vinyl, cardstock, thin mylar, heat transfer film"
     },
     "applications": [
       "signage",
@@ -21,54 +24,65 @@
       "marketing_materials"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "No heat or fumes produced — safe for open lab use",
+      "Very fast for batch-producing identical stickers or labels",
+      "Cuts precisely even on curved or complex outlines that would be tedious by hand"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "Cannot cut materials thicker than ~0.5mm — not suitable for acrylic or wood",
+      "Requires vector artwork — raster images (photos, JPEGs) must be traced first",
+      "Weeding intricate cuts (removing excess vinyl) is time-consuming"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "Vehicle wraps and decals",
+      "Custom t-shirt heat transfers",
+      "PCB solder mask stencils for prototype boards"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "The blade does not actually spin — it pivots freely so it always trails in the direction of motion, like a shopping cart wheel",
+      "A single vinyl cutter can produce several meters of cut material per minute at full speed"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "Keep fingers clear of the blade carriage during operation. Never reach under the carriage while the machine is running. Secure loose clothing and long hair away from the feed rollers.",
+    "sop_summary": "Load vinyl sheet under the pinch rollers and lock them down. Select media type (roll or sheet) on the control panel. Send cut file from Inkscape/Illustrator via USB or the cutter software. After cutting, peel excess vinyl (weeding), then apply transfer tape to transfer the design.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Setting blade depth too high — it cuts through the backing paper, ruining the design",
+      "Forgetting to mirror the design when cutting heat-transfer vinyl (HTV)",
+      "Not doing a test cut before running the full design, leading to wasted material"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Clean the cutting strip (the groove the blade runs in) with isopropyl alcohol monthly. Replace the blade when cuts become ragged or require multiple passes. Check pinch roller pressure is even across the width.",
+    "calibration_notes": "Always perform a test cut (small triangle and circle) before each session. Adjust blade depth so it cuts cleanly through vinyl but leaves the backing paper intact. Set force appropriate for the media — too high tears the material, too low leaves uncut sections.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Design is cutting in the wrong position",
+        "cause": "Origin point not set before sending job",
+        "solution": "Move carriage to your desired origin and press Set Origin before cutting."
+      },
+      {
+        "problem": "Vinyl is feeding crooked",
+        "cause": "Media not aligned with the rollers or rollers unevenly spaced",
+        "solution": "Re-load media parallel to the edge guides and re-space rollers symmetrically."
+      },
+      {
+        "problem": "Blade is tearing instead of cutting",
+        "cause": "Blade is dull or blade depth is set too deep",
+        "solution": "Replace blade tip or reduce blade depth by turning the blade holder counterclockwise."
       }
     ],
     "project_examples": [
       {
-        "name": "Introductory Lab",
+        "name": "Custom Sticker Pack",
         "difficulty": "Beginner",
-        "description": "A simple guided exercise to learn the Vinyl Cutter."
+        "description": "Design 5 logo stickers in Inkscape, cut them on coloured vinyl, weed them, and apply to a laptop."
       },
       {
-        "name": "Intermediate Project",
+        "name": "PCB Etching Stencil",
         "difficulty": "Intermediate",
-        "description": "Applying multiple concepts together."
+        "description": "Cut a solder paste stencil from 0.1mm mylar film matching your PCB footprints, then use it to apply solder paste evenly."
       },
       {
-        "name": "Capstone Module",
+        "name": "Multi-colour Heat Transfer Shirt",
         "difficulty": "Advanced",
-        "description": "Full integration into a larger system."
+        "description": "Design a 3-layer HTV graphic, cut each colour separately, and align-press them onto a t-shirt in sequence."
       }
     ],
     "learning_path": {
@@ -102,14 +116,17 @@
     "sop_path": "/static/docs/vinyl_cutter/sop.pdf"
   },
   "soldering_station": {
-    "description": "The Soldering Station is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the Soldering Station revolutionized engineering workflows.",
+    "description": "A temperature-controlled electronic soldering station consisting of a control unit and an iron handpiece, used to melt and apply solder to join electronic components to PCBs.",
+    "overview": "The primary tool for all electronics assembly and repair in the lab. Students use it to solder through-hole components onto perfboards, assemble PCBs, splice wires, and repair connectors. Temperature control is critical — different solder alloys and component heat sensitivities require different settings.",
+    "working_principle": "A ceramic or resistive heating element in the iron tip converts electrical energy to heat. A thermocouple inside the tip feeds temperature back to the control unit, which uses PID control to hold the set temperature within ±2°C even when the tip contacts a cold joint.",
+    "historical_background": "Electric soldering irons appeared in the early 1900s; temperature-controlled stations became standard in the 1970s when Weller introduced the WTCP series, which used a magnetic tip that would disconnect the heater at Curie point temperature.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "power": "65W (adjustable)",
+      "temperature_range": "150°C – 480°C",
+      "temperature_stability": "±2°C",
+      "tip_types": "Conical, chisel, bevel, knife (interchangeable)",
+      "display": "Digital LED",
+      "sleep_mode": "Auto standby after 10 min"
     },
     "applications": [
       "pcb_assembly",
@@ -123,37 +140,48 @@
       "embedded_systems"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "Precise temperature control prevents component damage from overheating",
+      "Interchangeable tips allow fine-pitch SMD work and heavy connector soldering on the same station",
+      "Fast heat recovery — tip returns to set temperature within seconds of contacting a large pad"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "No substitute for technique — bad iron angle or insufficient flux still causes cold joints regardless of temperature",
+      "Tip longevity depends on proper tinning; tips oxidise quickly if left untinned at high temperatures",
+      "Not suitable for soldering large ground planes without a higher-wattage station (80W+)"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "Smartphone PCBs",
+      "Arduino and Raspberry Pi shields",
+      "Automotive ECU boards"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "Lead-free solder (SAC305 alloy) requires about 30°C higher iron temperature than traditional tin-lead solder because of its higher melting point (217°C vs 183°C)",
+      "A well-soldered joint is shiny and takes on a volcano or tent shape — dull or grainy joints indicate a cold solder"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "Always use the fume extractor when soldering — flux fumes are a respiratory irritant. Never rest the hot iron anywhere except the iron holder. Keep the sponge or brass wool damp/ready to wipe tips. Iron tips can exceed 400°C — treat as an active burn hazard.",
+    "sop_summary": "Power on and set temperature (350°C for leaded, 380°C for lead-free solder). Wait 2-3 min for the tip to stabilise. Tin the tip with fresh solder. Apply iron to the joint (component lead + pad) for 1-2 seconds, then feed solder into the joint (not the iron). Remove iron and let the joint cool undisturbed for 3 seconds. Clean the tip after every few joints.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Applying solder to the iron tip instead of the joint — this creates a cold joint with no intermetallic bond",
+      "Moving the component before solder solidifies — causes a fractured cold joint that looks OK but fails electrically",
+      "Using too much solder — bridges adjacent pads and creates short circuits"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Re-tin the tip every session and at shutdown — leaving an oxidised bare tip destroys the plating within days. Clean oxidised tips with tip tinner/activator paste. Replace tips when the plating pits and solder no longer wets the tip surface.",
+    "calibration_notes": "Use a tip thermometer to verify displayed temperature matches actual tip temperature once a semester. Temperature can drift if the thermocouple contact degrades. Replace the tip if actual temperature is more than 10°C off the set value.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Solder beads up and will not wet the pad",
+        "cause": "Oxidised pad surface or insufficient flux",
+        "solution": "Apply liquid flux to the pad before soldering, or clean the pad with isopropyl alcohol and a fibreglass pen."
+      },
+      {
+        "problem": "Tip temperature drops sharply when touching large pads",
+        "cause": "Iron wattage too low or tip too small for the thermal mass",
+        "solution": "Increase set temperature by 10-20°C or switch to a larger chisel tip for better heat transfer."
+      },
+      {
+        "problem": "Iron does not heat up to set temperature",
+        "cause": "Damaged heating element or loose iron connection",
+        "solution": "Check that the iron plug is firmly seated in the station. If heating element resistance is out of spec, replace the handpiece."
       }
     ],
     "project_examples": [
@@ -206,14 +234,17 @@
     "sop_path": "/static/docs/soldering_station/sop.pdf"
   },
   "digital_microscope": {
-    "description": "The Digital Microscope is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the inspection_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the Digital Microscope revolutionized engineering workflows.",
+    "description": "A digital microscope captures magnified images (10x–250x) of small objects through a CMOS camera sensor, displaying live video on a connected monitor or screen rather than through an optical eyepiece.",
+    "overview": "Used in the lab to inspect PCB solder joints, identify component markings, check surface finishes, and perform quality control on 3D-printed or machined parts. Unlike optical microscopes, the image is shared on-screen, making it practical for group inspection and documentation.",
+    "working_principle": "A CMOS or CCD image sensor captures light reflected off (or transmitted through) the specimen. Integrated LED ring lights illuminate the sample at adjustable intensity. A zoom lens changes the optical magnification, and software can add digital zoom on top. The output is a live USB or HDMI video feed.",
+    "historical_background": "Digital microscopes became popular in the early 2000s when CMOS sensors became cheap enough to replace optical eyepieces. Dino-Lite and Celestron were early consumer brands; the technology is now found on every PCB assembly line for solder joint inspection.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "magnification": "10x – 250x optical",
+      "sensor": "2MP CMOS (1920×1080)",
+      "output": "USB 3.0 + HDMI",
+      "illumination": "Built-in LED ring, adjustable brightness",
+      "depth_of_field": "1mm at 250x",
+      "working_distance": "20–130mm"
     },
     "applications": [
       "quality_control",
@@ -225,54 +256,65 @@
       "failure_analysis"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "Shared screen view enables group learning without everyone crowding around an eyepiece",
+      "Still and video capture built-in for documentation and lab reports",
+      "No glass eyepiece fatigue — comfortable for extended inspection sessions"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "Depth of field shrinks dramatically at high magnification — only a thin plane is in focus",
+      "Image quality degrades under vibration — requires a stable surface",
+      "Not a true metrology tool — measurements from screen pixels have limited accuracy"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "PCB manufacturing quality control lines",
+      "Jewellery inspection and repair",
+      "Forensic document examination"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "At 250x magnification, a human hair (70 µm) appears as wide as a pencil eraser",
+      "Semiconductor bond wires — the thin gold wires connecting a chip die to its package pins — are visible and inspectable at 200x"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "Do not place fingers directly under the LED ring lights at full brightness for extended periods — the LEDs can cause mild discomfort to eyes. Never use the microscope to view laser light sources. Handle slides and sharp specimens carefully.",
+    "sop_summary": "Connect the microscope via USB to the software (or HDMI to a monitor). Power on the LED ring. Place the specimen on the stand platform. Use the focus wheel to bring the specimen into focus at low magnification first, then increase magnification. Adjust LED brightness to eliminate glare. Capture images using the software snapshot button.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Starting at maximum magnification — depth of field is so shallow nothing is in focus; always start at 10x and zoom in",
+      "Illuminating at full brightness on reflective PCBs — creates glare that hides surface detail; reduce brightness and tilt the sample slightly",
+      "Not focusing before taking a measurement — blurry images give inaccurate dimension readings"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Clean the lens with a lens blower then a microfibre cloth — never paper tissue, which scratches the coating. Wipe the stand and base with isopropyl alcohol. Store with the lens cap on to prevent dust accumulation.",
+    "calibration_notes": "Use a calibration slide (known dimension scale bar) to verify the on-screen measurement scale is accurate at each magnification level. Re-calibrate in software if the scale reading differs from the known dimension by more than 5%.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Image is completely black",
+        "cause": "Lens cap is still on or LED ring is turned off",
+        "solution": "Remove the lens cap and increase LED brightness."
+      },
+      {
+        "problem": "Screen shows a white glare",
+        "cause": "LED brightness too high on a reflective surface",
+        "solution": "Reduce LED brightness or tilt the specimen slightly."
+      },
+      {
+        "problem": "No device found in software",
+        "cause": "USB cable not connected properly",
+        "solution": "Unplug and replug the USB cable directly into the PC, avoiding USB hubs."
       }
     ],
     "project_examples": [
       {
-        "name": "Introductory Lab",
+        "name": "PCB Defect Hunt",
         "difficulty": "Beginner",
-        "description": "A simple guided exercise to learn the Digital Microscope."
+        "description": "Inspect 10 solder joints and identify cold joints or solder bridges."
       },
       {
-        "name": "Intermediate Project",
+        "name": "Micro-measurement",
         "difficulty": "Intermediate",
-        "description": "Applying multiple concepts together."
+        "description": "Calibrate the software and measure the pitch of an SMD IC pin."
       },
       {
-        "name": "Capstone Module",
+        "name": "Failure Analysis Report",
         "difficulty": "Advanced",
-        "description": "Full integration into a larger system."
+        "description": "Examine a broken 3D print cross-section to find layer adhesion failures."
       }
     ],
     "learning_path": {
@@ -303,14 +345,19 @@
     "sop_path": "/static/docs/digital_microscope/sop.pdf"
   },
   "3d_printer": {
-    "description": "The 3D Printer is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the prototyping_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the 3D Printer revolutionized engineering workflows.",
+    "description": "An FDM (Fused Deposition Modelling) 3D printer builds physical objects layer-by-layer by melting and extruding thermoplastic filament through a heated nozzle, following paths generated from a 3D CAD model.",
+    "overview": "The most-used digital fabrication tool in the lab. Students slice their CAD models (from Fusion 360, SolidWorks, or Tinkercad) in slicing software (Cura, PrusaSlicer), generate G-code, and the printer builds the part overnight. Commonly used for enclosures, brackets, gears, jigs, and prototype housings.",
+    "working_principle": "The extruder motor pushes filament into a heated block (hotend) at 190–260°C, melting it. The nozzle traces a programmed 2D path on the current layer, depositing molten plastic that fuses with the layer below. The build plate then lowers by one layer height (0.1–0.3mm) and the process repeats.",
+    "historical_background": "FDM was invented by Scott Crump (Stratasys) in 1989 and patented until 2009. When the patent expired, the RepRap open-source project and Makerbot popularised low-cost desktop FDM, eventually leading to sub-$300 printers that are now standard in university labs.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "build_volume": "220×220×250mm",
+      "nozzle_diameter": "0.4mm (standard)",
+      "layer_height": "0.05mm – 0.3mm",
+      "print_speed": "40–80mm/s",
+      "filament_diameter": "1.75mm",
+      "max_hotend_temp": "260°C",
+      "max_bed_temp": "110°C",
+      "materials": "PLA, PETG, ABS, TPU"
     },
     "applications": [
       "rapid_prototyping",
@@ -323,37 +370,48 @@
       "manufacturing"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "Low material cost — PLA filament costs approximately ₹1,000–1,500/kg",
+      "Wide material range including flexible (TPU) and high-temperature (ABS) filaments",
+      "Fully unattended operation — large prints run overnight without supervision"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "Layer lines create anisotropic strength — parts are weakest when pulled perpendicular to layers",
+      "Minimum feature size is roughly 2× nozzle diameter (0.8mm for a 0.4mm nozzle)",
+      "Overhangs beyond 45° require support structures, which leave rough surfaces when removed"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "Medical device prototypes (hearing aid shells, surgical guides)",
+      "Aerospace jigs and fixtures (Airbus uses FDM for cabin interior brackets)",
+      "Consumer product enclosures during product development"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "The International Space Station has a 3D printer on board — it printed the first object in space in 2014 using PLA filament",
+      "At 0.2mm layer height, a 100mm-tall object requires 500 individual layers"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "PLA printing is safe with adequate ventilation. ABS and PETG emit styrene fumes — print only with the enclosure closed and lab ventilation on. Never leave the printer unattended during the first layer. Keep the area clear of flammable materials near the heated bed.",
+    "sop_summary": "Load filament through the extruder by heating the hotend to print temperature and pushing filament until it extrudes cleanly. Level the bed using the paper-slip method or auto-bed-levelling. Slice the model in Cura with appropriate layer height and supports. Transfer G-code via SD card or USB. Monitor the first layer, then leave to complete.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Skipping bed levelling — a poorly levelled first layer leads to poor adhesion and warping",
+      "Using too high a print speed without enabling acceleration limits — causes ringing artifacts on curved surfaces",
+      "Pulling support structures off dry — misting with isopropyl alcohol first weakens the interface and produces a cleaner surface"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Clean the bed with isopropyl alcohol before every print. Lubricate linear rods with a light machine oil every 50 print hours. Clear the nozzle of partial clogs with a cold pull (heat to print temperature, push filament, cool to 90°C, then pull out). Replace the nozzle every 200–500 hours depending on materials used.",
+    "calibration_notes": "Calibrate the e-steps (extruder steps per mm) by marking 100mm on filament and commanding 100mm — adjust until actual extrusion matches. Run PID autotune for hotend and bed to eliminate temperature oscillation. Print a calibration cube to verify XYZ dimensions are within 0.2mm of nominal.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Print is lifting at the corners",
+        "cause": "Poor bed adhesion or draughts causing uneven cooling",
+        "solution": "Clean the bed with IPA, check first-layer squish, and use a brim if printing ABS."
+      },
+      {
+        "problem": "Extruder clicking and under-extruding",
+        "cause": "Nozzle partial clog or printing too cold",
+        "solution": "Perform a cold pull to clear the clog or increase hotend temperature by 5°C."
+      },
+      {
+        "problem": "Spaghetti failure mid-print",
+        "cause": "Model detached from bed or supports failed",
+        "solution": "Stop print, clean bed, ensure supports are properly configured, and restart."
       }
     ],
     "project_examples": [
@@ -407,14 +465,17 @@
     "sop_path": "/static/docs/3d_printer/sop.pdf"
   },
   "3d_scanner": {
-    "description": "The 3D Scanner is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the prototyping_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the 3D Scanner revolutionized engineering workflows.",
+    "description": "A 3D scanner captures the geometry of physical objects as a digital point cloud or mesh using structured light or photogrammetry, allowing existing objects to be reproduced, measured, or modified in CAD.",
+    "overview": "Used in the lab to reverse-engineer mechanical parts without drawings, inspect 3D-printed output against the original CAD model, and digitise physical objects for archiving or artistic projects. The output mesh can be imported into Meshmixer, Fusion 360, or SolidWorks for further editing.",
+    "working_principle": "Structured-light scanners project a pattern of parallel stripes onto the object. Two cameras observe how the stripes deform over the object's surface. Triangulation between the projected pattern and camera views calculates the 3D position of thousands of surface points simultaneously.",
+    "historical_background": "Industrial 3D scanning using laser triangulation emerged in the 1980s. Desktop structured-light scanners (Revopoint, Einscan) entered the market around 2015, making sub-millimetre scanning accessible at under $500 for the first time.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "scan_accuracy": "0.05mm",
+      "point_spacing": "0.1mm",
+      "scan_volume": "Up to 300×300×300mm per scan",
+      "output_formats": "OBJ, STL, PLY, ASC",
+      "scanning_mode": "Handheld or turntable",
+      "texture_capture": "Yes (colour texture maps)"
     },
     "applications": [
       "reverse_engineering",
@@ -427,54 +488,60 @@
       "metrology"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "Captures complex organic shapes that would be impossible to measure manually with calipers",
+      "Non-contact — no risk of damaging delicate or soft objects",
+      "Produces files directly compatible with 3D printing, CNC machining, or FEM simulation"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "Shiny, transparent, or very dark surfaces scatter or absorb light, producing holes in the scan — requires scanning spray powder",
+      "Accuracy degrades with scanner distance — best results within 300mm of the object",
+      "Raw scans need post-processing (mesh repair, noise reduction) before they are usable in CAD"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "Film and game industry — actors are scanned for digital character models",
+      "Orthotics and prosthetics — custom device fitting from body scans",
+      "Automotive — body panels scanned for aerodynamic simulation"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "The Smithsonian uses photogrammetric 3D scanning to create freely downloadable digital copies of artefacts in their collection",
+      "Human face scanning can produce 500,000 data points in under 10 seconds with a desktop scanner"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "Never look directly at the structured-light projector — though typically not a laser, prolonged exposure to the bright projected pattern causes eye strain. Keep the turntable surface clear of loose items that could fall while rotating.",
+    "sop_summary": "Set up the turntable on a stable surface and place the object in the centre. Open the scanner software and select object size (small/medium/large). Perform the initial calibration board scan. Start the turntable scan sequence — the scanner takes multiple frames as the table rotates 360°. Review the point cloud for gaps and re-scan missing areas. Export the completed mesh as STL or OBJ.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Scanning reflective objects without applying scanning spray — the scan will have large holes",
+      "Moving the object mid-scan — causes misaligned scans that cannot be merged",
+      "Not removing the background (turntable surface) from the scan before exporting — wastes mesh polygons and confuses CAD imports"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Keep the scanner lenses free of dust using a blower and microfibre cloth. Store in the protective case when not in use. Check calibration board for scratches or damage — a damaged board produces inaccurate scans.",
+    "calibration_notes": "Run the software calibration procedure at the start of each session using the provided calibration board. Calibration compensates for thermal expansion of the scanner frame and lens alignment drift. A successful calibration takes 2-3 minutes.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Scan alignment fails",
+        "cause": "Object lacks distinct geometry features or is moving",
+        "solution": "Add geometric markers (sticky dots) to smooth areas and ensure the turntable is stable."
+      },
+      {
+        "problem": "Large holes in mesh",
+        "cause": "Surface is too dark or reflective",
+        "solution": "Apply dry shampoo or AESUB scanning spray to dull the surface before scanning."
       }
     ],
     "project_examples": [
       {
-        "name": "Introductory Lab",
+        "name": "Broken Part Replacement",
         "difficulty": "Beginner",
-        "description": "A simple guided exercise to learn the 3D Scanner."
+        "description": "Scan a broken plastic bracket, import it as a reference in Fusion 360, and model a replacement."
       },
       {
-        "name": "Intermediate Project",
+        "name": "Custom Grip Design",
         "difficulty": "Intermediate",
-        "description": "Applying multiple concepts together."
+        "description": "Scan a hand holding clay to design a perfectly ergonomic tool handle."
       },
       {
-        "name": "Capstone Module",
+        "name": "Cultural Archiving",
         "difficulty": "Advanced",
-        "description": "Full integration into a larger system."
+        "description": "Digitise a complex cultural artefact, process the texture maps, and host it on an interactive 3D viewer."
       }
     ],
     "learning_path": {
@@ -505,14 +572,17 @@
     "sop_path": "/static/docs/3d_scanner/sop.pdf"
   },
   "digital_weighing_scale": {
-    "description": "The Digital Weighing Scale is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the materials_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the Digital Weighing Scale revolutionized engineering workflows.",
+    "description": "A precision digital scale that measures mass to 0.01g resolution, used in the lab for weighing chemicals, filament spools, resin, powders, and small mechanical components.",
+    "overview": "Found on the materials and electronics benches, this scale is essential whenever a recipe, mixture, or material quantity must be measured accurately. Students use it to weigh resin components for correct mixing ratios, measure filament consumption, and check part mass against design specifications.",
+    "working_principle": "A strain gauge load cell underneath the weighing platform deforms slightly under the applied load. The deformation changes the electrical resistance of the gauges, producing a small voltage change (typically a few millivolts at full load). An ADC amplifies and converts this to a digital reading on the display.",
+    "historical_background": "Load cell-based electronic balances replaced mechanical beam balances in laboratories through the 1970s and 1980s. Today, a $20 digital scale uses the same load cell principle as a $10,000 laboratory analytical balance — just with lower resolution and fewer safeguards.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "capacity": "500g max",
+      "resolution": "0.01g",
+      "power": "2×AAA batteries or USB",
+      "platform_size": "120×120mm",
+      "units": "g, oz, lb, ozt, dwt",
+      "tare_function": "Yes"
     },
     "applications": [
       "chemical_mixing",
@@ -524,54 +594,60 @@
       "quality_control"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "Instant tare (zero) function allows weighing contents without the container mass",
+      "Results in multiple unit systems — useful for international material datasheets",
+      "Portable and battery-powered — can be used anywhere in the lab"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "Not suitable for masses over 500g — exceeding the limit damages the load cell permanently",
+      "Drafts and vibrations cause fluctuating readings — must be used on a stable surface away from HVAC vents",
+      "Resolution of 0.01g is insufficient for mixing very small quantities of chemicals where 0.001g accuracy is needed"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "Pharmaceutical dose verification",
+      "Postal parcel weighing",
+      "Resin jewellery casting (correct A:B ratio is critical)"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "A standard A4 sheet of 80gsm paper weighs approximately 5g — useful as a quick sanity check for the scale",
+      "Most digital scales have a hidden test mode to display the raw ADC count, which reveals the noise floor"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "Do not place wet containers directly on the scale platform — moisture can damage the load cell. Keep chemicals in sealed containers when weighing. Wash hands after handling chemical powders. Never exceed the rated capacity.",
+    "sop_summary": "Power on and wait for the display to zero. Place the empty container on the platform and press TARE — the display returns to zero. Add the material until the desired mass is displayed. Remove the container. Press TARE again to reset for the next measurement.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Not taring with the container — the reading includes the container mass, giving the wrong quantity",
+      "Placing the scale on an uneven surface — one foot slightly elevated causes systematic error",
+      "Switching units mid-measurement — the scale resets when units are changed, losing the tare offset"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Wipe the platform with a damp cloth after use — dried powder or resin residue adds mass to future readings. Keep the scale in its box when not in use to protect from dust. Check battery level — low batteries cause unstable readings without a low-battery warning.",
+    "calibration_notes": "Verify calibration monthly using a known reference mass (a calibration weight or a coin with known mass — a new Indian 5-rupee coin is exactly 6.00g). If the reading differs by more than 0.05g, use the CAL mode with a 200g or 500g calibration weight to re-calibrate.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Reading constantly drifts up or down",
+        "cause": "Air currents or battery voltage dropping",
+        "solution": "Block HVAC vents near the scale or replace the batteries."
+      },
+      {
+        "problem": "Display reads 'O_Ld'",
+        "cause": "Overload capacity exceeded",
+        "solution": "Remove the mass immediately to prevent permanent load cell damage."
       }
     ],
     "project_examples": [
       {
-        "name": "Introductory Lab",
+        "name": "Resin Mixing",
         "difficulty": "Beginner",
-        "description": "A simple guided exercise to learn the Digital Weighing Scale."
+        "description": "Weigh precisely 50g of Part A and 50g of Part B for a silicone mould."
       },
       {
-        "name": "Intermediate Project",
+        "name": "Filament Estimation",
         "difficulty": "Intermediate",
-        "description": "Applying multiple concepts together."
+        "description": "Weigh a spool of filament before and after a print to verify slicer material estimates."
       },
       {
-        "name": "Capstone Module",
+        "name": "Density Calculation",
         "difficulty": "Advanced",
-        "description": "Full integration into a larger system."
+        "description": "Use the scale and water displacement to calculate the density of an unknown material."
       }
     ],
     "learning_path": {
@@ -601,14 +677,18 @@
     "sop_path": "/static/docs/digital_weighing_scale/sop.pdf"
   },
   "digital_multimeter": {
-    "description": "The Digital Multimeter is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the Digital Multimeter revolutionized engineering workflows.",
+    "description": "A handheld measurement instrument that measures voltage (AC and DC), current, resistance, continuity, diode forward voltage, and capacitance in electronic circuits.",
+    "overview": "The most fundamental diagnostic tool in the electronics lab. Every student uses it daily to verify power supply voltages, check if a circuit is getting power, measure current draw, and test whether a connection is open or shorted. Connecting the probes correctly and reading the range selector is the first skill every electronics student must master.",
+    "working_principle": "For voltage measurement, the DMM connects a precision high-impedance (10MΩ) voltage divider across the measurement points and an ADC converts the scaled voltage to a digital reading. For current, a small shunt resistor in series with the circuit generates a proportional voltage drop. For resistance, the DMM sources a small known current and measures the resulting voltage (Ohm's Law: R = V/I).",
+    "historical_background": "The digital multimeter was introduced by Fluke Corporation in 1977. Before digital meters, analog VOM (Volt-Ohm-Milliammeter) meters with moving pointer needles required the user to estimate readings between scale divisions. The DMM made electrical measurements accurate and accessible to non-specialists.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "voltage_dc": "0.1mV – 600V (5 ranges)",
+      "voltage_ac": "0.1mV – 600V",
+      "current": "0.1µA – 10A",
+      "resistance": "0.1Ω – 40MΩ",
+      "continuity_threshold": "<30Ω beep",
+      "frequency": "0.01Hz – 10MHz",
+      "input_impedance": "10MΩ"
     },
     "applications": [
       "circuit_debugging",
@@ -621,54 +701,60 @@
       "hardware_testing"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "Measures six different electrical quantities with one instrument — no need to switch between devices",
+      "Auto-ranging mode eliminates guessing which range to use for unknown signals",
+      "Continuity beeper gives instant audible feedback during cable and PCB trace tracing without watching the display"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "Cannot capture fast transient events — only shows RMS average; use an oscilloscope for dynamic signals",
+      "10A current range should only be used for brief measurements — the internal shunt can overheat in seconds",
+      "Inaccurate on AC signals above a few kHz — meter is calibrated for 50/60Hz mains frequency"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "Automobile ECU diagnosis (OBD port + multimeter is standard kit for mechanics)",
+      "Building electrical inspection",
+      "Battery state-of-charge testing"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "The famous \"flying-lead\" technique in electronics debugging — probing live circuits without a schematic — was popularised by Jim Williams of Linear Technology, who could mentally simulate a circuit from multimeter readings alone",
+      "A 9V battery under load drops to 6-7V — always measure under load for meaningful battery health data"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "Never measure mains voltage (230V AC) in this lab — the instrument is rated for it but the training required exceeds introductory lab scope. Always insert the red probe into the correct socket (V/Ω for most measurements, 10A only for high-current measurements — the 10A input bypasses internal protection). Never measure resistance in a live circuit — it damages the meter.",
+    "sop_summary": "Insert probes — black to COM, red to V/Ω. Set the rotary selector to the appropriate function and range (or AUTO). Connect probes to circuit — black to ground/reference, red to measurement point. Read the display and note the unit. For continuity, set selector to the beep symbol and touch probes together first to confirm the beeper works.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Measuring resistance on a powered circuit — the internal voltage source conflicts with circuit voltage and gives a wrong reading (or damages the meter)",
+      "Leaving the probe in the 10A socket and then measuring milliamps — the 10A input has no fuse protection in most budget meters",
+      "Auto-range switching lag — the display flickers when it changes range; students read the transitional value instead of waiting for it to settle"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Replace the 9V or AA internal battery when the low-battery indicator appears — low voltage causes inaccurate readings. Inspect probe insulation regularly — cracked insulation on lab probes is a safety hazard. Check probe tip sockets in the meter body — carbon buildup increases contact resistance.",
+    "calibration_notes": "Compare the meter reading against a known reference voltage (like a precision 2.5V reference IC or a known-good power supply) once per semester. A deviation of more than 0.5% on DC voltage indicates calibration drift and the meter should be returned to the instrument store.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Current measurement reads zero",
+        "cause": "Internal fuse blown from measuring voltage while in current mode",
+        "solution": "Open the meter case and replace the 200mA or 10A internal fuse."
+      },
+      {
+        "problem": "Continuity beeper is silent when touching probes",
+        "cause": "Probe leads are broken internally or probe tips are oxidised",
+        "solution": "Wiggle the probe wires to check for internal breaks. Clean tips with isopropyl alcohol."
       }
     ],
     "project_examples": [
       {
-        "name": "Introductory Lab",
+        "name": "Battery Characterisation",
         "difficulty": "Beginner",
-        "description": "A simple guided exercise to learn the Digital Multimeter."
+        "description": "Measure the voltage drop of a 9V battery when connected to different resistive loads."
       },
       {
-        "name": "Intermediate Project",
+        "name": "Kirchhoff's Laws Verification",
         "difficulty": "Intermediate",
-        "description": "Applying multiple concepts together."
+        "description": "Build a resistor network and verify node voltages and branch currents match theoretical calculations."
       },
       {
-        "name": "Capstone Module",
+        "name": "Component Sorting",
         "difficulty": "Advanced",
-        "description": "Full integration into a larger system."
+        "description": "Use the resistance and diode test functions to sort a mixed bin of resistors and LEDs."
       }
     ],
     "learning_path": {
@@ -704,14 +790,17 @@
     "sop_path": "/static/docs/digital_multimeter/sop.pdf"
   },
   "variable_power_supply": {
-    "description": "The Variable Power Supply is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the Variable Power Supply revolutionized engineering workflows.",
+    "description": "A bench-top DC power supply with adjustable output voltage (0–30V) and current limit (0–5A), providing a stable, regulated power source for testing and powering electronic circuits and components.",
+    "overview": "Used in the lab to power circuit boards, motors, LEDs, and microcontroller projects at any voltage from 0V to 30V without needing batteries. The current limit function protects circuits from damage during debugging — if a short circuit occurs, the supply limits current rather than delivering full power and destroying components.",
+    "working_principle": "An internal transformer steps down mains voltage, then a rectifier bridge converts AC to pulsating DC. A pass transistor (or in modern switching supplies, a PWM controller) regulates the output voltage by dissipating or managing the excess voltage. A feedback loop continuously compares output voltage to the set reference and adjusts the pass element to correct any deviation.",
+    "historical_background": "Linear bench power supplies became standard lab equipment in the 1960s when solid-state transistors replaced vacuum tubes. The classic Agilent (HP) E3600 series defined the lab bench supply format. Modern supplies are switching-mode (SMPS) based, which is lighter and more efficient than old linear designs.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "output_voltage": "0–30V DC continuously adjustable",
+      "output_current": "0–5A continuously adjustable",
+      "voltage_regulation": "<0.01% load regulation",
+      "ripple_noise": "<1mV RMS",
+      "display": "Dual LED (voltage + current)",
+      "protection": "OVP, OCP, OTP (thermal)"
     },
     "applications": [
       "circuit_prototyping",
@@ -723,54 +812,60 @@
       "test_engineering"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "Current limiting prevents component burnout during circuit debugging — supply clamps current rather than destructing components",
+      "Dual-display shows both set voltage and actual drawn current simultaneously, giving instant power consumption data",
+      "Low ripple output suitable for powering RF and audio circuits sensitive to PSU noise"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "Linear supplies are heavy and inefficient — they dissipate the voltage difference as heat, limiting sustained high-power output",
+      "Maximum 30V limits use for high-voltage circuits like motor drivers requiring 36V+",
+      "Single output — cannot produce bipolar (±12V) rails without two supplies connected in series"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "Bench testing of automotive ECUs before vehicle installation",
+      "LED driver characterisation in lighting product development",
+      "RF amplifier bias point setting during radio design"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "The current drawn by a circuit at a given voltage is the most useful debug metric — a circuit pulling 50mA instead of 20mA often means there is a short or incorrect component somewhere",
+      "Switching to current-limiting mode causes the voltage to drop below the set value — this is intentional protection behaviour, not a malfunction"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "Never connect the output to a circuit without first setting the current limit to a safe maximum for that circuit. Reduce the voltage to 0V before connecting probes to avoid accidental voltage spikes. Keep output leads away from each other when at high current — accidental short circuit can arc and cause burns.",
+    "sop_summary": "Set voltage to 0V and current limit to minimum before connecting. Connect load: red (positive) to V+, black (negative) to GND/V−. Slowly raise voltage to desired level while watching current. If current jumps to the limit and voltage drops, there is a short — power down and investigate. Monitor current consumption during operation.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Connecting the load with output at full voltage — components that require soft-start are immediately exposed to full voltage, which can damage sensitive ICs",
+      "Not setting a current limit — omitting this step means a short circuit delivers full current (e.g., 5A) to the circuit",
+      "Confusing CC (constant current) and CV (constant voltage) mode LEDs — when the supply is in CC mode, the voltage is below the set value, which beginners interpret as a fault"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Inspect output terminals and binding posts for corrosion or cracked plastic. Clean terminals with contact cleaner if resistance has increased. Ensure the ventilation fan spins freely — blocked fans cause thermal shutdown. Check output at minimum and maximum voltage once per semester to detect op-amp aging drift.",
+    "calibration_notes": "Verify the voltage at the output terminals with a calibrated multimeter — compare against the panel display. Most supplies have a potentiometer trim accessible through the rear or bottom panel to correct small DC offset. Acceptable deviation is ±50mV at any voltage setting.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Output voltage drops to near zero under load",
+        "cause": "Current limit is set too low",
+        "solution": "Increase the current limit setting to accommodate the circuit's demand."
+      },
+      {
+        "problem": "CC LED is on, and voltage is lower than set",
+        "cause": "Power supply is in Constant Current mode",
+        "solution": "This is normal operation when current limit is reached. If unexpected, check for a short in your circuit."
       }
     ],
     "project_examples": [
       {
-        "name": "Introductory Lab",
+        "name": "LED Forward Voltage Test",
         "difficulty": "Beginner",
-        "description": "A simple guided exercise to learn the Variable Power Supply."
+        "description": "Use the constant current mode to safely find the forward voltage of unknown LEDs."
       },
       {
-        "name": "Intermediate Project",
+        "name": "Motor Stall Current",
         "difficulty": "Intermediate",
-        "description": "Applying multiple concepts together."
+        "description": "Power a DC motor and observe the current spike when physically stalling the shaft."
       },
       {
-        "name": "Capstone Module",
+        "name": "Custom Power Rails",
         "difficulty": "Advanced",
-        "description": "Full integration into a larger system."
+        "description": "Use two channels in series to generate a bipolar ±12V supply for an op-amp circuit."
       }
     ],
     "learning_path": {
@@ -805,14 +900,18 @@
     "sop_path": "/static/docs/variable_power_supply/sop.pdf"
   },
   "oscilloscope": {
-    "description": "The 4-Channel Oscilloscope is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the 4-Channel Oscilloscope revolutionized engineering workflows.",
+    "description": "A 4-channel digital storage oscilloscope (DSO) that displays voltage signals as a waveform over time, allowing engineers to see signal shape, frequency, amplitude, timing relationships, and anomalies invisible to a multimeter.",
+    "overview": "The most powerful diagnostic tool in the electronics lab. Where a multimeter gives a single number, the oscilloscope shows exactly what a signal is doing over time — revealing noise, ringing, timing errors, protocol issues, and more. Students use it to probe sensor outputs, debug UART/I2C/SPI communications, and characterise filters and amplifiers.",
+    "working_principle": "Probe tips connect to the circuit and route the signal to the input amplifier, which scales it to the ADC input range. The ADC samples the signal at the configured sample rate (e.g., 1GSa/s). Samples are stored in acquisition memory. A trigger circuit watches for a defined event (rising edge, specific voltage level) and uses it to synchronise the waveform display so it appears stationary on screen.",
+    "historical_background": "The oscilloscope was developed at DuMont Laboratories in the 1930s using cathode-ray tubes. Digital storage oscilloscopes (DSOs) replaced analog CRTs in the 1990s, enabling waveform storage, automatic measurements, and protocol decoding. Today's 4-channel lab DSOs cost under ₹30,000 and match the capabilities of ₹5,00,000 instruments from 20 years ago.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "channels": "4 analog + 16 digital (mixed-signal)",
+      "bandwidth": "200MHz",
+      "sample_rate": "1GSa/s",
+      "memory_depth": "28Mpts",
+      "display": "7-inch color LCD",
+      "trigger_types": "Edge, pulse width, slope, serial (I2C, SPI, UART, CAN)",
+      "input_impedance": "1MΩ || 15pF"
     },
     "applications": [
       "signal_integrity",
@@ -826,37 +925,43 @@
       "embedded_systems_engineer"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "4 channels allow simultaneous comparison of CLK, DATA, and two other signals — essential for serial protocol debugging",
+      "Built-in serial decoding (I2C, SPI, UART, CAN) displays protocol packets as readable hex/ASCII directly on screen",
+      "Math functions (FFT, subtract, integrate) allow frequency spectrum and power analysis without external equipment"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "Probe ground clip must be connected to circuit ground — floating probes display noise pickup instead of the signal",
+      "Bandwidth limits what can be accurately measured — a 200MHz scope shows a 100MHz square wave with rounded corners",
+      "10× probe attenuation (standard for high-frequency work) reduces the apparent amplitude — beginners misread signal levels if probe switch is ignored"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "Every electronics R&D laboratory in the world uses oscilloscopes during product development",
+      "Automotive ECU development — engine timing signals are validated on a scope",
+      "Audio amplifier design — distortion and clipping are visible in the waveform"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "A 1GHz oscilloscope sampling at 1GSa/s can only meet Nyquist for signals up to 500MHz — bandwidth and sample rate are related but distinct specifications",
+      "Neil Armstrong spoke about the oscilloscope as one of the most important tools enabling the Moon landing — guidance electronics were extensively characterised with scopes"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "The probe ground clip is directly connected to the oscilloscope chassis ground (which is mains earth). Connecting the probe ground to a node that is not at earth potential can cause a short circuit — always verify ground references before probing. Do not probe voltages above the probe CAT rating (typically 300V CAT II).",
+    "sop_summary": "Connect probe to Channel 1 input and clip ground to circuit ground. Power on — press AUTOSET for an initial view. Adjust Volts/Div to fill the display vertically with the signal. Adjust Time/Div so 2-5 waveform cycles are visible. Set trigger source to the channel of interest, trigger level to the midpoint of the signal. Use MEASURE menu for automatic frequency, amplitude, and rise time readout.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Not connecting the probe ground clip — the waveform shows 50Hz mains hum instead of the actual signal",
+      "Having the probe in 10× mode but reading amplitude as if it were 1× — all readings are 10× higher than displayed",
+      "Leaving TimeBase too fast or too slow — a sine wave looks like a flat line (too fast) or the display shows a single dot (too slow)"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Compensate probes at every session using the probe comp square wave output — a flat-top 1kHz wave indicates correct compensation; a peaked or rounded top means adjust the probe trim cap. Clean the BNC connector contacts with contact cleaner if signal appears noisy at the connector. Store probes in the provided pouch — dropped probes develop cracks in the probe body that allow EMI pickup.",
+    "calibration_notes": "Oscilloscopes require factory calibration every 2 years using a precision waveform calibrator. User-accessible calibration is limited to probe compensation. If the AUTOSET function fails to lock on a 1kHz reference signal, the trigger circuit may need service.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Waveform is constantly scrolling and won't stay still",
+        "cause": "Trigger level is set above or below the signal's peak-to-peak voltage",
+        "solution": "Adjust the trigger level knob until the indicator line intersects the waveform."
+      },
+      {
+        "problem": "Signal appears as a solid block of colour",
+        "cause": "Time/Div setting is far too slow for the signal frequency",
+        "solution": "Decrease the horizontal timebase (e.g., from 1ms/div to 1µs/div)."
       }
     ],
     "project_examples": [
@@ -910,14 +1015,18 @@
     "sop_path": "/static/docs/oscilloscope/sop.pdf"
   },
   "function_generator": {
-    "description": "The Function Generator is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electronics_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the Function Generator revolutionized engineering workflows.",
+    "description": "A bench-top signal generator that produces user-defined waveforms — sine, square, triangle, sawtooth, and arbitrary — at frequencies from 0.01Hz to 20MHz with adjustable amplitude and DC offset.",
+    "overview": "Used alongside the oscilloscope to inject test signals into circuits. Students use it to characterise filter frequency responses, simulate sensor signals for microcontroller testing, generate PWM for motor control experiments, and produce audio tones for amplifier characterisation.",
+    "working_principle": "A Direct Digital Synthesis (DDS) chip generates waveforms by rapidly stepping through a look-up table of stored waveform samples at a rate determined by a frequency control word. The output of the DAC is filtered to remove step artifacts, amplified, and routed to the output connector. Frequency accuracy is determined by a precision crystal reference clock.",
+    "historical_background": "Early signal generators used analog RC oscillator circuits whose frequency drifted with temperature. The transition to DDS-based generators in the 1990s produced signals that were stable to parts-per-million without warm-up. Rigol and Siglent popularised $300 DDS generators in the 2010s, making precise signal generation standard in university labs.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "frequency_range": "0.01Hz – 20MHz",
+      "waveforms": "Sine, square, triangle, sawtooth, pulse, noise, arbitrary",
+      "amplitude": "4mVpp – 20Vpp (into open circuit)",
+      "dc_offset": "±10V",
+      "frequency_accuracy": "<10ppm",
+      "output_impedance": "50Ω",
+      "channels": "2 independent channels"
     },
     "applications": [
       "filter_testing",
@@ -930,54 +1039,60 @@
       "audio_engineer"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "DDS ensures frequency stability to within 10ppm — useful for phase-sensitive measurements like Lissajous figures",
+      "Arbitrary waveform mode allows importing custom waveforms (EEG signals, mechanical vibration profiles) for realistic testing",
+      "Dual-channel output enables phase-offset signals for testing differential inputs or simulating quadrature encoder outputs"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "50Ω output impedance means amplitude halves when connected to a 50Ω load — amplitude readings are specified for high-impedance (>1kΩ) loads",
+      "Maximum 20MHz limits use for RF circuit testing above this frequency — a dedicated RF signal generator is needed",
+      "Harmonics content in square waves degrades above ~5MHz — the square wave becomes more trapezoidal at high frequencies"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "Loudspeaker frequency response testing in audio engineering",
+      "Servo controller testing — generating encoder-like quadrature pulses",
+      "Biomedical device testing — generating simulated ECG waveforms to validate patient monitor circuits"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "A perfect square wave contains all odd harmonics (3rd, 5th, 7th...) theoretically extending to infinity — this is why a 1MHz square wave needs at least 10–20MHz bandwidth to look \"square\" on a scope",
+      "Playing audio-frequency sine waves through a speaker while connected to the generator produces audible tones — the generator doubles as a signal source for acoustic experiments"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "The output is low voltage (max 20V) and inherently safe. However, never connect the output to a circuit that has its own voltage source without ensuring ground references are the same — mismatched grounds can put voltage on the generator chassis. Keep the 50Ω output impedance in mind — short-circuiting the output briefly triggers internal protection, but sustained shorts can damage the output stage.",
+    "sop_summary": "Power on and select the waveform type (sine/square/triangle) on the front panel. Set frequency using the numeric keypad or the rotary encoder. Set amplitude (remember: output is specified into open circuit — will be halved into 50Ω load). Enable CH1 output. Verify the waveform on an oscilloscope before connecting to the circuit under test.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Not accounting for 50Ω source impedance — expecting 10Vpp and measuring 5Vpp into a 50Ω oscilloscope input",
+      "Setting frequency in the wrong unit (Hz instead of kHz) — produces a signal 1000× lower than expected",
+      "Using a generator sweep without a scope — the signal is sweeping but appears static on a multimeter, leading students to think the generator is not working"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Clean BNC output connectors with contact cleaner if signal output appears intermittent. Check output amplitude against the oscilloscope regularly — amplitude should match within 5%. Keep the instrument ventilated — blocking rear vents causes thermal throttling of the DDS clock circuit.",
+    "calibration_notes": "Frequency calibration is factory-set via the internal crystal reference and requires lab service equipment to adjust. User-accessible check: apply a 1kHz sine wave to the oscilloscope and verify the scope frequency readout matches the generator display within 10Hz. If deviation is larger, the crystal reference may have aged.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Oscilloscope shows half the programmed amplitude",
+        "cause": "Generator expects 50Ω load but scope is 1MΩ (or vice versa)",
+        "solution": "Change the output load setting in the generator menu from 50Ω to High-Z."
+      },
+      {
+        "problem": "Output is enabled but no signal on scope",
+        "cause": "DC offset is pushing the signal off-screen on the scope",
+        "solution": "Set DC offset to 0V or press AUTOSET on the oscilloscope."
       }
     ],
     "project_examples": [
       {
-        "name": "Introductory Lab",
+        "name": "Bode Plot Mapping",
         "difficulty": "Beginner",
-        "description": "A simple guided exercise to learn the Function Generator."
+        "description": "Manually sweep a sine wave through an RC low-pass filter to plot its attenuation curve."
       },
       {
-        "name": "Intermediate Project",
+        "name": "PWM Motor Control",
         "difficulty": "Intermediate",
-        "description": "Applying multiple concepts together."
+        "description": "Generate a 10kHz square wave with variable duty cycle to drive a MOSFET motor controller."
       },
       {
-        "name": "Capstone Module",
+        "name": "AM/FM Modulation",
         "difficulty": "Advanced",
-        "description": "Full integration into a larger system."
+        "description": "Use CH2 to modulate the frequency of CH1, simulating a basic FM radio transmitter signal."
       }
     ],
     "learning_path": {
@@ -1013,14 +1128,17 @@
     "sop_path": "/static/docs/function_generator/sop.pdf"
   },
   "coil_winding_machine": {
-    "description": "The Motorized Coil Winding Machine is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the electromechanics_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the Motorized Coil Winding Machine revolutionized engineering workflows.",
+    "description": "A motorised winding machine that winds precise numbers of turns of copper wire onto bobbins, toroids, or custom formers to produce transformers, inductors, electromagnets, and motor coils.",
+    "overview": "Used in the lab by students building power electronics projects (transformer-coupled power supplies, motor controllers) and RF projects (custom inductors for LC filters and antennas). The machine automates the tedious process of hand-winding, ensuring consistent turn count and tight layer packing.",
+    "working_principle": "A variable-speed DC motor rotates the bobbin mounted on the spindle. A turn counter (mechanical or optical encoder) tracks the exact number of rotations. The operator manually guides the wire across the bobbin width to create even layers. Speed and turn count targets are set before winding begins; the machine stops automatically when the target is reached.",
+    "historical_background": "Manual coil winding by hand predates the electronics industry — telegraph operators wound their own relay coils in the 1840s. Motorised bench winders became standard in electronics manufacturing in the mid-20th century. CNC winding machines now produce multi-layer toroidal transformers automatically, but bench winders remain essential tools for prototype and lab use.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "speed_range": "0–600 RPM",
+      "turn_counter": "Digital, up to 99,999 turns",
+      "direction": "Forward/Reverse switchable",
+      "bobbin_capacity": "Arbor up to 80mm diameter",
+      "wire_gauge_range": "AWG 36 (0.13mm) to AWG 18 (1.0mm)",
+      "power": "230V AC, 40W motor"
     },
     "applications": [
       "custom_transformers",
@@ -1034,54 +1152,65 @@
       "rf_engineering"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "Turn counter eliminates hand-counting errors — critical for achieving the correct inductance value",
+      "Switchable forward/reverse allows bifilar (two-wire) winding for transformer primary/secondary in a single operation",
+      "Variable speed control allows slow careful winding for fine wire (AWG 36) and faster winding for heavier gauge"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "Traversal (moving wire side-to-side) must still be done manually — the machine does not automate layer spacing",
+      "Very fine wire (AWG 36–40) breaks easily if tension is inconsistent — requires practice to wind without snapping",
+      "Not suitable for toroidal cores — the through-hole geometry requires a separate shuttle winder or hand winding"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "Custom SMPS transformers for switch-mode power supplies",
+      "RF inductors in mobile phone antenna matching networks",
+      "Electromagnets for MRI coil arrays (at research scale)"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "The inductance of a solenoid coil is proportional to the square of the number of turns — doubling the turns quadruples the inductance",
+      "A Tesla coil secondary can have 1,000 to 2,000 turns of very fine wire wound on a PVC pipe — producing the coil by hand would take 10+ hours; a winding machine reduces this to under 1 hour"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "Keep fingers away from the rotating spindle and arbor during operation — the rotating parts can catch skin, hair, or loose clothing. Wear eye protection when winding under tension — a snapped fine wire can whip back at the eyes. Power off before loading or removing bobbins.",
+    "sop_summary": "Secure the bobbin or former on the spindle arbor. Thread the wire through the tension guide and fix the start end to the bobbin with tape. Set the turn counter to the target count. Set speed to slow for fine wire or medium for heavier gauge. Start the motor and manually traverse the wire back and forth to build even layers. The machine stops at the target count; cut and secure the wire end.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Starting winding at high speed — the sudden jerk snaps fine wire instantly",
+      "Not maintaining consistent tension — results in loose, spongy coils that have lower inductance and higher resistance",
+      "Losing count when winding manually (before setting the counter) — always rely on the machine counter"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Apply light machine oil to the tailstock slider and main spindle bearings every 6 months. Check the optical encoder disc for dust if the turn count becomes erratic.",
+    "calibration_notes": "Verify the turn counter accuracy by manually rotating the spindle 10 times and ensuring the counter reads exactly 10.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Wire keeps breaking",
+        "cause": "Tensioner set too tight or speed too high for wire gauge",
+        "solution": "Loosen the tension knob or reduce maximum speed on the controller."
+      },
+      {
+        "problem": "Coil is wider at one end",
+        "cause": "Uneven manual traversal",
+        "solution": "Practice moving your guiding hand at a constant speed relative to the spindle RPM."
+      },
+      {
+        "problem": "Counter missing turns",
+        "cause": "Optical sensor dirty or belt slipping",
+        "solution": "Clean sensor with compressed air and check belt tension."
       }
     ],
     "project_examples": [
       {
-        "name": "Introductory Lab",
+        "name": "Joule Thief Toroid",
         "difficulty": "Beginner",
-        "description": "A simple guided exercise to learn the Motorized Coil Winding Machine."
+        "description": "Wind a bifilar primary/feedback coil on a small ferrite toroid (by hand/shuttle) to boost 1.5V to light an LED."
       },
       {
-        "name": "Intermediate Project",
+        "name": "Custom LC Filter Inductor",
         "difficulty": "Intermediate",
-        "description": "Applying multiple concepts together."
+        "description": "Calculate required turns for a 10µH inductor, wind it with AWG 24 on a nylon bobbin, and measure with an LCR meter."
       },
       {
-        "name": "Capstone Module",
+        "name": "SMPS Flyback Transformer",
         "difficulty": "Advanced",
-        "description": "Full integration into a larger system."
+        "description": "Wind a multi-winding flyback transformer with isolation tape between primary, secondary, and auxiliary windings."
       }
     ],
     "learning_path": {
@@ -1116,14 +1245,16 @@
     "sop_path": "/static/docs/coil_winding_machine/sop.pdf"
   },
   "battery_charger": {
-    "description": "The Battery Charger is a core piece of lab equipment used for educational and prototyping purposes.",
-    "overview": "This tool allows students to interact with fundamental principles of engineering. It is heavily utilized in the power_lab.",
-    "working_principle": "Operates on standard engineering principles specific to its domain. Converts inputs into measured or fabricated outputs.",
-    "historical_background": "Early versions of the Battery Charger revolutionized engineering workflows.",
+    "description": "A programmable multi-chemistry battery charger capable of safely charging, discharging, balancing, and testing LiPo, Li-ion, LiFePO4, NiMH, and lead-acid battery packs.",
+    "overview": "Used in the lab to manage batteries for drones, robots, and portable electronics projects. Students use it to safely balance-charge multi-cell lithium packs, test true battery capacity by discharging, and bring batteries to a stable storage voltage when not in use for extended periods.",
+    "working_principle": "A switch-mode buck-boost DC-DC converter regulates current and voltage supplied to the battery based on a pre-selected charging algorithm (e.g., CC/CV for lithium). A built-in balancing circuit measures individual cell voltages and bleeds off excess charge from high cells through precision load resistors to ensure all cells reach 4.20V simultaneously.",
+    "historical_background": "Before smart chargers, hobbyists used simple timed or fixed-current chargers, which frequently caused lithium battery fires. Programmable smart chargers emerged in the 2000s alongside the RC drone boom, making high-energy-density LiPo packs safe to use.",
     "specs": {
-      "power": "110/220V AC",
-      "accuracy": "Educational Grade",
-      "interface": "Digital/Analog"
+      "power": "100-240V AC or 11-18V DC input",
+      "charge_current": "0.1A – 10.0A",
+      "max_power": "100W",
+      "chemistry_support": "LiPo/Li-ion/LiFe/LiHV (1-6S), NiMH/NiCd (1-15S), Pb (2-20V)",
+      "balancing_current": "300mA/cell"
     },
     "applications": [
       "drone_batteries",
@@ -1135,54 +1266,65 @@
       "power_systems_engineer"
     ],
     "advantages": [
-      "Accessible for beginners",
-      "Safe for educational use",
-      "Robust design"
+      "Automatically detects cell count and chemistry errors before charging begins",
+      "Storage charge mode extends lithium battery lifespan by safely discharging to 3.8V/cell",
+      "Provides real-time telemetry of individual cell voltages and internal resistance"
     ],
     "limitations": [
-      "Not industrial grade",
-      "Requires training",
-      "Calibration drift over time"
+      "Requires correctly configuring chemistry and cell count; user error can still cause a fire",
+      "100W limit means large 6S drone batteries charge slowly (e.g., at only 4A max)",
+      "Discharge rate is limited to 10W due to internal heat dissipation constraints"
     ],
     "real_world_products": [
-      "Consumer electronics",
-      "Prototyped parts",
-      "Automotive components"
+      "Electric vehicle (EV) onboard chargers",
+      "Laptop internal battery management systems (BMS)",
+      "Solar grid-tie battery storage systems"
     ],
     "interesting_facts": [
-      "Often the first machine students learn in their respective domains."
+      "A fully charged LiPo cell is 4.2V, but its nominal voltage is 3.7V. Discharging it below 3.0V causes irreversible chemical damage",
+      "The internal resistance of a battery (measured by this charger in milliohms) is the best indicator of its health—as it ages, resistance increases"
     ],
-    "safety_summary": "Always wear appropriate PPE. Follow lab protocols. Do not operate unsupervised if required.",
-    "sop_summary": "Power on, initialize/calibrate, perform operation, clean up, power down.",
+    "safety_summary": "Never charge lithium batteries unattended. Always place the battery inside a fireproof LiPo safe bag during charging. Verify the cell count and chemistry match the battery label before pressing start. If a battery swells or puffs, disconnect it immediately and place it outside.",
+    "sop_summary": "Connect the charger to power. Plug in the battery's main power lead and the JST balance connector. Select the correct battery chemistry (e.g., LiPo). Select \"Balance Charge\". Set the cell count (e.g., 3S) and charge current (1C rate, e.g., 2.2A for a 2200mAh pack). Hold START to initiate the battery check, confirm the detected cell count, and monitor the first 2 minutes of charging.",
     "common_beginner_mistakes": [
-      "Skipping calibration",
-      "Ignoring safety warnings",
-      "Using incorrect settings"
+      "Charging a LiPo without plugging in the balance lead—results in unbalanced cells and possible overcharging",
+      "Charging at a rate higher than 1C—degrades the battery and increases fire risk",
+      "Leaving fully charged LiPo batteries sitting for weeks instead of using the \"Storage\" mode—causes the battery to puff up"
     ],
-    "maintenance_notes": "Regularly clean the workspace and verify calibration standards.",
-    "calibration_notes": "Calibrate before critical measurements or high-precision fabrication.",
+    "maintenance_notes": "Inspect charge leads and balance board connectors for frayed wires or bent pins weekly. A shorted charge lead can damage the charger or start a fire. Keep the cooling fan clear of dust.",
+    "calibration_notes": "The charger’s internal voltage reference is factory calibrated. If cell voltages differ significantly from a calibrated digital multimeter reading, the charger may require factory recalibration or replacement.",
     "troubleshooting": [
       {
-        "problem": "Won't power on",
-        "cause": "Unplugged or blown fuse",
-        "solution": "Check cables and fuses."
+        "problem": "Charger says \"Connection Break\"",
+        "cause": "Main charge lead is unplugged or damaged",
+        "solution": "Check the XT60 or Deans connector for loose solder joints."
+      },
+      {
+        "problem": "Error: Cell Volt Too Low",
+        "cause": "Battery has been over-discharged below safe limits",
+        "solution": "The battery is likely permanently damaged. Do not attempt to force-charge it without supervision."
+      },
+      {
+        "problem": "Charging stops prematurely",
+        "cause": "Charger reached maximum time or capacity limit",
+        "solution": "Increase the safety timer limit in settings if charging a very large capacity pack."
       }
     ],
     "project_examples": [
       {
-        "name": "Introductory Lab",
+        "name": "Drone Battery Prep",
         "difficulty": "Beginner",
-        "description": "A simple guided exercise to learn the Battery Charger."
+        "description": "Balance charge a 4S LiPo battery for a quadcopter, then discharge it to storage voltage after use."
       },
       {
-        "name": "Intermediate Project",
+        "name": "Capacity Testing",
         "difficulty": "Intermediate",
-        "description": "Applying multiple concepts together."
+        "description": "Run a charge-discharge-charge cycle on an unknown 18650 cell to measure its true mAh capacity."
       },
       {
-        "name": "Capstone Module",
+        "name": "Custom Pack Recovery",
         "difficulty": "Advanced",
-        "description": "Full integration into a larger system."
+        "description": "Measure internal resistance of older cells and group matched cells to build a low-drain 3S pack."
       }
     ],
     "learning_path": {
@@ -2374,5 +2516,174 @@
     "images": [],
     "manual_path": "/static/docs/advanced_motorized_sewing_machine/manual.pdf",
     "sop_path": "/static/docs/advanced_motorized_sewing_machine/sop.pdf"
+  },
+  "benchtop_digital_multimeter": {
+    "description": "A benchtop digital multimeter is a mains-powered, high-accuracy measurement instrument permanently stationed on the electronics bench, offering superior resolution, stability, and additional measurement functions compared to a handheld DMM.",
+    "overview": "Used in the lab for precision electrical measurements that require more accuracy than a handheld multimeter can provide. Students use it to measure low voltages in sensor circuits with 0.1mV resolution, characterise component values (capacitance, inductance, frequency), test transistors, and log measurements to a PC via USB. The large display and auto-ranging make it comfortable for extended bench work.",
+    "working_principle": "Uses a high-resolution integrating ADC (typically a dual-slope or sigma-delta converter) operating at a slower rate than handheld meters, which averages out noise and achieves 5½ or 6½ digit resolution. The stable mains power supply eliminates battery-related drift, and precision internal references (temperature-compensated voltage references) provide long-term measurement accuracy.",
+    "historical_background": "Benchtop DMMs descend from the vacuum-tube voltmeters of the 1950s. Hewlett-Packard's 3400A (1966) was an early precision bench meter. Keithley and Agilent (now Keysight) defined modern bench DMM standards; today 5½-digit bench meters are standard university lab equipment.",
+    "specs": {
+      "resolution": "5½ digits (220,000 counts)",
+      "dc_voltage_accuracy": "0.015% + 5 counts",
+      "dc_voltage_ranges": "100mV, 1V, 10V, 100V, 1000V",
+      "current_ranges": "100µA to 10A",
+      "resistance_ranges": "100Ω to 100MΩ",
+      "additional_functions": "Capacitance, frequency, diode, continuity, transistor hFE",
+      "connectivity": "USB/RS-232 for PC logging",
+      "power": "230V AC mains"
+    },
+    "applications": ["Precision voltage and current measurement", "Component value verification (C, L, hFE)", "Frequency counting", "Data logging via PC", "Low-resistance measurement for PCB trace resistance"],
+    "industries": ["Electronics R&D", "Quality control", "Calibration labs", "Embedded systems testing"],
+    "advantages": [
+      "5½-digit resolution catches small signal variations invisible to handheld 3½-digit meters — essential for sensor calibration",
+      "Stable mains power eliminates battery drift, giving consistent readings over a long test session",
+      "USB data logging allows automatic measurement recording for characterisation reports and lab submissions"
+    ],
+    "limitations": [
+      "Not portable — intended for fixed bench use only",
+      "Slower measurement rate than handheld meters — integrating ADC takes 0.1–1 second per reading",
+      "More expensive than handheld DMMs — reserve for measurements where accuracy genuinely matters"
+    ],
+    "real_world_products": ["Calibration of industrial sensors (pressure, temperature transmitters)", "PCB production test fixtures", "Battery cell capacity and internal resistance measurement in EV development"],
+    "interesting_facts": [
+      "A 5½-digit meter can resolve 1µV on the 100mV range — equivalent to measuring a 1mm movement on a 1km ruler",
+      "The 10A current input on most bench DMMs is unfused — sustained current above the rating can destroy the input shunt resistor permanently"
+    ],
+    "safety_summary": "Keep input leads rated for the voltage being measured. Never measure mains voltage on ranges below 600V. The 10A current input bypasses internal protection — set to this range only deliberately. Disconnect one probe before changing ranges on live circuits to prevent accidental short circuits.",
+    "sop_summary": "Power on and allow 15 minutes warm-up for rated accuracy. Select the measurement function (V, A, Ω, etc.) and range (or AUTO). Connect probes: black to COM, red to V/Ω or A input as required. Read the stable display value — wait for AUTO-HOLD to confirm if enabled. For data logging, connect USB and open the supplied PC software before starting measurements.",
+    "common_beginner_mistakes": [
+      "Not allowing the 15-minute warm-up before making precision measurements — accuracy spec is only guaranteed after thermal stabilisation",
+      "Measuring resistance in a live circuit — the internal voltage source conflicts with the circuit, giving completely wrong readings",
+      "Using the 10A range for low-current measurements — resolution on the 10A range is 10mA; use the 1mA range for milliamp-level currents"
+    ],
+    "maintenance_notes": "Clean the input jacks with contact cleaner if readings become noisy or erratic. Verify calibration annually against a traceable reference — benchtop meters drift slowly but measurably. Store in a dust cover when not in use.",
+    "calibration_notes": "Factory calibration is valid for 1 year. User verification: apply a precision 10V reference to the 10V DC range and confirm reading is within ±0.015%. If outside spec, the meter requires service calibration with a precision voltage calibrator.",
+    "troubleshooting": [
+      {
+        "problem": "Display shows 'OL' (overload) on every range",
+        "cause": "Probes connected to the wrong input jack, or signal exceeds maximum input",
+        "solution": "Verify red probe is in V/Ω input (not 10A input). If voltage is correct and OL persists, the input protection may have blown — have the meter serviced."
+      },
+      {
+        "problem": "Reading is noisy and fluctuating even on a DC voltage",
+        "cause": "AC interference pickup on leads or unstable source voltage",
+        "solution": "Enable the built-in filter (averaging mode). Shorten and twist the measurement leads. Ensure the source is a stable regulated supply, not a battery under load."
+      },
+      {
+        "problem": "Resistance measurement reads much higher than expected",
+        "cause": "Measuring a component still soldered in a circuit (parallel paths affect reading)",
+        "solution": "Remove the component from the circuit before measuring resistance, or at minimum desolder one leg to isolate it."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Sensor Calibration Sheet",
+        "difficulty": "Beginner",
+        "description": "Record the output voltage of a temperature sensor (LM35) at 5 known temperatures and plot the calibration curve using the bench meter's 0.1mV resolution."
+      },
+      {
+        "name": "Battery Internal Resistance Test",
+        "difficulty": "Intermediate",
+        "description": "Measure a LiPo cell's open-circuit voltage and loaded voltage, then calculate internal resistance using R = ΔV/ΔI — reveals cell health beyond simple voltage checks."
+      },
+      {
+        "name": "Op-Amp Offset Voltage Characterisation",
+        "difficulty": "Advanced",
+        "description": "Measure the input offset voltage of several op-amp samples in a test circuit using the bench meter's 0.1mV resolution — compare against datasheet typical values."
+      }
+    ],
+    "learning_path": {
+      "before": ["digital_multimeter", "basic_electrical_safety"],
+      "current": ["precision_dc_measurement", "component_characterisation", "data_logging", "4_wire_kelvin_resistance"],
+      "next": ["oscilloscope", "LCR_meter"]
+    },
+    "faq_topics": ["How is it different from a handheld multimeter?", "How do I log readings to a PC?", "Why does it need warm-up time?"],
+    "keywords": ["benchtop", "dmm", "multimeter", "precision", "5.5digit", "measurement", "voltage", "current"],
+    "images": [],
+    "manual_path": "/static/docs/benchtop_digital_multimeter/manual.pdf",
+    "sop_path": "/static/docs/benchtop_digital_multimeter/sop.pdf"
+  },
+  "tool_wall_covering_perforator": {
+    "description": "A tool wall covering perforator is a drill or punch used to create evenly spaced holes in pegboard, plywood panels, or sheet materials to prepare tool storage walls and shadow boards.",
+    "overview": "Used in the mechanical lab to set up and modify tool storage walls. Students and technicians use it to drill or punch the regular grid of holes into wall panels and pegboards that accept standard peg hooks for organised tool hanging. It is also used to customise shadow boards — colour-coded panels where tool outlines are marked and pegs placed specifically for each tool, supporting 5S workplace organisation principles.",
+    "working_principle": "A drill bit or hollow punch is pressed through the panel material at set spacing intervals using a drill press, hand drill, or punch jig. A drilling template or jig with pre-spaced guide holes is typically used to maintain consistent 25mm or 50mm hole pitch — the standard spacing for commercial pegboard hooks.",
+    "historical_background": "Pegboard (trademarked as Masonite Pegboard by the Masonite Corporation) was introduced in the 1960s and rapidly became the standard for workshop tool organisation. Shadow boards — a lean manufacturing and 5S tool — became widespread in the 1980s in automotive and aerospace production environments.",
+    "specs": {
+      "standard_hole_diameter": "6mm or 9.5mm (3/8 inch) for standard peg hooks",
+      "standard_hole_pitch": "25mm or 50mm grid",
+      "panel_materials": "Hardboard, MDF, plywood (up to 25mm), perforated steel sheet",
+      "tooling": "6mm or 9.5mm twist drill bit, or hollow punch",
+      "guide_jig": "Drilling template with set pitch holes"
+    },
+    "applications": ["Installing pegboard tool storage walls", "Preparing 5S shadow boards", "Customising tool panel layouts for new tool additions", "Repairing damaged pegboard holes", "Creating ventilation grilles in equipment panels"],
+    "industries": ["Manufacturing (5S and lean)", "Automotive workshops", "Electronics labs", "Education (makerspace organisation)"],
+    "advantages": [
+      "Creates a standardised, reconfigurable tool storage system — hooks can be repositioned without new holes",
+      "Shadow boards created this way make missing tools immediately visible — supports lean workshop management",
+      "Quick to produce — a full pegboard panel (1200×600mm) can be drilled in under 30 minutes with a jig"
+    ],
+    "limitations": [
+      "Hole position errors are permanent — requires a precise drilling jig to maintain grid accuracy",
+      "Hardboard pegboard delaminates if holes are drilled too close to the edge or with too large a bit",
+      "Standard 6mm hooks only fit 6mm holes — mixing hole sizes causes hooks to fit poorly and tools to fall"
+    ],
+    "real_world_products": ["5S shadow boards in Toyota Production System factories", "Tool storage walls in university engineering labs and makerspaces", "Custom retail display pegboard panels"],
+    "interesting_facts": [
+      "The 5S methodology (Sort, Set in Order, Shine, Standardise, Sustain) originated at Toyota in the 1970s — shadow boards are a direct output of the 'Set in Order' step",
+      "A standard 1220×2440mm sheet of pegboard contains approximately 4,700 holes on a 25mm pitch grid"
+    ],
+    "safety_summary": "Clamp the panel securely to the drill press table before drilling — unsecured panels can spin violently if the bit catches. Wear safety glasses against wood or MDF dust. Use a backing board beneath the panel to prevent tear-out on the exit side. Wear a dust mask when drilling MDF — MDF dust contains urea-formaldehyde binders that are a respiratory hazard.",
+    "sop_summary": "Mark the panel layout with a pencil and ruler, or position the drilling jig and clamp it to the panel. Set the drill press depth stop to just penetrate the panel thickness plus 2mm. Drill each hole in sequence, moving the jig or template along the grid. Blow or vacuum dust from holes. De-burr the holes with a countersink if needed. Test-fit a standard peg hook in several holes to confirm correct diameter.",
+    "common_beginner_mistakes": [
+      "Drilling without a backing board — the bit tears out a ragged hole on the underside of the panel",
+      "Using too large a bit — a 10mm hole is too loose for 6mm hooks, which then fall out under tool weight",
+      "Not clamping the panel to the drill press — the panel rotates with the bit and can cause injury"
+    ],
+    "maintenance_notes": "Keep drill bits sharp — dull bits cause MDF to char and produce ragged holes. Clean the drilling jig of sawdust after each use so it sits flat on the panel. Replace jig bushings if they have become oversized from wear.",
+    "calibration_notes": "Verify the jig hole pitch with a digital calliper before first use and after any drop or impact. Standard pegboard pitch is 25.4mm (1 inch) or 50.8mm (2 inch) — confirm the jig matches the panel being used, as mixing pitches prevents hooks from fitting.",
+    "troubleshooting": [
+      {
+        "problem": "Holes are not in a straight line",
+        "cause": "Jig slipped during drilling or was not aligned to the panel edge",
+        "solution": "Use two clamps on the jig and align it to a straight reference edge marked with a square before starting."
+      },
+      {
+        "problem": "Holes are too tight for hooks to fit",
+        "cause": "Drill bit is worn undersized or wrong bit diameter used",
+        "solution": "Check bit diameter with a calliper — use a 6.5mm bit for standard 6mm pegs to allow easy insertion."
+      },
+      {
+        "problem": "Panel surface tears out around holes",
+        "cause": "No backing board, or drill speed too high for the material",
+        "solution": "Place a sacrificial backing board under the panel. Reduce drill speed for hardboard and MDF."
+      }
+    ],
+    "project_examples": [
+      {
+        "name": "Lab Tool Shadow Board",
+        "difficulty": "Beginner",
+        "description": "Mark tool outlines on a painted pegboard panel, drill the hook holes, and hang the tools in their labelled positions — implementing 5S organisation for the lab bench."
+      },
+      {
+        "name": "Custom Electronics Component Wall",
+        "difficulty": "Intermediate",
+        "description": "Design a pegboard layout for the electronics bench with labelled sections for tools (oscilloscope probes, soldering iron, wire strippers) and drill a custom hole pattern to match the specific hook types needed."
+      },
+      {
+        "name": "Ventilated Equipment Enclosure Panel",
+        "difficulty": "Intermediate",
+        "description": "Drill a regular grid of 8mm holes in a 3mm aluminium sheet to create a ventilation panel for a project enclosure, then mount it with standoffs to allow airflow over internal electronics."
+      }
+    ],
+    "learning_path": {
+      "before": ["basic_safety_orientation", "drill_press_training"],
+      "current": ["precision_drilling", "jig_usage", "5S_shadow_board_creation", "panel_layout_planning"],
+      "next": ["cnc_routing", "laser_cutting_machine"]
+    },
+    "faq_topics": ["What hole size fits standard pegboard hooks?", "How do I make a drilling jig?", "What is a shadow board?"],
+    "keywords": ["pegboard", "shadow_board", "5S", "tool_wall", "perforator", "drilling", "organisation"],
+    "images": [],
+    "manual_path": "/static/docs/tool_wall_covering_perforator/manual.pdf",
+    "sop_path": "/static/docs/tool_wall_covering_perforator/sop.pdf"
   }
 }

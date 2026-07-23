@@ -351,16 +351,40 @@ export default function ProjectPlannerSheet({ onClose, onMachineClick }) {
                     <div className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-slate-500">
                       <Package size={11} /> Materials Needed
                     </div>
-                    <ul className="space-y-1.5">
-                      {plan.materials.map((m, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-500 shrink-0" />
-                          {m}
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="space-y-1.5">
+                      {plan.materials.map((m, i) => {
+                        // Handle both old string format and new object format
+                        if (typeof m === "string") {
+                          return (
+                            <div key={i} className="flex items-start gap-2 text-sm text-slate-300 px-1">
+                              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-slate-500 shrink-0" />
+                              {m}
+                            </div>
+                          );
+                        }
+                        return (
+                          <div key={i} className="rounded-lg border border-white/8 bg-white/4 px-3 py-2.5 flex items-start gap-3">
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-medium text-white">{m.item}</div>
+                              {m.quantity && (
+                                <div className="text-xs text-slate-500 mt-0.5">Qty: {m.quantity}</div>
+                              )}
+                              {m.where_to_buy && (
+                                <div className="text-[11px] text-slate-600 mt-0.5 truncate">{m.where_to_buy}</div>
+                              )}
+                            </div>
+                            {m.estimated_cost && (
+                              <div className="shrink-0 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-md px-2 py-1 whitespace-nowrap">
+                                {m.estimated_cost}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
+
 
                 {/* Safety notes */}
                 {plan.safety_notes?.length > 0 && (

@@ -93,14 +93,14 @@ def answer(machine_id: str, question: str) -> dict:
     )
 
     # Step 4 — call OpenRouter via httpx with retry logic
-    api_key = os.getenv("OPENROUTER_API_KEY")
+    api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
         raise ValueError(
-            "OPENROUTER_API_KEY is not set. "
+            "GROQ_API_KEY is not set. "
             "Add it to backend/.env and restart the server."
         )
 
-    model = os.getenv("OPENROUTER_MODEL", "google/gemma-4-31b-it:free")
+    model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
     payload = {
         "model": model,
@@ -115,8 +115,6 @@ def answer(machine_id: str, question: str) -> dict:
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type":  "application/json",
-        "HTTP-Referer":  "http://localhost:5173",
-        "X-Title":       "LabVerse",
     }
 
     # connect=5s, read=25s — total max ~30s per attempt
@@ -127,7 +125,7 @@ def answer(machine_id: str, question: str) -> dict:
         try:
             with httpx.Client(timeout=timeout) as client:
                 resp = client.post(
-                    "https://openrouter.ai/api/v1/chat/completions",
+                    "https://api.groq.com/openai/v1/chat/completions",
                     headers=headers,
                     json=payload,
                 )
