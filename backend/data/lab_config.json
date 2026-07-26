@@ -18,7 +18,7 @@
       "machines": []
     },
     "node_01": {
-      "label": "Node 01",
+      "label": "ELECRTICAL_LAB",
       "description": "Entry landing — just inside the lab door",
       "image": "/static/panoramas/node_01.jpg",
       "initial_yaw": 200,
@@ -37,9 +37,10 @@
   { "machine_id": "benchtop_digital_multimeter","pitch": -5,  "yaw": 178},
   { "machine_id": "digital_weighing_scale","pitch": -5,  "yaw": 170},
   { "machine_id": "3d_scanner","pitch": -5,  "yaw": 163}
+   
     ],
       "inventories": [
-        { "rack_id": "rack_01", "label": "General Components Rack", "pitch": -10, "yaw": 0 }
+        { "rack_id": "rack_01", "label": "General Components Rack", "pitch": -8, "yaw": 105 }
       ]
     },
 
@@ -53,11 +54,11 @@
         { "target": "node_01", "pitch": -20, "yaw": 160, "label": "Node 01", "direction": "back"    },
         { "target": "node_03", "pitch": -20, "yaw":   0, "label": "Node 03", "direction": "forward" }
       ],
-      "machines": [ { "machine_id": "vinyl_cutter","pitch": -6,  "yaw": -260},
-  { "machine_id": "digital_microscope","pitch": -6,  "yaw": -240},
-  {"machine_id": "soldering_station","pitch": -6,  "yaw": -230},
-  { "machine_id": "soldering_station","pitch": -5,  "yaw": 65},
-  { "machine_id": "soldering_station","pitch": -5,  "yaw": 45}]
+      "machines": [ { "machine_id": "vinyl_cutter","pitch": -6,  "yaw": -85},
+  { "machine_id": "digital_microscope","pitch": -6,  "yaw": -110},
+  {"machine_id": "soldering_station","pitch": -6,  "yaw": -140},
+  { "machine_id": "soldering_station","pitch": -5,  "yaw": -160},
+  { "machine_id": "soldering_station","pitch": -5,  "yaw": -180}]
     },
 
     "node_03": {
@@ -80,16 +81,19 @@
       "label": "Node 04",
       "description": "Left branch — end position",
       "image": "/static/panoramas/node_04.jpg",
-      "initial_yaw": 100,
+      "initial_yaw": 290,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_03", "pitch": -20, "yaw": 180, "label": "Node 03", "direction": "back"  },
         { "target": "node_05", "pitch": -20, "yaw":  90, "label": "Node 05", "direction": "right" }
       ],
-      "machines": [{ "machine_id": "benchtop_digital_multimeter","pitch": -17,  "yaw": 140},
-  { "machine_id": "digital_weighing_scale","pitch": -18,  "yaw": 125},
-  {"machine_id": "3d_scanner","pitch": -10,  "yaw": 120},
-  { "machine_id": "3d_printer","pitch": -5,  "yaw": 105}]
+      "machines": [{ "machine_id": "benchtop_digital_multimeter","pitch": -10,  "yaw": 320},
+  { "machine_id": "digital_weighing_scale","pitch": -18,  "yaw": 300},
+  {"machine_id": "3d_scanner","pitch": -12,  "yaw": 285},
+  { "machine_id": "3d_printer","pitch": -5,  "yaw": 220},
+  { "machine_id": "function_generator","pitch": -14,  "yaw": 180},
+  {"machine_id": "4channel_oscilloscope","pitch": -10,  "yaw": 160},
+  { "machine_id": "variable_voltage_power_supply","pitch": -5,  "yaw": 135}]
     },
 
     "centre_node": {
@@ -116,11 +120,11 @@
         { "target": "node_04",     "pitch": -20, "yaw": -90, "label": "Node 04", "direction": "left"    },
         { "target": "node_06",     "pitch": -20, "yaw":   0, "label": "Node 06", "direction": "forward" }
       ],
-      "machines": [{ "machine_id": "function_generator","pitch": -6,  "yaw": -75},
+      "machines": [{ "machine_id": "function_generator","pitch": -9,  "yaw": -70},
   { "machine_id": "4channel_oscilloscope","pitch": -5,  "yaw": -80},
-  {"machine_id": "variable_voltage_power_supply","pitch": -5,  "yaw": -110},
+  {"machine_id": "variable_voltage_power_supply","pitch": -9,  "yaw": -110},
   { "machine_id": "benchtop_digital_multimeter","pitch": -5,  "yaw": -135},
-  {"machine_id": "infrared_ic_heater","pitch": -10,  "yaw": -160},
+  {"machine_id": "infrared_ic_heater","pitch": -14,  "yaw": -160},
   { "machine_id": "battery_charger","pitch": -5,  "yaw": -170}]
     },
 
@@ -128,26 +132,35 @@
       "label": "Node 06",
       "description": "Centre branch — second position",
       "image": "/static/panoramas/node_06.jpg",
-      "initial_yaw": 0,
+      "initial_yaw": 220,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_05", "pitch": -20, "yaw": 180, "label": "Node 05", "direction": "back"    },
         { "target": "node_07", "pitch": -20, "yaw":   0, "label": "Node 07", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [ {"machine_id": "battery_charger","pitch": -14,  "yaw": -135},
+  { "machine_id": "motorized_coil_winding_machine","pitch": -5,  "yaw": -170}],
+  
+      "inventories": [
+        { "rack_id": "rack_01", "label": "General Components Rack", "pitch": -15, "yaw": 20 }
+      ]
     },
 
     "node_07": {
       "label": "Node 07",
       "description": "Centre branch — third position",
       "image": "/static/panoramas/node_07.jpg",
-      "initial_yaw": 0,
+      "initial_yaw": -100,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_06", "pitch": -20, "yaw": 180, "label": "Node 06", "direction": "back"    },
         { "target": "node_08", "pitch": -20, "yaw":   0, "label": "Node 08", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "motorized_coil_winding_machine","pitch": -5,  "yaw": -40}]
+      ,
+      "inventories": [
+        { "rack_id": "rack_01", "label": "General Components Rack", "pitch": -10, "yaw": -140}
+      ]
     },
 
     "node_08": {
@@ -172,152 +185,186 @@
         { "target": "corridor_node", "pitch": -20, "yaw": 180, "label": "Corridor",  "direction": "back"    },
         { "target": "node_11",       "pitch": -20, "yaw":   0, "label": "Node 11",   "direction": "forward" }
       ],
-      "machines": [{ "machine_id": "chop_saw","pitch": -6,  "yaw": 75}]
+      "machines": [{ "machine_id": "chop_saw","pitch": -6,  "yaw": 160},
+                  { "machine_id": "arc_welding_station","pitch": -6,  "yaw": 200}
+                    ]
     },
 
     "node_11": {
       "label": "Node 11",
       "description": "Mechanical Lab — Node 11",
       "image": "/static/panoramas/node_11.jpg",
-      "initial_yaw": 0,
-      "initial_pitch": 0,
+      "initial_yaw": -150,
+      "initial_pitch": 9,
       "navigation": [
         { "target": "node_10", "pitch": -20, "yaw": 180, "label": "Node 10", "direction": "back"    },
         { "target": "node_12", "pitch": -20, "yaw":   0, "label": "Node 12", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "mig_welding_station","pitch": -4,  "yaw": 150},
+                   { "machine_id": "tig_welding_station","pitch": -1,  "yaw": 170}]
     },
 
     "node_12": {
       "label": "Node 12",
       "description": "Mechanical Lab — Node 12",
       "image": "/static/panoramas/node_12.jpg",
-      "initial_yaw": 0,
-      "initial_pitch": 0,
+      "initial_yaw": 100,
+      "initial_pitch": 7,
       "navigation": [
         { "target": "node_11", "pitch": -20, "yaw": 180, "label": "Node 11", "direction": "back"    },
         { "target": "node_13", "pitch": -20, "yaw":   0, "label": "Node 13", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "tig_welding_station","pitch": -1,  "yaw": 105},
+                     { "machine_id": "tig_welding_station","pitch": -1,  "yaw": 125}]
     },
 
     "node_13": {
       "label": "Node 13",
       "description": "Mechanical Lab — Node 13",
       "image": "/static/panoramas/node_13.jpg",
-      "initial_yaw": 0,
+      "initial_yaw": -150,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_12", "pitch": -20, "yaw": 180, "label": "Node 12", "direction": "back"    },
         { "target": "node_14", "pitch": -20, "yaw":   0, "label": "Node 14", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "air_compressor","pitch": -1,  "yaw": 110},
+                   { "machine_id": "pneumatic_workstation","pitch": -1,  "yaw": 175}]
     },
 
     "node_14": {
       "label": "Node 14 — Junction",
       "description": "Mechanical Lab — branch junction (right and left wings)",
       "image": "/static/panoramas/node_14.jpg",
-      "initial_yaw": 0,
+      "initial_yaw": 200,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_13",  "pitch": -20, "yaw": 180, "label": "Node 13",        "direction": "back"  },
         { "target": "node_15r", "pitch": -20, "yaw":  90, "label": "Right Wing (15R)","direction": "right" },
         { "target": "node_15l", "pitch": -20, "yaw": -90, "label": "Left Wing (15L)", "direction": "left"  }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "pneumatic_workstation","pitch": -1,  "yaw": 105},
+                   { "machine_id": "benchtop_pneumatic_gun","pitch": -1,  "yaw": 130},
+                    { "machine_id": "pneumatic_workstation","pitch": -1,  "yaw": 150},
+                    { "machine_id": "hydraulic_press","pitch": -1,  "yaw": 165},
+                    { "machine_id": "tool_wall_covering_perforator","pitch": -1,  "yaw": -70},
+                     { "machine_id": "mechanical_fastener_section","pitch": -1,  "yaw": -40} ]
     },
 
     "node_15r": {
       "label": "Node 15R",
       "description": "Mechanical Lab — right wing, first position",
-      "image": "/static/panoramas/node_15.jpg",
-      "initial_yaw": 90,
+      "image": "/static/panoramas/node_15r.JPG",
+      "initial_yaw": -120,
       "initial_pitch": 0,
       "navigation": [
-        { "target": "node_14",  "pitch": -20, "yaw": 270, "label": "Junction",  "direction": "back"    },
+        { "target": "node_14",  "pitch": -20, "yaw": 70, "label": "Junction",  "direction": "back"    },
         { "target": "node_16r", "pitch": -20, "yaw":  90, "label": "Node 16R",  "direction": "forward" },
         { "target": "node_15l", "pitch": -20, "yaw": 180, "label": "Left Wing", "direction": "left"    }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "laser_cutting_machine","pitch": -15,  "yaw": -85},
+    { "machine_id": "advanced_motorized_sewing_machine","pitch": -8,  "yaw": -128},
+                 { "machine_id": "tool_wall_covering_perforator","pitch": -3,  "yaw": -20}]
     },
 
     "node_15l": {
       "label": "Node 15L",
       "description": "Mechanical Lab — left wing, first position",
-      "image": "/static/panoramas/node_15.jpg",
-      "initial_yaw": 270,
+      "image": "/static/panoramas/node_15l.JPG",
+      "initial_yaw": 160,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_14",  "pitch": -20, "yaw":  90, "label": "Junction",   "direction": "back"    },
         { "target": "node_16l", "pitch": -20, "yaw": 270, "label": "Node 16L",   "direction": "forward" },
         { "target": "node_15r", "pitch": -20, "yaw":   0, "label": "Right Wing", "direction": "right"   }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "wood_lathe","pitch": -1,  "yaw": 100},
+                     { "machine_id": "digital_weighing_scale","pitch": -4,  "yaw": 145},
+                      { "machine_id": "circular_electric_saw","pitch": -4,  "yaw": 160},
+                       { "machine_id": "anvil","pitch": -12,  "yaw": 165}]
     },
 
     "node_16r": {
       "label": "Node 16R",
       "description": "Mechanical Lab — right wing, second position",
       "image": "/static/panoramas/node_16r.jpg",
-      "initial_yaw": 90,
+      "initial_yaw": -120,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_15r", "pitch": -20, "yaw": 270, "label": "Node 15R", "direction": "back"    },
         { "target": "node_17r", "pitch": -20, "yaw":  90, "label": "Node 17R", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "advanced_motorized_sewing_machine","pitch": -8,  "yaw": 288},
+                    { "machine_id": "mini_desktop_lathe_cum_milling","pitch": -8,  "yaw": 268},
+                     { "machine_id": "benchtop_drill_machine","pitch": -5,  "yaw": 235},
+                      { "machine_id": "laser_cutting_machine","pitch": -12,  "yaw": 0}]
     },
 
     "node_17r": {
       "label": "Node 17R",
       "description": "Mechanical Lab — right wing, third position",
       "image": "/static/panoramas/node_17r.jpg",
-      "initial_yaw": 90,
+      "initial_yaw": 180,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_16r", "pitch": -20, "yaw": 270, "label": "Node 16R", "direction": "back"    },
         { "target": "node_18r", "pitch": -20, "yaw":  90, "label": "Node 18R", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "benchtop_drill_machine","pitch": -5,  "yaw": 235},
+                    { "machine_id": "magnetic_drill_machine","pitch": -9,  "yaw": 210},
+                    { "machine_id": "pcb_drill_machine","pitch": -4,  "yaw": 195},
+                      { "machine_id": "hand_grinder","pitch": -4,  "yaw": 95},
+                    { "machine_id": "mini_desktop_lathe_cum_milling","pitch": -1,  "yaw": 260}]
     },
 
     "node_18r": {
       "label": "Node 18R",
       "description": "Mechanical Lab — right wing, end position",
       "image": "/static/panoramas/node_18r.jpg",
-      "initial_yaw": 90,
+      "initial_yaw": 170,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_17r", "pitch": -20, "yaw": 270, "label": "Node 17R", "direction": "back" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "hand_grinder","pitch": -7,  "yaw": 218},
+                   { "machine_id": "sheet_cutter_tools","pitch": -7,  "yaw": 190},
+                    { "machine_id": "corded_hand_grinder","pitch": -16,  "yaw": 182},
+                     { "machine_id": "cordless_drill","pitch": -16,  "yaw": 165}]
     },
 
     "node_16l": {
       "label": "Node 16L",
       "description": "Mechanical Lab — left wing, second position",
       "image": "/static/panoramas/node_16l.jpg",
-      "initial_yaw": 270,
+      "initial_yaw": 70,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_15l", "pitch": -20, "yaw":  90, "label": "Node 15L", "direction": "back"    },
         { "target": "node_17l", "pitch": -20, "yaw": 270, "label": "Node 17L", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "wood_lathe","pitch": -1,  "yaw": 40},
+                     { "machine_id": "digital_weighing_scale","pitch": -4,  "yaw": 79},
+                      { "machine_id": "circular_electric_saw","pitch": -4,  "yaw": 98},
+                       { "machine_id": "anvil","pitch": -12,  "yaw": 108}]
     },
 
     "node_17l": {
       "label": "Node 17L",
       "description": "Mechanical Lab — left wing, third position",
       "image": "/static/panoramas/node_17l.jpg",
-      "initial_yaw": 270,
+      "initial_yaw": 80,
       "initial_pitch": 0,
       "navigation": [
         { "target": "node_16l", "pitch": -20, "yaw":  90, "label": "Node 16L", "direction": "back"    },
         { "target": "node_18l", "pitch": -20, "yaw": 270, "label": "Node 18L", "direction": "forward" }
       ],
-      "machines": []
+      "machines": [{ "machine_id": "router","pitch": -12,  "yaw": 100},
+                   { "machine_id": "jigsaw_machines","pitch": -12,  "yaw": 125},
+                    { "machine_id": "height_gauge","pitch": -12,  "yaw": 150},
+                     { "machine_id": "table_saw","pitch": -12,  "yaw": 170},
+                      { "machine_id": "belt_and_disk_sanding_machine","pitch": -12,  "yaw": 205},
+                    { "machine_id": "angular_grinder","pitch": -12,  "yaw": 210},
+                      { "machine_id": "scroll_saw_machine","pitch": -12,  "yaw": 220}]
     },
 
     "node_18l": {
