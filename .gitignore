@@ -49,5 +49,4 @@ lerna-debug.log*
 Thumbs.db
 
 # Vector store and duplicates
-backend/qdrant_storage/
 backend/static/panoramas/originals/
