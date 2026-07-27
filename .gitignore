@@ -50,3 +50,7 @@ Thumbs.db
 
 # Vector store and duplicates
 backend/static/panoramas/originals/
+
+# Panorama images — served from Cloudinary CDN, not needed on Render
+backend/static/panoramas/*.jpg
+backend/static/panoramas/*.JPG

@@ -42,19 +42,11 @@ logger = logging.getLogger("labverse")
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
-    Startup: attempt to pre-warm heavy resources.
-    Errors are caught so the server always starts and binds its port,
-    even if the embedding model or Qdrant are unavailable at boot time.
-    Models will load lazily on the first /chat request instead.
+    Startup: pre-warm the Qdrant client so the first /chat request is fast.
+    The fastembed model is intentionally NOT pre-loaded here — it downloads
+    its ONNX file lazily on the first /chat call (~24 MB, cached afterwards).
+    Pre-loading it at startup is unnecessary and would slow cold-start.
     """
-    try:
-        logger.info("[startup] Loading embedding model...")
-        from rag.embeddings import _get_model
-        _get_model()
-        logger.info("[startup] Embedding model ready.")
-    except Exception as e:
-        logger.warning(f"[startup] Embedding model pre-warm skipped: {e}")
-
     try:
         logger.info("[startup] Opening Qdrant client...")
         from rag.retriever import _get_client
