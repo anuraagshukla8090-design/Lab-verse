@@ -119,7 +119,10 @@ app.add_middleware(
         "http://127.0.0.1:5173",
         "http://localhost:5174",
         "http://127.0.0.1:5174",
+        "https://lab-verse.onrender.com",   # Render backend (self)
+        "https://lab-verse.vercel.app",     # Vercel frontend (update if different)
     ],
+    allow_origin_regex=r"https://.*\.vercel\.app",  # all Vercel preview URLs
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
