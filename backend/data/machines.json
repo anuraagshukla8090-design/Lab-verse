@@ -1563,5 +1563,56 @@
       "clamping_techniques",
       "5S_workplace_organisation"
     ]
+  },
+  "4channel_oscilloscope": {
+    "name": "4-Channel Oscilloscope",
+    "lab": "main_lab",
+    "category": "measurement_instruments",
+    "skills_required": ["Basic Electrical Safety", "Digital Multimeter Operation"],
+    "skills_taught": ["Waveform Visualisation", "Triggering", "Serial Protocol Decoding (I2C/SPI/UART)", "FFT Frequency Analysis"],
+    "related_machines": ["digital_multimeter", "function_generator", "variable_voltage_power_supply"],
+    "complexity_level": "intermediate",
+    "supervision_required": false,
+    "difficulty_score": 5,
+    "estimated_training_hours": 4,
+    "learning_level": "intermediate",
+    "project_categories": ["signal_analysis", "electronics_debugging", "embedded_systems", "filter_characterisation"],
+    "career_relevance": ["electronics_engineer", "embedded_systems_engineer", "hardware_tester", "rf_engineer"],
+    "used_in_domains": ["electrical_engineering", "electronics", "telecommunications"],
+    "prerequisite_concepts": ["ohms_law", "basic_circuit_theory", "ac_dc_signals"]
+  },
+  "motorized_coil_winding_machine": {
+    "name": "Motorized Coil Winding Machine",
+    "lab": "main_lab",
+    "category": "fabrication",
+    "skills_required": ["Basic Electrical Safety"],
+    "skills_taught": ["Wire Tensioning", "Turn Counting", "Inductor Design", "Transformer Winding", "Bifilar Winding"],
+    "related_machines": ["digital_lcr_meter", "benchtop_drill_machine"],
+    "complexity_level": "intermediate",
+    "supervision_required": false,
+    "difficulty_score": 4,
+    "estimated_training_hours": 3,
+    "learning_level": "intermediate",
+    "project_categories": ["power_electronics", "rf_circuits", "motor_rewind", "custom_magnetics"],
+    "career_relevance": ["power_electronics_engineer", "motor_design_engineer", "rf_engineer"],
+    "used_in_domains": ["electrical_engineering", "electronics", "mechanical_engineering"],
+    "prerequisite_concepts": ["electromagnetic_induction", "faradays_law", "wire_gauge_selection"]
+  },
+  "variable_voltage_power_supply": {
+    "name": "Variable Voltage Power Supply",
+    "lab": "main_lab",
+    "category": "measurement_instruments",
+    "skills_required": ["Basic Electrical Safety"],
+    "skills_taught": ["Constant Voltage Mode", "Constant Current Mode", "Current Limiting", "Power Sequencing"],
+    "related_machines": ["digital_multimeter", "4channel_oscilloscope", "function_generator"],
+    "complexity_level": "beginner",
+    "supervision_required": false,
+    "difficulty_score": 2,
+    "estimated_training_hours": 1,
+    "learning_level": "novice",
+    "project_categories": ["circuit_prototyping", "motor_testing", "led_testing", "component_characterisation"],
+    "career_relevance": ["electronics_engineer", "hardware_tester", "embedded_systems_engineer"],
+    "used_in_domains": ["electrical_engineering", "electronics", "instrumentation"],
+    "prerequisite_concepts": ["ohms_law", "voltage_current_power", "basic_circuit_safety"]
   }
 }

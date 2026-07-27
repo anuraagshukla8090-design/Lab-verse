@@ -2685,5 +2685,184 @@
     "images": [],
     "manual_path": "/static/docs/tool_wall_covering_perforator/manual.pdf",
     "sop_path": "/static/docs/tool_wall_covering_perforator/sop.pdf"
+  },
+  "4channel_oscilloscope": {
+    "description": "A 4-channel digital storage oscilloscope (DSO) that displays voltage signals as a waveform over time, allowing engineers to see signal shape, frequency, amplitude, timing relationships, and anomalies invisible to a multimeter.",
+    "overview": "The most powerful diagnostic tool in the electronics lab. Where a multimeter gives a single number, the oscilloscope shows exactly what a signal is doing over time — revealing noise, ringing, timing errors, protocol issues, and more. Students use it to probe sensor outputs, debug UART/I2C/SPI communications, and characterise filters and amplifiers.",
+    "working_principle": "Probe tips connect to the circuit and route the signal to the input amplifier, which scales it to the ADC input range. The ADC samples the signal at the configured sample rate (e.g., 1GSa/s). Samples are stored in acquisition memory. A trigger circuit watches for a defined event (rising edge, specific voltage level) and uses it to synchronise the waveform display so it appears stationary on screen.",
+    "historical_background": "The oscilloscope was developed at DuMont Laboratories in the 1930s using cathode-ray tubes. Digital storage oscilloscopes (DSOs) replaced analog CRTs in the 1990s, enabling waveform storage, automatic measurements, and protocol decoding. Today's 4-channel lab DSOs cost under ₹30,000 and match the capabilities of ₹5,00,000 instruments from 20 years ago.",
+    "specs": {
+      "channels": "4 analog + 16 digital (mixed-signal)",
+      "bandwidth": "200MHz",
+      "sample_rate": "1GSa/s",
+      "memory_depth": "28Mpts",
+      "display": "7-inch color LCD",
+      "trigger_types": "Edge, pulse width, slope, serial (I2C, SPI, UART, CAN)",
+      "input_impedance": "1MΩ || 15pF"
+    },
+    "applications": ["signal_integrity", "clock_debugging", "pwm_analysis", "filter_characterization"],
+    "industries": ["hardware_engineer", "rf_engineer", "embedded_systems_engineer"],
+    "advantages": [
+      "4 channels allow simultaneous comparison of CLK, DATA, and two other signals — essential for serial protocol debugging",
+      "Built-in serial decoding (I2C, SPI, UART, CAN) displays protocol packets as readable hex/ASCII directly on screen",
+      "Math functions (FFT, subtract, integrate) allow frequency spectrum and power analysis without external equipment"
+    ],
+    "limitations": [
+      "Probe ground clip must be connected to circuit ground — floating probes display noise pickup instead of the signal",
+      "Bandwidth limits what can be accurately measured — a 200MHz scope shows a 100MHz square wave with rounded corners",
+      "10× probe attenuation (standard for high-frequency work) reduces the apparent amplitude — beginners misread signal levels if probe switch is ignored"
+    ],
+    "real_world_products": [
+      "Every electronics R&D laboratory in the world uses oscilloscopes during product development",
+      "Automotive ECU development — engine timing signals are validated on a scope",
+      "Audio amplifier design — distortion and clipping are visible in the waveform"
+    ],
+    "interesting_facts": [
+      "A 1GHz oscilloscope sampling at 1GSa/s can only meet Nyquist for signals up to 500MHz — bandwidth and sample rate are related but distinct specifications",
+      "Neil Armstrong spoke about the oscilloscope as one of the most important tools enabling the Moon landing — guidance electronics were extensively characterised with scopes"
+    ],
+    "safety_summary": "The probe ground clip is directly connected to the oscilloscope chassis ground (which is mains earth). Connecting the probe ground to a node that is not at earth potential can cause a short circuit — always verify ground references before probing. Do not probe voltages above the probe CAT rating (typically 300V CAT II).",
+    "sop_summary": "Connect probe to Channel 1 input and clip ground to circuit ground. Power on — press AUTOSET for an initial view. Adjust Volts/Div to fill the display vertically with the signal. Adjust Time/Div so 2-5 waveform cycles are visible. Set trigger source to the channel of interest, trigger level to the midpoint of the signal. Use MEASURE menu for automatic frequency, amplitude, and rise time readout.",
+    "common_beginner_mistakes": [
+      "Not connecting the probe ground clip — the waveform shows 50Hz mains hum instead of the actual signal",
+      "Having the probe in 10× mode but reading amplitude as if it were 1× — all readings are 10× higher than displayed",
+      "Leaving TimeBase too fast or too slow — a sine wave looks like a flat line (too fast) or the display shows a single dot (too slow)"
+    ],
+    "maintenance_notes": "Compensate probes at every session using the probe comp square wave output — a flat-top 1kHz wave indicates correct compensation; a peaked or rounded top means adjust the probe trim cap. Clean the BNC connector contacts with contact cleaner if signal appears noisy at the connector. Store probes in the provided pouch — dropped probes develop cracks in the probe body that allow EMI pickup.",
+    "calibration_notes": "Oscilloscopes require factory calibration every 2 years using a precision waveform calibrator. User-accessible calibration is limited to probe compensation. If the AUTOSET function fails to lock on a 1kHz reference signal, the trigger circuit may need service.",
+    "troubleshooting": [
+      {"problem": "Waveform is constantly scrolling and won't stay still", "cause": "Trigger level is set above or below the signal's peak-to-peak voltage", "solution": "Adjust the trigger level knob until the indicator line intersects the waveform."},
+      {"problem": "Signal appears as a solid block of colour", "cause": "Time/Div setting is far too slow for the signal frequency", "solution": "Decrease the horizontal timebase (e.g., from 1ms/div to 1µs/div)."}
+    ],
+    "project_examples": [
+      {"name": "Signal Generator Probing", "difficulty": "Beginner", "description": "Measure sine, square, and triangle waves from a function generator."},
+      {"name": "Clock Signal Integrity", "difficulty": "Intermediate", "description": "Analyze the rise time and ringing of a microcontroller clock."},
+      {"name": "I2C Decoding", "difficulty": "Advanced", "description": "Use serial decoding to sniff I2C traffic between a sensor and an MCU."}
+    ],
+    "learning_path": {"before": ["digital_multimeter", "variable_voltage_power_supply"], "current": ["signal_visualization", "triggering", "frequency_measurement", "noise_analysis"], "next": ["spectrum_analyzer", "logic_analyzer"]},
+    "faq_topics": ["How to turn it on?", "What are the safety risks?", "How to calibrate?"],
+    "keywords": ["scope", "oscilloscope", "waveform", "signals", "4channel", "frequency"],
+    "images": [],
+    "manual_path": "/static/docs/oscilloscope/manual.pdf",
+    "sop_path": "/static/docs/oscilloscope/sop.pdf"
+  },
+  "motorized_coil_winding_machine": {
+    "description": "A motorised winding machine that winds precise numbers of turns of copper wire onto bobbins, toroids, or custom formers to produce transformers, inductors, electromagnets, and motor coils.",
+    "overview": "Used in the lab by students building power electronics projects (transformer-coupled power supplies, motor controllers) and RF projects (custom inductors for LC filters and antennas). The machine automates the tedious process of hand-winding, ensuring consistent turn count and tight layer packing.",
+    "working_principle": "A variable-speed DC motor rotates the bobbin mounted on the spindle. A turn counter (mechanical or optical encoder) tracks the exact number of rotations. The operator manually guides the wire across the bobbin width to create even layers. Speed and turn count targets are set before winding begins; the machine stops automatically when the target is reached.",
+    "historical_background": "Manual coil winding by hand predates the electronics industry — telegraph operators wound their own relay coils in the 1840s. Motorised bench winders became standard in electronics manufacturing in the mid-20th century. CNC winding machines now produce multi-layer toroidal transformers automatically, but bench winders remain essential tools for prototype and lab use.",
+    "specs": {
+      "speed_range": "0–600 RPM",
+      "turn_counter": "Digital, up to 99,999 turns",
+      "direction": "Forward/Reverse switchable",
+      "bobbin_capacity": "Arbor up to 80mm diameter",
+      "wire_gauge_range": "AWG 36 (0.13mm) to AWG 18 (1.0mm)",
+      "power": "230V AC, 40W motor"
+    },
+    "applications": ["custom_transformers", "motor_rewinding", "rf_inductors", "electromagnets"],
+    "industries": ["motor_design", "power_electronics", "rf_engineering"],
+    "advantages": [
+      "Turn counter eliminates hand-counting errors — critical for achieving the correct inductance value",
+      "Switchable forward/reverse allows bifilar (two-wire) winding for transformer primary/secondary in a single operation",
+      "Variable speed control allows slow careful winding for fine wire (AWG 36) and faster winding for heavier gauge"
+    ],
+    "limitations": [
+      "Traversal (moving wire side-to-side) must still be done manually — the machine does not automate layer spacing",
+      "Very fine wire (AWG 36–40) breaks easily if tension is inconsistent — requires practice to wind without snapping",
+      "Not suitable for toroidal cores — the through-hole geometry requires a separate shuttle winder or hand winding"
+    ],
+    "real_world_products": [
+      "Custom SMPS transformers for switch-mode power supplies",
+      "RF inductors in mobile phone antenna matching networks",
+      "Electromagnets for MRI coil arrays (at research scale)"
+    ],
+    "interesting_facts": [
+      "The inductance of a solenoid coil is proportional to the square of the number of turns — doubling the turns quadruples the inductance",
+      "A Tesla coil secondary can have 1,000 to 2,000 turns of very fine wire wound on a PVC pipe — producing the coil by hand would take 10+ hours; a winding machine reduces this to under 1 hour"
+    ],
+    "safety_summary": "Keep fingers away from the rotating spindle and arbor during operation — the rotating parts can catch skin, hair, or loose clothing. Wear eye protection when winding under tension — a snapped fine wire can whip back at the eyes. Power off before loading or removing bobbins.",
+    "sop_summary": "Secure the bobbin or former on the spindle arbor. Thread the wire through the tension guide and fix the start end to the bobbin with tape. Set the turn counter to the target count. Set speed to slow for fine wire or medium for heavier gauge. Start the motor and manually traverse the wire back and forth to build even layers. The machine stops at the target count; cut and secure the wire end.",
+    "common_beginner_mistakes": [
+      "Starting winding at high speed — the sudden jerk snaps fine wire instantly",
+      "Not maintaining consistent tension — results in loose, spongy coils that have lower inductance and higher resistance",
+      "Losing count when winding manually (before setting the counter) — always rely on the machine counter"
+    ],
+    "maintenance_notes": "Apply light machine oil to the tailstock slider and main spindle bearings every 6 months. Check the optical encoder disc for dust if the turn count becomes erratic.",
+    "calibration_notes": "Verify the turn counter accuracy by manually rotating the spindle 10 times and ensuring the counter reads exactly 10.",
+    "troubleshooting": [
+      {"problem": "Wire keeps breaking", "cause": "Tensioner set too tight or speed too high for wire gauge", "solution": "Loosen the tension knob or reduce maximum speed on the controller."},
+      {"problem": "Coil is wider at one end", "cause": "Uneven manual traversal", "solution": "Practice moving your guiding hand at a constant speed relative to the spindle RPM."},
+      {"problem": "Counter missing turns", "cause": "Optical sensor dirty or belt slipping", "solution": "Clean sensor with compressed air and check belt tension."}
+    ],
+    "project_examples": [
+      {"name": "Joule Thief Toroid", "difficulty": "Beginner", "description": "Wind a bifilar primary/feedback coil on a small ferrite toroid to boost 1.5V to light an LED."},
+      {"name": "Custom LC Filter Inductor", "difficulty": "Intermediate", "description": "Calculate required turns for a 10µH inductor, wind it with AWG 24 on a nylon bobbin, and measure with an LCR meter."},
+      {"name": "SMPS Flyback Transformer", "difficulty": "Advanced", "description": "Wind a multi-winding flyback transformer with isolation tape between primary, secondary, and auxiliary windings."}
+    ],
+    "learning_path": {"before": ["pinch_hazard_safety"], "current": ["wire_tensioning", "turn_counting", "spooling", "custom_inductor_creation"], "next": ["cnc_winding"]},
+    "faq_topics": ["How to turn it on?", "What are the safety risks?", "How to calibrate?"],
+    "keywords": ["winding", "coil", "inductor", "transformer", "motorized", "wire", "magnetics"],
+    "images": [],
+    "manual_path": "/static/docs/coil_winding_machine/manual.pdf",
+    "sop_path": "/static/docs/coil_winding_machine/sop.pdf"
+  },
+  "variable_voltage_power_supply": {
+    "description": "A bench-top DC power supply with adjustable output voltage (0–30V) and current limit (0–5A), providing a stable, regulated power source for testing and powering electronic circuits and components.",
+    "overview": "Used in the lab to power circuit boards, motors, LEDs, and microcontroller projects at any voltage from 0V to 30V without needing batteries. The current limit function protects circuits from damage during debugging — if a short circuit occurs, the supply limits current rather than delivering full power and destroying components.",
+    "working_principle": "An internal transformer steps down mains voltage, then a rectifier bridge converts AC to pulsating DC. A pass transistor (or in modern switching supplies, a PWM controller) regulates the output voltage by dissipating or managing the excess voltage. A feedback loop continuously compares output voltage to the set reference and adjusts the pass element to correct any deviation.",
+    "historical_background": "Linear bench power supplies became standard lab equipment in the 1960s when solid-state transistors replaced vacuum tubes. The classic Agilent (HP) E3600 series defined the lab bench supply format. Modern supplies are switching-mode (SMPS) based, which is lighter and more efficient than old linear designs.",
+    "specs": {
+      "output_voltage": "0–30V DC continuously adjustable",
+      "output_current": "0–5A continuously adjustable",
+      "voltage_regulation": "<0.01% load regulation",
+      "ripple_noise": "<1mV RMS",
+      "display": "Dual LED (voltage + current)",
+      "protection": "OVP, OCP, OTP (thermal)"
+    },
+    "applications": ["circuit_prototyping", "motor_testing", "component_characterization"],
+    "industries": ["hardware_engineering", "test_engineering"],
+    "advantages": [
+      "Current limiting prevents component burnout during circuit debugging — supply clamps current rather than destructing components",
+      "Dual-display shows both set voltage and actual drawn current simultaneously, giving instant power consumption data",
+      "Low ripple output suitable for powering RF and audio circuits sensitive to PSU noise"
+    ],
+    "limitations": [
+      "Linear supplies are heavy and inefficient — they dissipate the voltage difference as heat, limiting sustained high-power output",
+      "Maximum 30V limits use for high-voltage circuits like motor drivers requiring 36V+",
+      "Single output — cannot produce bipolar (±12V) rails without two supplies connected in series"
+    ],
+    "real_world_products": [
+      "Bench testing of automotive ECUs before vehicle installation",
+      "LED driver characterisation in lighting product development",
+      "RF amplifier bias point setting during radio design"
+    ],
+    "interesting_facts": [
+      "The current drawn by a circuit at a given voltage is the most useful debug metric — a circuit pulling 50mA instead of 20mA often means there is a short or incorrect component somewhere",
+      "Switching to current-limiting mode causes the voltage to drop below the set value — this is intentional protection behaviour, not a malfunction"
+    ],
+    "safety_summary": "Never connect the output to a circuit without first setting the current limit to a safe maximum for that circuit. Reduce the voltage to 0V before connecting probes to avoid accidental voltage spikes. Keep output leads away from each other when at high current — accidental short circuit can arc and cause burns.",
+    "sop_summary": "Set voltage to 0V and current limit to minimum before connecting. Connect load: red (positive) to V+, black (negative) to GND/V−. Slowly raise voltage to desired level while watching current. If current jumps to the limit and voltage drops, there is a short — power down and investigate. Monitor current consumption during operation.",
+    "common_beginner_mistakes": [
+      "Connecting the load with output at full voltage — components that require soft-start are immediately exposed to full voltage, which can damage sensitive ICs",
+      "Not setting a current limit — omitting this step means a short circuit delivers full current (e.g., 5A) to the circuit",
+      "Confusing CC (constant current) and CV (constant voltage) mode LEDs — when the supply is in CC mode, the voltage is below the set value, which beginners interpret as a fault"
+    ],
+    "maintenance_notes": "Inspect output terminals and binding posts for corrosion or cracked plastic. Clean terminals with contact cleaner if resistance has increased. Ensure the ventilation fan spins freely — blocked fans cause thermal shutdown.",
+    "calibration_notes": "Verify the voltage at the output terminals with a calibrated multimeter — compare against the panel display. Most supplies have a potentiometer trim accessible through the rear or bottom panel to correct small DC offset. Acceptable deviation is ±50mV at any voltage setting.",
+    "troubleshooting": [
+      {"problem": "Output voltage drops to near zero under load", "cause": "Current limit is set too low", "solution": "Increase the current limit setting to accommodate the circuit's demand."},
+      {"problem": "CC LED is on, and voltage is lower than set", "cause": "Power supply is in Constant Current mode", "solution": "This is normal operation when current limit is reached. If unexpected, check for a short in your circuit."}
+    ],
+    "project_examples": [
+      {"name": "LED Forward Voltage Test", "difficulty": "Beginner", "description": "Use the constant current mode to safely find the forward voltage of unknown LEDs."},
+      {"name": "Motor Stall Current", "difficulty": "Intermediate", "description": "Power a DC motor and observe the current spike when physically stalling the shaft."},
+      {"name": "Custom Power Rails", "difficulty": "Advanced", "description": "Use two channels in series to generate a bipolar ±12V supply for an op-amp circuit."}
+    ],
+    "learning_path": {"before": ["electrical_safety", "digital_multimeter"], "current": ["constant_voltage_mode", "constant_current_mode", "power_sequencing"], "next": ["function_generator"]},
+    "faq_topics": ["How to turn it on?", "What are the safety risks?", "How to calibrate?"],
+    "keywords": ["power", "voltage", "current", "supply", "variable", "cc", "cv"],
+    "images": [],
+    "manual_path": "/static/docs/variable_power_supply/manual.pdf",
+    "sop_path": "/static/docs/variable_power_supply/sop.pdf"
   }
 }
