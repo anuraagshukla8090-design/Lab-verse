@@ -41,18 +41,29 @@ logger = logging.getLogger("labverse")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Pre-load heavy resources before the server starts accepting requests."""
-    logger.info("[startup] Loading embedding model...")
-    from rag.embeddings import _get_model
-    _get_model()           # loads all-MiniLM-L6-v2 into RAM and caches it
-    logger.info("[startup] Embedding model ready.")
+    """
+    Startup: attempt to pre-warm heavy resources.
+    Errors are caught so the server always starts and binds its port,
+    even if the embedding model or Qdrant are unavailable at boot time.
+    Models will load lazily on the first /chat request instead.
+    """
+    try:
+        logger.info("[startup] Loading embedding model...")
+        from rag.embeddings import _get_model
+        _get_model()
+        logger.info("[startup] Embedding model ready.")
+    except Exception as e:
+        logger.warning(f"[startup] Embedding model pre-warm skipped: {e}")
 
-    logger.info("[startup] Opening Qdrant client...")
-    from rag.retriever import _get_client
-    _get_client()          # opens the file lock on qdrant_storage and caches it
-    logger.info("[startup] Qdrant client ready.")
+    try:
+        logger.info("[startup] Opening Qdrant client...")
+        from rag.retriever import _get_client
+        _get_client()
+        logger.info("[startup] Qdrant client ready.")
+    except Exception as e:
+        logger.warning(f"[startup] Qdrant pre-warm skipped: {e}")
 
-    logger.info("[startup] LabVerse is fully warmed up — ready to serve!")
+    logger.info("[startup] LabVerse is ready to serve!")
     yield
 
 # ---------------------------------------------------------------------------
