@@ -97,10 +97,6 @@ export default function PanoramaViewer({
     // Go straight to viewer init; Pannellum will fire its own error event if load fails.
     const isExternal = imageUrl.startsWith("http");
 
-    // 🔍 DEBUG — remove after fixing
-    console.log("[DEBUG] imageUrl:", imageUrl);
-    console.log("[DEBUG] isExternal:", isExternal);
-    console.log("[DEBUG] firstScene.image:", firstScene.image);
 
     const initViewer = (headMs = 0) => {
       const t1 = performance.now();
@@ -135,7 +131,6 @@ export default function PanoramaViewer({
         viewerRef.current.on("error", (err) => {
           const failedScene = currentSceneRef.current;
           console.error(`[PanoramaViewer] Error in scene '${failedScene}':`, err);
-          console.error("[DEBUG] Failed panorama URL:", labConfig.scenes[failedScene]?.image);
           missingSet.current.add(failedScene);
           setSceneState("missing");
         });
