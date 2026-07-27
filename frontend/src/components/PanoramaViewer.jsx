@@ -93,71 +93,87 @@ export default function PanoramaViewer({
       ? firstScene.image
       : `${apiBase}${firstScene.image}`;
 
-    const t0 = performance.now();
+    // For external CDN URLs (ImageKit etc.) skip the HEAD check — CORS blocks it.
+    // Go straight to viewer init; Pannellum will fire its own error event if load fails.
+    const isExternal = imageUrl.startsWith("http");
 
-    fetch(imageUrl, { method: "HEAD" })
-      .then((res) => {
-        if (!res.ok) {
+    // 🔍 DEBUG — remove after fixing
+    console.log("[DEBUG] imageUrl:", imageUrl);
+    console.log("[DEBUG] isExternal:", isExternal);
+    console.log("[DEBUG] firstScene.image:", firstScene.image);
+
+    const initViewer = (headMs = 0) => {
+      const t1 = performance.now();
+
+      // Scene config has empty hotSpots — injected dynamically below
+      const scenes = buildScenesConfig(labConfig, apiBase);
+
+      try {
+        viewerRef.current = window.pannellum.viewer(containerRef.current, {
+          default: {
+            firstScene:                firstSceneKey,
+            autoLoad:                  true,
+            autoRotate:                0,   // disabled — was causing hotspot re-render accumulation
+            compass:                   false,
+            showZoomCtrl:              false,
+            showFullscreenCtrl:        false,
+            hfov:                      100,
+            minHfov:                   50,
+            maxHfov:                   120,
+          },
+          scenes,
+        });
+
+        viewerReady.current = true;
+
+        // Inject hotspots for the initial scene AFTER viewer is ready
+        activeHotspotIds.current = injectHotspots(
+          firstSceneKey, viewerRef.current, labConfig,
+          machineNames, handleNavigate, handleMachineClick, handleInventoryClick
+        );
+
+        viewerRef.current.on("error", (err) => {
+          const failedScene = currentSceneRef.current;
+          console.error(`[PanoramaViewer] Error in scene '${failedScene}':`, err);
+          console.error("[DEBUG] Failed panorama URL:", labConfig.scenes[failedScene]?.image);
+          missingSet.current.add(failedScene);
+          setSceneState("missing");
+        });
+
+        const initMs = Math.round(performance.now() - t1);
+        if (import.meta.env.DEV) {
+          console.log(
+            `[PanoramaViewer] INIT — HEAD: ${headMs}ms | viewer.init: ${initMs}ms | scenes: ${Object.keys(scenes).length}`
+          );
+        }
+
+        setSceneState("ready");
+      } catch (e) {
+        console.error("[PanoramaViewer] Failed to initialize:", e);
+        setErrorMsg(e.message);
+        setSceneState("error");
+      }
+    };
+
+    if (isExternal) {
+      // Skip HEAD check for CDN URLs — load directly
+      initViewer();
+    } else {
+      const t0 = performance.now();
+      fetch(imageUrl, { method: "HEAD" })
+        .then((res) => {
+          if (!res.ok) {
+            missingSet.current.add(firstSceneKey);
+            setSceneState("missing");
+            return;
+          }
+          initViewer(Math.round(performance.now() - t0));
+        })
+        .catch(() => {
           missingSet.current.add(firstSceneKey);
           setSceneState("missing");
-          return;
-        }
-
-        const headMs = Math.round(performance.now() - t0);
-        const t1     = performance.now();
-
-        // Scene config has empty hotSpots — injected dynamically below
-        const scenes = buildScenesConfig(labConfig, apiBase);
-
-        try {
-          viewerRef.current = window.pannellum.viewer(containerRef.current, {
-            default: {
-              firstScene:                firstSceneKey,
-              autoLoad:                  true,
-              autoRotate:                0,   // disabled — was causing hotspot re-render accumulation
-              compass:                   false,
-              showZoomCtrl:              false,
-              showFullscreenCtrl:        false,
-              hfov:                      100,
-              minHfov:                   50,
-              maxHfov:                   120,
-            },
-            scenes,
-          });
-
-          viewerReady.current = true;
-
-          // Inject hotspots for the initial scene AFTER viewer is ready
-          activeHotspotIds.current = injectHotspots(
-            firstSceneKey, viewerRef.current, labConfig,
-            machineNames, handleNavigate, handleMachineClick, handleInventoryClick
-          );
-
-          viewerRef.current.on("error", (err) => {
-            const failedScene = currentSceneRef.current;
-            console.error(`[PanoramaViewer] Error in scene '${failedScene}':`, err);
-            missingSet.current.add(failedScene);
-            setSceneState("missing");
-          });
-
-          const initMs = Math.round(performance.now() - t1);
-          if (import.meta.env.DEV) {
-            console.log(
-              `[PanoramaViewer] INIT — HEAD: ${headMs}ms | viewer.init: ${initMs}ms | scenes: ${Object.keys(scenes).length}`
-            );
-          }
-
-          setSceneState("ready");
-        } catch (e) {
-          console.error("[PanoramaViewer] Failed to initialize:", e);
-          setErrorMsg(e.message);
-          setSceneState("error");
-        }
-      })
-      .catch(() => {
-        missingSet.current.add(firstSceneKey);
-        setSceneState("missing");
-      });
+        });
+    }
 
   // machineNames and stable callback refs are included so the scene config
   // and hotspot handlers stay fresh after hot-reload.
@@ -231,54 +247,63 @@ export default function PanoramaViewer({
     }
 
     // ----------------------------------------------------------------
-    // SLOW PATH — image not yet in cache, HEAD check required
+    // SLOW PATH — image not yet in cache
+    // For external CDN URLs skip HEAD check (CORS blocks it) and load directly.
     // ----------------------------------------------------------------
     setSceneState("loading");
-    const t0 = performance.now();
 
-    fetch(imageUrl, { method: "HEAD" })
-      .then((res) => {
-        if (!res.ok) {
+    const isExternal = imageUrl.startsWith("http");
+
+    const doLoadScene = (headMs = 0) => {
+      const t1 = performance.now();
+      try {
+        // Clear old hotspots BEFORE switching scene
+        clearHotspots(viewerRef.current, activeHotspotIds.current, containerRef.current);
+        viewerRef.current.loadScene(
+          currentScene,
+          sceneData.initial_pitch ?? 0,
+          sceneData.initial_yaw   ?? 0,
+          100,
+        );
+        // Sweep any orphaned DOM nodes Pannellum failed to remove
+        sweepOrphanedHotspots(containerRef.current);
+        // Inject new hotspots for this scene AFTER switching
+        activeHotspotIds.current = injectHotspots(
+          currentScene, viewerRef.current, labConfig,
+          machineNames, handleNavigate, handleMachineClick, handleInventoryClick
+        );
+
+        const loadMs = Math.round(performance.now() - t1);
+        if (import.meta.env.DEV) {
+          console.log(`[PanoramaViewer] SWITCH (uncached) → '${currentScene}' | HEAD: ${headMs}ms | loadScene: ${loadMs}ms`);
+        }
+
+        setSceneState("ready");
+      } catch (e) {
+        setErrorMsg(e.message);
+        setSceneState("error");
+      }
+    };
+
+    if (isExternal) {
+      // Skip HEAD check for CDN URLs — load directly
+      doLoadScene();
+    } else {
+      const t0 = performance.now();
+      fetch(imageUrl, { method: "HEAD" })
+        .then((res) => {
+          if (!res.ok) {
+            missingSet.current.add(currentScene);
+            setSceneState("missing");
+            return;
+          }
+          doLoadScene(Math.round(performance.now() - t0));
+        })
+        .catch(() => {
           missingSet.current.add(currentScene);
           setSceneState("missing");
-          return;
-        }
-
-        const headMs = Math.round(performance.now() - t0);
-        const t1     = performance.now();
-
-        try {
-          // Clear old hotspots BEFORE switching scene
-          clearHotspots(viewerRef.current, activeHotspotIds.current, containerRef.current);
-          viewerRef.current.loadScene(
-            currentScene,
-            sceneData.initial_pitch ?? 0,
-            sceneData.initial_yaw   ?? 0,
-            100,
-          );
-          // Sweep any orphaned DOM nodes Pannellum failed to remove
-          sweepOrphanedHotspots(containerRef.current);
-          // Inject new hotspots for this scene AFTER switching
-          activeHotspotIds.current = injectHotspots(
-            currentScene, viewerRef.current, labConfig,
-            machineNames, handleNavigate, handleMachineClick, handleInventoryClick
-          );
-
-          const loadMs = Math.round(performance.now() - t1);
-          if (import.meta.env.DEV) {
-            console.log(`[PanoramaViewer] SWITCH (uncached) → '${currentScene}' | HEAD: ${headMs}ms | loadScene: ${loadMs}ms`);
-          }
-
-          setSceneState("ready");
-        } catch (e) {
-          setErrorMsg(e.message);
-          setSceneState("error");
-        }
-      })
-      .catch(() => {
-        missingSet.current.add(currentScene);
-        setSceneState("missing");
-      });
+        });
+    }
 
   }, [currentScene, labConfig, machineNames, handleNavigate, handleMachineClick, handleInventoryClick]); // eslint-disable-line
 

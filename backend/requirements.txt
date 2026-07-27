@@ -3,6 +3,8 @@
 # Core API
 fastapi
 uvicorn[standard]
+pydantic                  # data validation (used in main.py + planner router)
+httpx                     # HTTP client used by planner router for Groq API calls
 
 # Phase 2.1 — RAG
 qdrant-client             # local file-based vector store (no Docker needed)
