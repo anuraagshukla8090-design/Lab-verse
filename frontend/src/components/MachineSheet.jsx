@@ -544,7 +544,7 @@ function AskAITab({
 
             {/* Answer text */}
             <p className="text-sm text-slate-200 leading-relaxed whitespace-pre-wrap">
-              {aiResponse.answer}
+              {sanitizeAnswer(aiResponse.answer)}
             </p>
           </div>
 
@@ -632,4 +632,19 @@ function formatMachineId(id) {
     .replace(/_\d+$/, "")        // remove trailing _01
     .replace(/_/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+export function sanitizeAnswer(text) {
+  if (!text) return "";
+  let clean = text.replace(/<think>[\s\S]*?<\/think>/g, "");
+  if (clean.includes("<think>")) {
+    if (clean.includes("</think>")) {
+      clean = clean.split("</think>").pop();
+    } else {
+      const parts = clean.split(/<think>/);
+      clean = parts[0] || "";
+    }
+  }
+  clean = clean.replace(/^(?:Here'?s a thinking process:|\*\*Thinking Process:?\*\*)[\s\S]*?\n\n/i, "");
+  return clean.replace(/<\/think>/g, "").trim();
 }

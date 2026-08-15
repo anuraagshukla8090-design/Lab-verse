@@ -24,8 +24,13 @@ export default function InventorySheet({ rack, labId, onClose }) {
 
     getInventory(labId)
       .then((data) => {
-        const found = data.racks?.find((r) => r.rack_id === rack.rack_id);
-        setItems(found?.items ?? []);
+        if (!rack.rack_id || rack.rack_id === "all") {
+          const allItems = data.racks?.flatMap((r) => r.items || []) ?? [];
+          setItems(allItems);
+        } else {
+          const found = data.racks?.find((r) => r.rack_id === rack.rack_id) || data.racks?.[0];
+          setItems(found?.items ?? []);
+        }
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));

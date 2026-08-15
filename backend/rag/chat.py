@@ -10,6 +10,7 @@ Hallucination prevention at two levels:
 """
 
 import os
+import re
 import time
 import httpx
 from .retriever import retrieve
@@ -19,7 +20,7 @@ from .retriever import retrieve
 # ---------------------------------------------------------------------------
 
 SYSTEM_PROMPT = """\
-You are a laboratory assistant.
+You are a knowledgeable, concise laboratory assistant.
 
 Use the provided context as the source of truth for all technical facts.
 
@@ -32,14 +33,10 @@ You may:
 - compare concepts
 
 You are allowed to create your own analogies and examples as teaching tools.
-
 The technical facts within those analogies and examples must remain consistent with the provided context.
-
 Only state that the documentation does not contain the information when the underlying technical concept itself is missing from the retrieved context.
 
-If the concept exists in the context, answer using the teaching style requested by the user.
-
-Do not invent specifications, measurements, procedures, warnings, capabilities, or technical claims that are not supported by the provided context.\
+IMPORTANT: Do NOT output internal thinking processes, chain-of-thought, or <think> tags. Provide ONLY the direct, helpful final answer to the user.\
 """
 
 # ---------------------------------------------------------------------------
@@ -48,6 +45,36 @@ Do not invent specifications, measurements, procedures, warnings, capabilities, 
 
 MAX_RETRIES   = 3
 RETRY_BACKOFF = 2  # seconds between retries (doubles each attempt)
+
+
+# ---------------------------------------------------------------------------
+# Thinking Tag Sanitizer
+# ---------------------------------------------------------------------------
+
+def _strip_thinking(text: str) -> str:
+    if not text:
+        return ""
+    # 1. Strip complete <think>...</think> blocks
+    cleaned = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL)
+
+    # 2. If an unclosed <think> remains at the start
+    if "<think>" in cleaned:
+        if "</think>" in cleaned:
+            cleaned = cleaned.split("</think>")[-1]
+        else:
+            # Look for double newline + section heading or actual text
+            chopped = re.sub(r"^<think>.*?(?=\n\n(?:[A-Z#*]|Based on|The |To |Here |In ))", "", cleaned, flags=re.DOTALL)
+            if chopped != cleaned and len(chopped.strip()) > 20:
+                cleaned = chopped
+            else:
+                cleaned = re.sub(r"^<think>.*", "", cleaned, flags=re.DOTALL)
+
+    # 3. Strip any stray thinking preamble
+    cleaned = re.sub(r"^(?:Here'?s a thinking process:|\*\*Thinking Process:?\*\*)[\s\S]*?\n\n", "", cleaned, flags=re.IGNORECASE)
+
+    # 4. Final token cleanup
+    cleaned = cleaned.replace("<pad>", "").replace("</think>", "").strip()
+    return cleaned
 
 
 # ---------------------------------------------------------------------------
@@ -100,7 +127,7 @@ def answer(machine_id: str, question: str) -> dict:
             "Add it to backend/.env and restart the server."
         )
 
-    model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+    model = os.getenv("GROQ_MODEL", "qwen/qwen3.6-27b")
 
     payload = {
         "model": model,
@@ -109,7 +136,7 @@ def answer(machine_id: str, question: str) -> dict:
             {"role": "user",   "content": user_message},
         ],
         "temperature": 0.1,
-        "max_tokens":  512,
+        "max_tokens":  1500,
     }
 
     headers = {
@@ -152,17 +179,15 @@ def answer(machine_id: str, question: str) -> dict:
             # Null-safe content extraction
             choices = data.get("choices", [])
             if not choices:
-                raise RuntimeError("OpenRouter returned no choices in response.")
+                raise RuntimeError("Groq returned no choices in response.")
 
             content = choices[0].get("message", {}).get("content")
             if content is None:
-                raise RuntimeError("OpenRouter returned empty content.")
+                raise RuntimeError("Groq returned empty content.")
 
-            answer_text = content.strip()
-            # Strip <pad> tokens that some free-tier models emit
-            answer_text = answer_text.replace("<pad>", "").strip()
+            answer_text = _strip_thinking(content)
             if not answer_text:
-                raise RuntimeError("OpenRouter returned only padding tokens.")
+                raise RuntimeError("Groq returned empty content after cleaning.")
             break  # success — exit retry loop
 
         except httpx.TimeoutException:
