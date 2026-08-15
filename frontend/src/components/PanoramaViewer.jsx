@@ -439,7 +439,6 @@ function sweepOrphanedHotspots(container) {
   }
 }
 
-// ------------------------------------------------------------------
 // injectHotspots — adds nav/machine/inventory hotspots for a scene
 // imperatively via viewer.addHotSpot(). Returns the list of IDs added
 // so the caller can store them for later cleanup.

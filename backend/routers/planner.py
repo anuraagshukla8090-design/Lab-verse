@@ -20,6 +20,11 @@ from pathlib import Path
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
+try:
+    import json_repair
+except ImportError:
+    json_repair = None
+
 router = APIRouter(prefix="/plan", tags=["planner"])
 
 DATA_DIR = Path(__file__).parent.parent / "data"
@@ -38,73 +43,102 @@ class PlanRequest(BaseModel):
 
 # ── System prompt ──────────────────────────────────────────────────────────────
 SYSTEM_PROMPT = """\
-You are an expert lab project planner for a university makerspace in India.
+You are an expert Makerspace Project Architect & Engineering Mentor at an advanced university laboratory in India.
 
 You will be given:
-1. A list of machines available in the lab (with their names, lab, category, and skills taught).
+1. AVAILABLE LAB EQUIPMENT: A list of machines and workstations present in the lab (with exact machine IDs).
 2. A project idea from a student.
 
-Your task is to create a practical, step-by-step project plan a student can actually follow.
+Your mission:
+Create an exceptionally detailed, highly technical, end-to-end engineering project guide taking the student from the very first raw material cut to the final working prototype.
+
+CRITICAL STEP-BY-STEP REQUIREMENTS:
+- Generate 4 to 5 comprehensive phases covering the full project from start to finish:
+  1. Mechanical Fabrication & Chassis Prep
+  2. Actuators, Motors & Power Delivery
+  3. Electronics Assembly & Circuit Soldering
+  4. Firmware, Libraries & Control Programming
+  5. Integration, Calibration & Systematic Testing
+- Each phase MUST contain 4 to 5 rich, numbered steps in the "steps" array.
+- Every step must state exact actions, tool/machine parameters, and verification criteria.
+- CRITICAL FOR REASONING: Keep internal thinking under 50 words and immediately output the full JSON starting with { so all phases and steps are generated completely.
 
 STRICT RULES:
-- Only reference machines explicitly listed in the provided machine list.
-- Do NOT invent machines that are not in the list.
-- If a required machine is missing, list it in "missing_equipment".
-- Return ONLY valid JSON — no markdown fences, no prose outside the JSON.
-- Cost must be in Indian Rupees (₹). Use the cost reference below for realistic estimates.
-- Time must be in TOTAL LAB HOURS (e.g. "14-18 lab hours") AND calendar duration (e.g. "3-4 weeks at 2 sessions/week").
-- Each step must state: what to do + which machine/tool used + what the success output looks like.
-- Keep steps concrete and actionable — never write vague phrases like "assemble the chassis" or "program the microcontroller". Instead write the exact action and the specific result.
+- INNOVATION: Infuse modern, innovative features (IoT telemetry, AI vision, adaptive PID control, or modular mechanisms) in 'innovation_angle'.
+- WHAT WE HAVE: Map fabrication and testing tasks to machines in the AVAILABLE LAB EQUIPMENT list.
+- WHAT TO BUY (BOM): List specific electronic components, sensors, microcontrollers, and materials with realistic Indian Rupee (₹) costs, exact specs, and vendors (Robu.in, ElectronicsComp, Amazon India, Local SP Road).
+- MISSING EQUIPMENT: List any tool not in the lab with a practical workaround.
+- SYNTAX: Return ONLY valid raw JSON — no markdown fences, no commentary. Use single quotes inside strings.
 
 MATERIAL COST REFERENCE (India, approximate 2024 prices):
-- PLA filament 1kg: Rs.1,200-1,800
-- Acrylic sheet 3mm A4: Rs.150-250
-- Arduino Uno: Rs.500-800 | Arduino Nano: Rs.200-350
-- Servo motor SG90: Rs.80-150 | MG996R: Rs.200-350
-- DC gear motor with gearbox: Rs.150-300
-- LiPo 3.7V 1000mAh: Rs.300-500 | LiPo 11.1V 2200mAh: Rs.900-1,500
-- L298N motor driver: Rs.80-150 | BTS7960 driver: Rs.400-700
-- HC-05 Bluetooth module: Rs.150-250
-- NRF24L01 radio module: Rs.80-150
-- Jumper wires + breadboard kit: Rs.100-200
-- M3 bolts + nuts (50pcs): Rs.60-120
-- Solder wire 60/40 100g: Rs.150-250
-- Heat shrink assorted pack: Rs.80-150
-- 18650 Li-ion cell: Rs.150-250 each
-- Balsa wood sheet 3mm A4: Rs.80-150
-- Foam board A3: Rs.40-80
-- Hot glue sticks (10pcs): Rs.50-100
-- Sandpaper assorted (10 sheets): Rs.60-120
+- PLA / PETG filament 1kg: Rs. 1,100 - Rs. 1,600
+- Acrylic sheet 3mm A4: Rs. 150 - Rs. 250
+- ESP32 NodeMCU: Rs. 350 - Rs. 500 | Arduino Uno: Rs. 500 - Rs. 800 | STM32: Rs. 300 - Rs. 550
+- Servo motor SG90: Rs. 90 - Rs. 150 | MG996R: Rs. 280 - Rs. 400
+- TT Gear Motor with wheel: Rs. 120 - Rs. 200
+- LiPo 3.7V / 11.1V battery: Rs. 350 - Rs. 1,400 | 18650 Li-ion cells with BMS: Rs. 200 - Rs. 450
+- Motor driver L298N / TB6612FNG: Rs. 90 - Rs. 220
+- Sensors (Ultrasonic, MPU6050, IR, DHT22): Rs. 80 - Rs. 280 each
+- Jumper wires + full breadboard: Rs. 120 - Rs. 220
+- M3 stainless hardware kit (bolts, nuts, standoffs): Rs. 100 - Rs. 200
+- Solder wire & flux: Rs. 150 - Rs. 250
 
 Return this exact JSON structure:
 {
-  "project_name": "string",
+  "project_name": "string (creative, modern project title)",
+  "tagline": "string (1-sentence punchy summary)",
+  "innovation_angle": "string (2-3 sentences explaining the smart, innovative, or advanced feature)",
   "difficulty": "beginner|intermediate|advanced",
-  "total_estimated_time": "string (e.g. '14-18 lab hours / 3-4 weeks at 2 sessions per week')",
-  "total_estimated_cost": "string (e.g. 'Rs.2,500-Rs.4,000')",
-  "overview": "string (2-3 sentences: what the project builds, how it works, and what skills it teaches)",
+  "total_estimated_time": "string (e.g. '16-22 lab hours across 3-4 weeks')",
+  "total_estimated_cost": "string (e.g. 'Rs. 2,400 - Rs. 3,200')",
+  "overview": "string (2-3 sentences: what is built, working principle, and practical use case)",
+
+  "in_lab_equipment": [
+    {
+      "machine_id": "machine_id_from_provided_list",
+      "name": "Machine Name",
+      "role": "Specific role and part fabricated or tested on this machine"
+    }
+  ],
+
+  "materials_to_buy": [
+    {
+      "item": "string (exact component name with rating/specs)",
+      "quantity": "string (e.g. '1 unit' or '4 pieces')",
+      "estimated_cost": "string (e.g. 'Rs. 450 - Rs. 550')",
+      "where_to_buy": "string (e.g. 'Robu.in / ElectronicsComp / Local Market')",
+      "why_needed": "string (purpose in the circuit or chassis)"
+    }
+  ],
+
+  "missing_equipment": [
+    {
+      "item": "string",
+      "workaround": "string (practical workaround or DIY alternative)"
+    }
+  ],
+
   "phases": [
     {
       "phase_number": 1,
-      "title": "string",
-      "duration": "string (e.g. '4-6 lab hours')",
+      "title": "string (e.g. 'Phase 1: CAD Design & Mechanical Chassis Fabrication')",
+      "duration": "string (e.g. '4-5 lab hours')",
+      "machines": ["machine_id_from_provided_list"],
+      "tools_needed": ["string"],
       "steps": [
-        "string — each step must say: exact action + machine/tool used + how you know it succeeded (e.g. 'Cut the 200x150mm chassis base from 3mm acrylic using the Laser Cutter — success: all 4 motor mount holes are clean and the piece slides out without force')"
+        "string (deeply detailed step stating exact action + machine/tool settings/parameters + verification criteria)"
       ],
-      "machines": ["machine_id_from_the_provided_list"],
-      "tips": "string (one concrete, specific practical tip for this phase — not generic safety advice)"
+      "pro_tip": "string (practical engineering tip or common pitfall to avoid)"
     }
   ],
-  "materials": [
-    {
-      "item": "string (specific item name)",
-      "quantity": "string (e.g. '2 pieces' or '1 spool')",
-      "estimated_cost": "string (e.g. 'Rs.300-500')",
-      "where_to_buy": "string (e.g. 'Robu.in / Amazon India' or 'Local electronics market')"
-    }
+
+  "testing_and_calibration": [
+    "string (step-by-step verification, multimeter test points, or calibration procedure)"
   ],
-  "safety_notes": ["string — specific to this project, not generic lab rules"],
-  "missing_equipment": ["string — equipment needed but NOT in the provided machine list"]
+
+  "safety_notes": [
+    "string (crucial safety notes and PPE rules specific to this build)"
+  ]
 }
 """
 
@@ -137,25 +171,17 @@ def _load_machines(lab_ids: list[str]) -> dict:
 
 
 def _build_machine_context(machines: dict) -> str:
-    """Build a compact, LLM-readable machine list grouped by lab and category."""
-    # Group by lab → category
-    grouped: dict[str, dict[str, list]] = {}
+    """Build a compact, token-efficient machine list grouped by lab."""
+    grouped: dict[str, list[str]] = {}
     for mid, data in machines.items():
         lab_raw = data.get("lab", "unknown")
-        lab     = LAB_LABELS.get(lab_raw, lab_raw.replace("_", " ").title())
-        cat     = data.get("category", "general").replace("_", " ").title()
-        skills  = data.get("skills_taught", [])[:3]  # top-3 skills only
+        lab = LAB_LABELS.get(lab_raw, lab_raw.replace("_", " ").title())
+        name = data.get("name", mid)
+        grouped.setdefault(lab, []).append(f"{name} (id: {mid})")
 
-        grouped.setdefault(lab, {}).setdefault(cat, []).append(
-            f"  - {data.get('name', mid)} (id: {mid}) — teaches: {', '.join(skills)}"
-        )
-
-    lines = ["AVAILABLE MACHINES:"]
-    for lab, cats in grouped.items():
-        lines.append(f"\n[{lab}]")
-        for cat, entries in cats.items():
-            lines.append(f"  {cat}:")
-            lines.extend(entries)
+    lines = ["AVAILABLE LAB EQUIPMENT:"]
+    for lab, entries in grouped.items():
+        lines.append(f"[{lab}]: " + ", ".join(entries))
     return "\n".join(lines)
 
 
@@ -168,12 +194,12 @@ def _call_llm(project: str, machine_context: str) -> dict:
             detail="GROQ_API_KEY is not configured. Add it to backend/.env and restart."
         )
 
-    model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+    model = os.getenv("GROQ_MODEL", "qwen/qwen3.6-27b")
 
     user_message = (
         f"{machine_context}\n\n"
         f"PROJECT IDEA: {project}\n\n"
-        f"Generate a complete project plan following the JSON schema exactly."
+        f"Output the complete JSON plan starting directly with {{. Include all phases and 4-5 detailed, numbered steps per phase."
     )
 
     payload = {
@@ -183,7 +209,7 @@ def _call_llm(project: str, machine_context: str) -> dict:
             {"role": "user",   "content": user_message},
         ],
         "temperature": 0.2,
-        "max_tokens":  1500,
+        "max_tokens":  4096,
     }
 
     headers = {
@@ -191,7 +217,7 @@ def _call_llm(project: str, machine_context: str) -> dict:
         "Content-Type":  "application/json",
     }
 
-    timeout = httpx.Timeout(connect=5.0, read=30.0, write=5.0, pool=5.0)
+    timeout = httpx.Timeout(connect=10.0, read=90.0, write=10.0, pool=10.0)
 
     last_error = None
     for attempt in range(MAX_RETRIES):
@@ -216,21 +242,45 @@ def _call_llm(project: str, machine_context: str) -> dict:
 
             choices = data.get("choices", [])
             if not choices:
-                raise RuntimeError("OpenRouter returned no choices.")
+                raise RuntimeError("Groq returned no choices.")
             content = choices[0].get("message", {}).get("content", "").strip()
             if not content:
-                raise RuntimeError("OpenRouter returned empty content.")
+                raise RuntimeError("Groq returned empty content.")
 
-            # Strip markdown fences if the model wraps JSON despite instructions
-            content = re.sub(r"^```(?:json)?\s*", "", content)
-            content = re.sub(r"\s*```$", "", content)
-            content = content.strip()
+            # Strip reasoning/thinking tags emitted by Qwen
+            content = re.sub(r"<think>.*?</think>", "", content, flags=re.DOTALL).strip()
+            if "<think>" in content:
+                content = content.split("</think>")[-1] if "</think>" in content else re.sub(r"^<think>.*", "", content, flags=re.DOTALL)
+            content = re.sub(r"^(?:Here'?s a thinking process:|\*\*Thinking Process:?\*\*)[\s\S]*?\n\n", "", content, flags=re.IGNORECASE).strip()
 
-            plan = json.loads(content)
-            return plan
+            # Extract JSON block even if preceded/followed by markdown commentary
+            json_match = re.search(r"\{[\s\S]*\}", content)
+            if json_match:
+                content = json_match.group(0)
+            else:
+                # Strip markdown fences if the model wraps JSON despite instructions
+                content = re.sub(r"^```(?:json)?\s*", "", content)
+                content = re.sub(r"\s*```$", "", content)
+                content = content.strip()
 
-        except json.JSONDecodeError as e:
-            raise HTTPException(status_code=500, detail=f"LLM returned invalid JSON: {e}")
+            # Parse JSON with automatic repair fallback
+            try:
+                plan = json.loads(content)
+            except Exception as json_err:
+                if json_repair:
+                    try:
+                        plan = json_repair.loads(content)
+                    except Exception as repair_err:
+                        raise HTTPException(status_code=500, detail=f"LLM returned invalid JSON: {repair_err}")
+                else:
+                    raise HTTPException(status_code=500, detail=f"LLM returned invalid JSON: {json_err}")
+
+            if isinstance(plan, dict):
+                return plan
+            elif isinstance(plan, list) and len(plan) > 0 and isinstance(plan[0], dict):
+                return plan[0]
+            else:
+                raise HTTPException(status_code=500, detail="LLM returned unexpected JSON structure")
         except httpx.TimeoutException:
             last_error = "AI service timed out. Please try again."
             if attempt < MAX_RETRIES - 1:

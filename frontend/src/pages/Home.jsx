@@ -16,6 +16,10 @@ import {
   MapPin,
   ChevronDown,
   Sparkles,
+  Building2,
+  Cpu,
+  Wrench,
+  Boxes,
 } from "lucide-react";
 
 /**
@@ -45,6 +49,7 @@ export default function Home() {
   const [loading,       setLoading]       = useState(true);
   const [error,         setError]         = useState(null);
   const [debugMenuOpen, setDebugMenuOpen] = useState(false);  // scene-jump dropdown
+  const [labMenuOpen,   setLabMenuOpen]   = useState(false);  // lab-select dropdown
   const [overlayState,  setOverlayState]  = useState("idle"); // idle | closing | opening
 
   // Ref mirrors overlayState so handleNavigate can read it without becoming stale.
@@ -86,6 +91,7 @@ export default function Home() {
     setSheetOpen(false);
     setActiveMachine(null);
     setDebugMenuOpen(false);
+    setLabMenuOpen(false);
 
     // Phase 1 — fade to dark (0 → 1) over 220 ms
     overlayRef.current = "closing";
@@ -237,8 +243,25 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scene breadcrumb pill */}
+        {/* Right side: Global Inventory button + Scene breadcrumb pill */}
         <div className="pointer-events-auto flex items-center gap-2">
+          {/* Global Inventory button */}
+          <button
+            id="global-inventory-btn"
+            onClick={() => {
+              const labId = currentScene?.startsWith("node_1") ? "mechanical_lab" : "main_lab";
+              const labName = labId === "mechanical_lab" ? "Mechanical Lab" : "Electrical Lab";
+              setActiveRack({ rack_id: "all", name: `${labName} Inventory` });
+              setInventorySheetOpen(true);
+            }}
+            title="View Lab Inventory"
+            className="flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/60 hover:bg-cyan-900/80 hover:border-cyan-400/50 px-3 py-2 backdrop-blur-md text-xs font-semibold text-cyan-300 hover:text-white transition-all shadow-lg shadow-cyan-950/40 cursor-pointer active:scale-95"
+          >
+            <Boxes className="h-3.5 w-3.5 text-cyan-400" />
+            <span className="hidden sm:inline">Inventory</span>
+          </button>
+
+          {/* Scene breadcrumb pill */}
           <div className="flex items-center gap-2 rounded-full border border-white/15 bg-black/50 px-4 py-2 backdrop-blur-md text-xs font-medium text-slate-300">
             <Map className="h-3.5 w-3.5 text-blue-400 shrink-0" />
             <span className="capitalize">{sceneLabel}</span>
@@ -263,7 +286,7 @@ export default function Home() {
       {/* ---- Bottom Control Bar ---- */}
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-20 flex items-end justify-between px-5 pb-5">
 
-        {/* Left side: Plan button + Scene jump dropdown */}
+        {/* Left side: Plan button + Select Lab + Scene jump dropdown */}
         <div className="pointer-events-auto flex items-center gap-2">
 
           {/* Plan a Project button */}
@@ -271,20 +294,112 @@ export default function Home() {
             id="plan-project-btn"
             onClick={() => setPlannerOpen(true)}
             title="Plan a project using lab machines"
-            className="flex items-center gap-1.5 rounded-xl border border-purple-500/40 bg-purple-950/70 px-3 py-2 backdrop-blur-md text-xs font-semibold text-purple-300 hover:border-purple-400/60 hover:text-purple-200 hover:bg-purple-900/80 transition-all shadow-lg shadow-purple-900/20"
+            className="flex items-center gap-1.5 rounded-xl border border-purple-500/40 bg-purple-950/70 px-3 py-2 backdrop-blur-md text-xs font-semibold text-purple-300 hover:border-purple-400/60 hover:text-purple-200 hover:bg-purple-900/80 transition-all shadow-lg shadow-purple-900/20 cursor-pointer"
           >
             <Sparkles className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Plan a Project</span>
           </button>
 
+          {/* Select Lab dropdown */}
+          <div className="relative">
+            <button
+              id="lab-selector-btn"
+              onClick={() => {
+                setLabMenuOpen((v) => !v);
+                setDebugMenuOpen(false);
+              }}
+              aria-haspopup="listbox"
+              aria-expanded={labMenuOpen}
+              title="Select Laboratory"
+              className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-black/60 px-3 py-2 backdrop-blur-md text-xs font-semibold text-slate-300 hover:text-white hover:border-white/25 transition-all cursor-pointer"
+            >
+              <Building2 className="h-3.5 w-3.5 text-blue-400" />
+              <span className="hidden sm:inline">Select Lab</span>
+              <ChevronDown
+                className={`h-3 w-3 transition-transform duration-200 ${labMenuOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {labMenuOpen && (
+              <div
+                className="absolute bottom-full mb-2 left-0 min-w-[230px] rounded-xl border border-white/15 bg-[#0d1117]/96 backdrop-blur-md shadow-2xl overflow-hidden animate-fade-in p-1 z-30"
+                role="listbox"
+                aria-label="Select Laboratory"
+              >
+                <div className="px-3 py-1.5 border-b border-white/8">
+                  <p className="text-[9px] font-bold tracking-widest uppercase text-slate-500">
+                    Laboratories
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    handleNavigate("node_01");
+                    setLabMenuOpen(false);
+                  }}
+                  className={`flex w-full items-center gap-2.5 px-3 py-2.5 text-xs rounded-lg transition-colors text-left cursor-pointer ${
+                    currentScene?.startsWith("node_0") || currentScene === "centre_node"
+                      ? "bg-blue-600/20 text-blue-300 font-semibold"
+                      : "text-slate-300 hover:bg-white/8 hover:text-white"
+                  }`}
+                >
+                  <Cpu className="h-4 w-4 text-blue-400 shrink-0" />
+                  <div className="flex-1">
+                    <p className="font-medium">Electrical & Prototyping Lab</p>
+                    <p className="text-[10px] text-slate-500">Node 01 – Node 08</p>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => {
+                    handleNavigate("node_10");
+                    setLabMenuOpen(false);
+                  }}
+                  className={`flex w-full items-center gap-2.5 px-3 py-2.5 text-xs rounded-lg transition-colors text-left cursor-pointer ${
+                    currentScene?.startsWith("node_1")
+                      ? "bg-blue-600/20 text-blue-300 font-semibold"
+                      : "text-slate-300 hover:bg-white/8 hover:text-white"
+                  }`}
+                >
+                  <Wrench className="h-4 w-4 text-cyan-400 shrink-0" />
+                  <div className="flex-1">
+                    <p className="font-medium">Mechanical Fabrication Lab</p>
+                    <p className="text-[10px] text-slate-500">Node 10 – Node 18</p>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => {
+                    handleNavigate("corridor_node");
+                    setLabMenuOpen(false);
+                  }}
+                  className={`flex w-full items-center gap-2.5 px-3 py-2.5 text-xs rounded-lg transition-colors text-left cursor-pointer ${
+                    currentScene === "corridor_node"
+                      ? "bg-blue-600/20 text-blue-300 font-semibold"
+                      : "text-slate-300 hover:bg-white/8 hover:text-white"
+                  }`}
+                >
+                  <MapPin className="h-4 w-4 text-emerald-400 shrink-0" />
+                  <div className="flex-1">
+                    <p className="font-medium">Corridor / Entrance</p>
+                    <p className="text-[10px] text-slate-500">Main Lab Entry</p>
+                  </div>
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Scenes dropdown (Scrollable) */}
           <div className="relative">
             <button
               id="scene-selector-btn"
-              onClick={() => setDebugMenuOpen((v) => !v)}
+              onClick={() => {
+                setDebugMenuOpen((v) => !v);
+                setLabMenuOpen(false);
+              }}
               aria-haspopup="listbox"
               aria-expanded={debugMenuOpen}
-              title="Jump to scene (debug)"
-              className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-black/60 px-3 py-2 backdrop-blur-md text-xs font-semibold text-slate-400 hover:text-slate-200 hover:border-white/25 transition-all"
+              title="Jump to scene"
+              className="flex items-center gap-1.5 rounded-xl border border-white/15 bg-black/60 px-3 py-2 backdrop-blur-md text-xs font-semibold text-slate-400 hover:text-slate-200 hover:border-white/25 transition-all cursor-pointer"
             >
               <Layers className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Scenes</span>
@@ -295,39 +410,44 @@ export default function Home() {
 
             {debugMenuOpen && (
               <div
-                className="absolute bottom-full mb-2 left-0 min-w-[210px] rounded-xl border border-white/15 bg-[#0d1117]/96 backdrop-blur-md shadow-2xl overflow-hidden animate-fade-in"
+                className="absolute bottom-full mb-2 left-0 min-w-[220px] max-w-[260px] rounded-xl border border-white/15 bg-[#0d1117]/96 backdrop-blur-md shadow-2xl overflow-hidden animate-fade-in flex flex-col z-30"
                 role="listbox"
                 aria-label="Jump to scene"
               >
-                <div className="px-4 py-2 border-b border-white/8">
-                  <p className="text-[9px] font-bold tracking-widest uppercase text-slate-600">
-                    Debug — Scene Jump
+                <div className="px-3.5 py-2 border-b border-white/8 shrink-0">
+                  <p className="text-[9px] font-bold tracking-widest uppercase text-slate-500">
+                    All Scenes ({sceneList.length})
                   </p>
                 </div>
-                {sceneList.map((key) => {
-                  const s = labConfig.scenes[key];
-                  const label = s?.label || key.replace(/_/g, " ");
-                  return (
-                    <button
-                      key={key}
-                      id={`scene-${key}`}
-                      role="option"
-                      aria-selected={key === currentScene}
-                      onClick={() => handleNavigate(key)}
-                      className={`flex w-full items-center gap-3 px-4 py-2.5 text-xs transition-colors text-left ${
-                        key === currentScene
-                          ? "bg-blue-600/20 text-blue-300"
-                          : "text-slate-300 hover:bg-white/8 hover:text-white"
-                      }`}
-                    >
-                      <Map className="h-3 w-3 shrink-0 opacity-50" />
-                      <span className="flex-1">{label}</span>
-                      {key === currentScene && (
-                        <span className="text-blue-400 text-[10px]">●</span>
-                      )}
-                    </button>
-                  );
-                })}
+                <div className="max-h-[260px] overflow-y-auto py-1">
+                  {sceneList.map((key) => {
+                    const s = labConfig.scenes[key];
+                    const label = s?.label || key.replace(/_/g, " ");
+                    return (
+                      <button
+                        key={key}
+                        id={`scene-${key}`}
+                        role="option"
+                        aria-selected={key === currentScene}
+                        onClick={() => {
+                          handleNavigate(key);
+                          setDebugMenuOpen(false);
+                        }}
+                        className={`flex w-full items-center gap-3 px-3.5 py-2 text-xs transition-colors text-left cursor-pointer ${
+                          key === currentScene
+                            ? "bg-blue-600/20 text-blue-300 font-semibold"
+                            : "text-slate-300 hover:bg-white/8 hover:text-white"
+                        }`}
+                      >
+                        <Map className="h-3 w-3 shrink-0 opacity-50" />
+                        <span className="flex-1 truncate">{label}</span>
+                        {key === currentScene && (
+                          <span className="text-blue-400 text-[10px]">●</span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>
@@ -363,7 +483,7 @@ export default function Home() {
       {inventorySheetOpen && activeRack && (
         <InventorySheet
           rack={activeRack}
-          labId={labConfig?.lab_id || "main_lab"}
+          labId={currentScene?.startsWith("node_1") ? "mechanical_lab" : (labConfig?.lab_id || "main_lab")}
           onClose={handleInventorySheetClose}
         />
       )}
@@ -383,11 +503,14 @@ export default function Home() {
         />
       )}
 
-      {/* Click overlay to close debug menu */}
-      {debugMenuOpen && (
+      {/* Click overlay to close menus */}
+      {(debugMenuOpen || labMenuOpen) && (
         <div
           className="fixed inset-0 z-10"
-          onClick={() => setDebugMenuOpen(false)}
+          onClick={() => {
+            setDebugMenuOpen(false);
+            setLabMenuOpen(false);
+          }}
           aria-hidden="true"
         />
       )}
